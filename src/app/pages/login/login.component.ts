@@ -12,6 +12,7 @@ import {AuthenticationResponse} from "../../api/models/authentication-response";
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
+  isButtonLoading = false;
 
   constructor(
     private userService:UserService,
@@ -29,12 +30,14 @@ export class LoginComponent {
   errorMessage ="";
 
   login(){
+    this.isButtonLoading = true
     this.userService.login(this.authenticationRequest).subscribe((data)=>{
       if (data) { // vérifier si data est défini
         this.userService.setAccessToken(data.token as AuthenticationResponse); // caster data en AuthenticationResponse
       }
       this.router.navigate(['']);
     },  error =>{
+      this.isButtonLoading = false
       this.errorMessage=error.error.message;
     });;
   }

@@ -19,5 +19,7 @@ export class HeaderComponent {
   }
 
 
-
+  logout() {
+    localStorage.removeItem("accessToken")
+  }
 }

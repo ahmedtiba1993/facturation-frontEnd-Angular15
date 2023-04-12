@@ -77,6 +77,59 @@ export class FactureControllerService extends BaseService {
   }
 
   /**
+   * Path part for operation findById1
+   */
+  static readonly FindById1Path = '/facturation/v1/facture/{idFacture}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `findById1()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  findById1$Response(params: {
+    idFacture: number;
+  },
+  context?: HttpContext
+
+): Observable<StrictHttpResponse<FactureDto>> {
+
+    const rb = new RequestBuilder(this.rootUrl, FactureControllerService.FindById1Path, 'get');
+    if (params) {
+      rb.path('idFacture', params.idFacture, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json',
+      context: context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<FactureDto>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `findById1$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  findById1(params: {
+    idFacture: number;
+  },
+  context?: HttpContext
+
+): Observable<FactureDto> {
+
+    return this.findById1$Response(params,context).pipe(
+      map((r: StrictHttpResponse<FactureDto>) => r.body as FactureDto)
+    );
+  }
+
+  /**
    * Path part for operation findAll1
    */
   static readonly FindAll1Path = '/facturation/v1/facture/all';

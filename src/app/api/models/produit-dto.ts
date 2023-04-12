@@ -5,6 +5,7 @@ export interface ProduitDto {
   category?: CategorieDto;
   code?: string;
   description?: string;
+  etatRemise?: boolean;
   id?: number;
   nom?: string;
   prix?: number;

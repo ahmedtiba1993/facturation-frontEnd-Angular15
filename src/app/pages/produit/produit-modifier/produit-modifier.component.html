@@ -1,3 +1,6 @@
+<div *ngIf="success == true" class="alert alert-success" role="alert" data-mdb-color="success">
+  <i class="fas fa-check-circle me-3"></i>La modification a été effectuée avec succès!
+</div>
 <div class="alert alert-danger bg-danger text-light border-0 alert-dismissible fade show" role="alert" *ngIf="errorMessage.length > 0">
   <span *ngFor="let msg of errorMessage">{{msg}} <br></span>
 </div>
@@ -18,7 +21,7 @@
       class="form-control"
       id="productDescription"
       rows="3"
-      name="nom"
+      name="description"
       [(ngModel)]="produit.description"
       placeholder="Entrez la description du produit">
     </textarea>
@@ -31,8 +34,9 @@
       name="nom"
       [(ngModel)]="categorie.id"
     >
-      <option disabled selected value="undefined">Sélectionnez une catégorie</option>
-      <option *ngFor="let cat of listeCategorie" [value]="cat.id">{{cat.nom}}</option>
+      <option  value="undefined">Sélectionnez une catégorie</option>
+      <option selected *ngIf="categorie.id != null">{{categorie.nom}} </option>
+      <option *ngFor="let cat of listeCategorie" [value]="cat.id" [selected]="cat.id === listeCategorie[0].id">{{cat.nom}}</option>
     </select>
   </div>
   <div class="form-group mb-3">
@@ -52,19 +56,18 @@
       type="text"
       class="form-control"
       id="productCode"
-      name="nom"
+      name="code"
       [(ngModel)]="produit.code"
       placeholder="Entrez le code du produit"
     >
   </div>
-
   <div class="form-group mb-3">
     <label for="productPrice" class="form-label">Prix du produit :</label>
     <input
       type="number"
       class="form-control"
       id="productPrice"
-      name="nom"
+      name="prix"
       [(ngModel)]="produit.prix"
       placeholder="Entrez le prix du produit"
     >
@@ -85,7 +88,7 @@
     </div>
   </div>
   <div class="form-group mb-3">
-    <button type="submit" class="btn btn-primary" (click)="ajouterProduit()">Enregistrer</button>
+    <button type="submit" class="btn btn-warning" (click)="modifier()">Modifier</button>
     <button type="button" class="btn btn-danger ms-2" data-dismiss="modal" [routerLink]="['/produit']">Annuler</button>
   </div>
 </form>

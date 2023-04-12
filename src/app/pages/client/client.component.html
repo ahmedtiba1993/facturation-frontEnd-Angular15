@@ -5,16 +5,20 @@
   <tr>
     <th scope="col">Nom</th>
     <th scope="col">Prenom</th>
+    <th scope="col">Nom commercial</th>
     <th scope="col">adresse</th>
     <th scope="col">tel</th>
+    <th scope="col">Remise</th>
   </tr>
   </thead>
   <tbody>
   <tr *ngFor="let c of listeClients">
     <td>{{c.nom}}</td>
     <td>{{c.prenom}}</td>
+    <td>{{c.nomCommercial}}</td>
     <td>{{c.adresse}}</td>
     <td>{{c.tel}}</td>
+    <td>{{c.remise}} %</td>
   </tr>
   </tbody>
 </table>

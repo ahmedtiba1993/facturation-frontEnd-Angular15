@@ -77,24 +77,24 @@ export class ClientControllerService extends BaseService {
   }
 
   /**
-   * Path part for operation findById1
+   * Path part for operation findById2
    */
-  static readonly FindById1Path = '/facturation/v1/client/id/{idClient}';
+  static readonly FindById2Path = '/facturation/v1/client/id/{idClient}';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `findById1()` instead.
+   * To access only the response body, use `findById2()` instead.
    *
    * This method doesn't expect any request body.
    */
-  findById1$Response(params: {
+  findById2$Response(params: {
     idClient: number;
   },
   context?: HttpContext
 
 ): Observable<StrictHttpResponse<ClientDto>> {
 
-    const rb = new RequestBuilder(this.rootUrl, ClientControllerService.FindById1Path, 'get');
+    const rb = new RequestBuilder(this.rootUrl, ClientControllerService.FindById2Path, 'get');
     if (params) {
       rb.path('idClient', params.idClient, {});
     }
@@ -113,34 +113,34 @@ export class ClientControllerService extends BaseService {
 
   /**
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `findById1$Response()` instead.
+   * To access the full response (for headers, for example), `findById2$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  findById1(params: {
+  findById2(params: {
     idClient: number;
   },
   context?: HttpContext
 
 ): Observable<ClientDto> {
 
-    return this.findById1$Response(params,context).pipe(
+    return this.findById2$Response(params,context).pipe(
       map((r: StrictHttpResponse<ClientDto>) => r.body as ClientDto)
     );
   }
 
   /**
-   * Path part for operation findAll2
+   * Path part for operation findAllPaginated1
    */
-  static readonly FindAll2Path = '/facturation/v1/client/all';
+  static readonly FindAllPaginated1Path = '/facturation/v1/client/allpaginated';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `findAll2()` instead.
+   * To access only the response body, use `findAllPaginated1()` instead.
    *
    * This method doesn't expect any request body.
    */
-  findAll2$Response(params?: {
+  findAllPaginated1$Response(params?: {
     page?: number;
     size?: number;
   },
@@ -148,7 +148,7 @@ export class ClientControllerService extends BaseService {
 
 ): Observable<StrictHttpResponse<PageClientDto>> {
 
-    const rb = new RequestBuilder(this.rootUrl, ClientControllerService.FindAll2Path, 'get');
+    const rb = new RequestBuilder(this.rootUrl, ClientControllerService.FindAllPaginated1Path, 'get');
     if (params) {
       rb.query('page', params.page, {});
       rb.query('size', params.size, {});
@@ -168,11 +168,11 @@ export class ClientControllerService extends BaseService {
 
   /**
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `findAll2$Response()` instead.
+   * To access the full response (for headers, for example), `findAllPaginated1$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  findAll2(params?: {
+  findAllPaginated1(params?: {
     page?: number;
     size?: number;
   },
@@ -180,8 +180,58 @@ export class ClientControllerService extends BaseService {
 
 ): Observable<PageClientDto> {
 
-    return this.findAll2$Response(params,context).pipe(
+    return this.findAllPaginated1$Response(params,context).pipe(
       map((r: StrictHttpResponse<PageClientDto>) => r.body as PageClientDto)
+    );
+  }
+
+  /**
+   * Path part for operation findAll2
+   */
+  static readonly FindAll2Path = '/facturation/v1/client/all';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `findAll2()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  findAll2$Response(params?: {
+  },
+  context?: HttpContext
+
+): Observable<StrictHttpResponse<Array<ClientDto>>> {
+
+    const rb = new RequestBuilder(this.rootUrl, ClientControllerService.FindAll2Path, 'get');
+    if (params) {
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json',
+      context: context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<Array<ClientDto>>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `findAll2$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  findAll2(params?: {
+  },
+  context?: HttpContext
+
+): Observable<Array<ClientDto>> {
+
+    return this.findAll2$Response(params,context).pipe(
+      map((r: StrictHttpResponse<Array<ClientDto>>) => r.body as Array<ClientDto>)
     );
   }
 

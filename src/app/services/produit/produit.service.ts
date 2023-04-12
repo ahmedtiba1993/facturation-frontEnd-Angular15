@@ -18,7 +18,15 @@ export class ProduitService {
     return this.produitService.save({ body:produit});
   }
 
-  findAll(page: number, size: number):Observable<PageProduitDto>{
-    return this.produitService.findAll({page,size});
+  findAllPagnated(page: number, size: number):Observable<PageProduitDto>{
+    return this.produitService.findAllPaginated({page,size});
+  }
+
+  findAll():Observable<ProduitDto[]>{
+    return this.produitService.findAll()
+  }
+
+  findById(idProdtuit : number):Observable<ProduitDto>{
+    return this.produitService.findById({idProdtuit})
   }
 }

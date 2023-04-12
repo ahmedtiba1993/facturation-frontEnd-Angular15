@@ -135,11 +135,11 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ProduitDto'
-  /facturation/v1/prodtuit/all:
+  /facturation/v1/prodtuit/allpaginated:
     get:
       tags:
         - produit-controller
-      operationId: findAll
+      operationId: findAllPaginated
       parameters:
         - name: page
           in: query
@@ -162,6 +162,39 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PageProduitDto'
+  /facturation/v1/prodtuit/all:
+    get:
+      tags:
+        - produit-controller
+      operationId: findAll
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProduitDto'
+  /facturation/v1/facture/{idFacture}:
+    get:
+      tags:
+        - facture-controller
+      operationId: findById_1
+      parameters:
+        - name: idFacture
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FactureDto'
   /facturation/v1/facture/all:
     get:
       tags:
@@ -193,7 +226,7 @@ paths:
     get:
       tags:
         - client-controller
-      operationId: findById_1
+      operationId: findById_2
       parameters:
         - name: idClient
           in: path
@@ -208,11 +241,11 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ClientDto'
-  /facturation/v1/client/all:
+  /facturation/v1/client/allpaginated:
     get:
       tags:
         - client-controller
-      operationId: findAll_2
+      operationId: findAllPaginated_1
       parameters:
         - name: page
           in: query
@@ -235,11 +268,25 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PageClientDto'
+  /facturation/v1/client/all:
+    get:
+      tags:
+        - client-controller
+      operationId: findAll_2
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ClientDto'
   /facturation/v1/categorie/id/{idCat}:
     get:
       tags:
         - categorie-controller
-      operationId: findById_2
+      operationId: findById_3
       parameters:
         - name: idCat
           in: path
@@ -258,7 +305,7 @@ paths:
     get:
       tags:
         - categorie-controller
-      operationId: findAllPaginated
+      operationId: findAllPaginated_2
       parameters:
         - name: page
           in: query
@@ -372,6 +419,8 @@ components:
           format: int32
         category:
           $ref: '#/components/schemas/CategorieDto'
+        etatRemise:
+          type: boolean
     ClientDto:
       type: object
       properties:
@@ -388,6 +437,8 @@ components:
           type: integer
           format: int32
         code:
+          type: string
+        nomCommercial:
           type: string
         remise:
           type: integer
@@ -414,6 +465,9 @@ components:
         timbreFiscale:
           type: number
           format: double
+        dateFacture:
+          type: string
+          format: date
         lignesFacture:
           type: array
           items:
@@ -503,10 +557,10 @@ components:
           format: int64
         sort:
           $ref: '#/components/schemas/SortObject'
-        pageNumber:
+        pageSize:
           type: integer
           format: int32
-        pageSize:
+        pageNumber:
           type: integer
           format: int32
         paged:

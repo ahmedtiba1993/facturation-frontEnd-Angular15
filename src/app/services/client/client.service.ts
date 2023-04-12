@@ -14,10 +14,14 @@ export class ClientService {
   ) { }
 
   findAllPaginated(page: number, size: number):Observable<PageClientDto>{
-    return this.clientService.findAll2({page,size});
+    return this.clientService.findAllPaginated1({page,size});
   }
 
   add(client : ClientDto):Observable<ClientDto>{
     return this.clientService.save2({body:client});
+  }
+
+  findAll():Observable<ClientDto[]>{
+    return this.clientService.findAll2()
   }
 }

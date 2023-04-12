@@ -17,6 +17,12 @@ import { AjouterCategorieComponent } from './pages/categorie/ajouter-categorie/a
 import { AjouterProduitComponent } from './pages/produit/ajouter-produit/ajouter-produit.component';
 import { ClientComponent } from './pages/client/client.component';
 import { AjouterClientComponent } from './pages/client/ajouter-client/ajouter-client.component';
+import { FactureComponent } from './pages/facture/facture.component';
+import { DetailsFactureComponent } from './pages/facture/details-facture/details-facture.component';
+import { AjouterFactureComponent } from './pages/facture/ajouter-facture/ajouter-facture.component';
+import { ProduitModifierComponent } from './pages/produit/produit-modifier/produit-modifier.component';
+import {NgxSpinnerModule} from "ngx-spinner";
+import { LoaderComponent } from './composants/loader/loader.component';
 
 @NgModule({
   declarations: [
@@ -31,14 +37,20 @@ import { AjouterClientComponent } from './pages/client/ajouter-client/ajouter-cl
     AjouterCategorieComponent,
     AjouterProduitComponent,
     ClientComponent,
-    AjouterClientComponent
+    AjouterClientComponent,
+    FactureComponent,
+    DetailsFactureComponent,
+    AjouterFactureComponent,
+    ProduitModifierComponent,
+    LoaderComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxSpinnerModule
   ],
   providers: [
     {

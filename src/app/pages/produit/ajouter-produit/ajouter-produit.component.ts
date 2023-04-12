@@ -16,6 +16,7 @@ export class AjouterProduitComponent {
   produit : ProduitDto = {}
   categorie : CategorieDto = {}
   errorMessage : Array<string> = []
+  remise: any;
 
   constructor(
     private categorieService :CategorieService,
@@ -38,6 +39,12 @@ export class AjouterProduitComponent {
     if(this.categorie.id != null){
       //this.produit.category = this.categorie
     }
+  if(this.remise == "oui"){
+    this.produit.etatRemise = true
+  }else{
+    this.produit.etatRemise = false
+  }
+
     this.produitService.add(this.produit).subscribe(data=>{
       this.router.navigate(["produit"])
     },error=>{

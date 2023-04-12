@@ -5,6 +5,7 @@ export interface ClientDto {
   code?: string;
   id?: number;
   nom?: string;
+  nomCommercial?: string;
   prenom?: string;
   remise?: number;
   tel?: number;

@@ -47,84 +47,16 @@ public menuProperties : Array<Menu> =[
     ],
   },
   {
-    id: '3',
-    titre: 'Gestion des salles',
-    icon: 'bi bi-house-door',
-    url: '',
-    sousMenu:[
-      {
-        id: "31",
-        titre: "Liste des salles",
-        icon: 'bi bi-pie-chart',
-        url: 'admin/salle'
-      }
-    ],
-  },
-  {
-    id: '4',
-    titre: 'Gestion des personne',
-    icon: 'bi bi-person-square',
-    url: '',
-    sousMenu:[
-      {
-        id: "41",
-        titre: "Liste des parents",
-        icon: 'bi bi-pie-chart',
-        url: 'admin/personne/parent'
-      },
-      {
-        id: "42",
-        titre: "Liste des eleves",
-        icon: 'bi bi-pie-chart',
-        url: 'admin/personne/eleve'
-      },
-      {
-        id: "43",
-        titre: "Liste des profs",
-        icon: 'bi bi-pie-chart',
-        url: 'admin/personne/prof'
-      }
-    ],
-  },
-  {
-    id: '5',
-    titre: 'Gestion des absences',
-    icon: 'bi bi-check-square',
-    url: '',
-    sousMenu:[
-      {
-        id: "51",
-        titre: "Liste des absences",
-        icon: '',
-        url: 'admin/absence'
-      }
-    ]
-  },
-  {
     id: '6',
-    titre: 'Gestion de paiement',
+    titre: 'Gestion des facture',
     icon: 'bi bi-cash-coin',
     url: '',
     sousMenu:[
       {
         id: "61",
-        titre: "Paiement",
+        titre: "Liste des facures",
         icon: '',
-        url: 'admin/paiement'
-      }
-    ]
-  },
-  {
-    id: '7',
-    titre: "Gestion d'emploi",
-    icon: 'bi bi-calendar-week',
-    url: '',
-    sousMenu:[
-      {
-        id: "71",
-        titre: "emploie de temps",
-        icon: '',
-        url: 'admin/emploi'
+        url: 'facture'
       }
     ]
   }

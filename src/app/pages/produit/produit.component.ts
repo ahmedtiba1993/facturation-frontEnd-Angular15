@@ -24,7 +24,7 @@ export class ProduitComponent {
   }
 
   findAllPaginated(){
-    this.produitService.findAll(this.currentPage, this.pageSize).subscribe(page => {
+    this.produitService.findAllPagnated(this.currentPage, this.pageSize).subscribe(page => {
       this.page = page
       this.listePrduits = page.content!
     });

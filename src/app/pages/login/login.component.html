@@ -36,7 +36,13 @@
                     <input type="password" name="password" class="form-control" id="yourPassword" required [(ngModel)]="authenticationRequest.password">
                   </div>
                   <div class="col-12">
-                    <button class="btn btn-primary w-100" type="submit" (click)="login()">Login</button>
+                    <button class="btn btn-primary w-100" type="submit" (click)="login()" [disabled]="isButtonLoading">
+                      <span *ngIf="!isButtonLoading">Login</span>
+                      <div  *ngIf="isButtonLoading">
+                        <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                        Chargement...
+                      </div>
+                    </button>
                   </div>
                 </form>
               </div>

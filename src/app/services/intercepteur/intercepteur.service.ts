@@ -22,7 +22,6 @@ export class IntercepteurService implements HttpInterceptor{
           'Access-Control-Allow-Origin':'*',
           Authorization : 'Bearer '+authenticationResponse.token
         })      });
-      console.log("aaaa: "+authRep.headers.get("Authorization"))
       return next.handle(authRep);
     }
     return next.handle(req);

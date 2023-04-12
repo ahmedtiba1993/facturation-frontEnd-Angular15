@@ -18,7 +18,7 @@ export class CategorieService {
   }
 
   findAllPaginated(page: number, size: number):Observable<PageCategorieDto>{
-    return this.categorieService.findAllPaginated({page,size});
+    return this.categorieService.findAllPaginated2({page,size});
   }
 
   findAll():Observable<CategorieDto[]>{

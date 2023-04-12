@@ -4,20 +4,32 @@
 <form>
   <div class="form-group mb-3">
     <label for="nom">Nom</label>
-    <input type="text" class="form-control" id="nom" placeholder="Entrez votre nom" name="nom" [(ngModel)]="client.nom"
+    <input type="text" class="form-control" id="nom" placeholder="Entrez nom" name="nom" [(ngModel)]="client.nom"
     >
   </div>
   <div class="form-group mb-3">
     <label for="prenom">Prénom</label>
-    <input type="text" class="form-control" id="prenom" placeholder="Entrez votre prénom" name="prenom" [(ngModel)]="client.prenom">
+    <input type="text" class="form-control" id="prenom" placeholder="Entrez prénom" name="prenom" [(ngModel)]="client.prenom">
+  </div>
+  <div class="form-group mb-3">
+    <label for="nomCommercial">Nom Commercial</label>
+    <input type="text" class="form-control" id="nomCommercial" placeholder="Entrez Nom Commercial" name="nomCommercial" [(ngModel)]="client.nomCommercial">
+  </div>
+  <div class="form-group mb-3">
+    <label for="code">Code</label>
+    <input type="text" class="form-control" id="code" placeholder="Entrez code" name="code" [(ngModel)]="client.code">
   </div>
   <div class="form-group mb-3">
     <label for="telephone">Téléphone</label>
-    <input type="tel" class="form-control" id="telephone" placeholder="Entrez votre numéro de téléphone" name="tel" [(ngModel)]="client.tel">
+    <input type="tel" class="form-control" id="telephone" placeholder="Entrez numéro de téléphone" name="tel" [(ngModel)]="client.tel">
   </div>
   <div class="form-group mb-3">
     <label for="adresse">Adresse</label>
-    <input type="text" class="form-control" id="adresse" placeholder="Entrez votre adresse" name="adresse" [(ngModel)]="client.adresse">
+    <input type="text" class="form-control" id="adresse" placeholder="Entrez adresse" name="adresse" [(ngModel)]="client.adresse">
+  </div>
+  <div class="form-group mb-3">
+    <label for="adresse">Remise</label>
+    <input type="input" class="form-control" id="remise" placeholder="Entrez remise" name="remise" [(ngModel)]="client.remise">
   </div>
   <button type="submit" class="btn btn-primary" (click)="ajouterClient()">Envoyer</button>
 </form>

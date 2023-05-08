@@ -1,0 +1,145 @@
+<app-loader *ngIf="isLoading"></app-loader>
+<div class="card p-2 d-none d-md-block">
+  <button type="button" routerLink="/ajouterClient" class="btn btn-primary">
+    Ajouter
+  </button>
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <h1 class="text-center text-primary title-underline">
+          <u>Liste des clients</u>
+        </h1>
+      </div>
+    </div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Nom</th>
+          <th scope="col">Prenom</th>
+          <th scope="col">Nom commercial</th>
+          <th scope="col">adresse</th>
+          <th scope="col">tel</th>
+          <th scope="col">Remise</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let c of listeClients">
+          <td>{{ c.nom }}</td>
+          <td>{{ c.prenom }}</td>
+          <td>{{ c.nomCommercial }}</td>
+          <td>{{ c.adresse }}</td>
+          <td>{{ c.tel }}</td>
+          <td>{{ c.remise }} %</td>
+          <td>
+            <button class="btn btn-warning" [routerLink]="['/client', c.id]">
+              Modifier
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <nav *ngIf="pageClient" aria-label="Page navigation">
+      <ul class="pagination">
+        <li class="page-item" [class.disabled]="currentPage === 0">
+          <a
+            class="page-link"
+            href="javascript:void(0);"
+            (click)="
+              onPageChange({ pageIndex: currentPage - 1, pageSize: pageSize })
+            "
+            aria-label="Previous"
+          >
+            <span aria-hidden="true">&laquo;</span>
+            <span class="sr-only">Previous</span>
+          </a>
+        </li>
+
+        <ng-container *ngFor="let i of pageNumbers()">
+          <li
+            class="page-item"
+            [class.active]="currentPage === i"
+            *ngIf="
+              i < 5 ||
+              i >= pageClient.totalPages! - 2 ||
+              Math.abs(i - currentPage) < 2
+            "
+          >
+            <a
+              class="page-link"
+              href="javascript:void(0);"
+              (click)="onPageChange({ pageIndex: i, pageSize: pageSize })"
+              >{{ i + 1 }}</a
+            >
+          </li>
+          <li
+            class="page-item disabled"
+            *ngIf="
+              i === currentPage + 3 && currentPage + 3 < pageClient.totalPages!
+            "
+          >
+            <a class="page-link">...</a>
+          </li>
+        </ng-container>
+
+        <li
+          class="page-item"
+          [class.disabled]="currentPage === (pageClient.totalPages ?? 0) - 1"
+        >
+          <a
+            class="page-link"
+            href="javascript:void(0);"
+            (click)="
+              onPageChange({ pageIndex: currentPage + 1, pageSize: pageSize })
+            "
+            aria-label="Next"
+          >
+            <span aria-hidden="true">&raquo;</span>
+            <span class="sr-only">Next</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>
+<div class="d-block d-md-none">
+  <!-- Contenu à afficher sur petit écran -->
+  <div class="card p-2">
+    <div class="container">
+      <button type="button" routerLink="/ajouterClient" class="btn btn-primary">
+        Ajouter
+      </button>
+      <div class="container">
+        <div class="row">
+          <div class="col">
+            <h1 class="text-center text-primary title-underline">
+              <u>Liste des clients</u>
+            </h1>
+          </div>
+        </div>
+      </div>
+      <tbody class="row">
+        <div
+          class="row border-bottom border-primary pt-2"
+          *ngFor="let c of listeClients"
+        >
+          <div class="col">
+            <div><strong>Nom:</strong></div>
+            <div>{{ c.nom }}</div>
+            <div><strong>Prenom:</strong></div>
+            <div>{{ c.prenom }}</div>
+            <div><strong>Nom Commercial:</strong></div>
+            <div>{{ c.nomCommercial }}</div>
+          </div>
+          <div class="col">
+            <div><strong>Tel:</strong></div>
+            <div>{{ c.tel }}</div>
+            <div><strong>Remise:</strong></div>
+            <div>{{ c.remise }}</div>
+            <button class="btn btn-warning float-right">Modifier</button>
+          </div>
+        </div>
+      </tbody>
+    </div>
+  </div>
+</div>

@@ -9,6 +9,7 @@ export interface FactureDto {
   lignesFacture?: Array<LigneFactureDto>;
   montantHt?: number;
   montantTTC?: number;
+  paymentStatus?: boolean;
   reference?: string;
   tauxTVA?: number;
   timbreFiscale?: number;

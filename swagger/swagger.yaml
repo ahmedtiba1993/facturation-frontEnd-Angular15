@@ -1,10 +1,19 @@
 openapi: 3.0.1
 info:
-  title: OpenAPI definition
-  version: v0
+  title: Facturation
+  description: Platforme pour créer et de gérer des factures
+  contact:
+    name: Ahmed Tiba
+    url: https://ahmedtiba1993.github.io/
+    email: ahmed.tiba.1993@gmail.com
+  version: 1.0.0
 servers:
-  - url: http://localhost:8080
-    description: Generated server url
+  - url: https://localhost:8080
+    description: Server localhost 127.0.0.1
+  - url: 13.38.17.45
+    description: Server AWS EC2
+  - url: ec2-13-38-17-45.eu-west-3.compute.amazonaws.com
+    description: DNS Server AWS EC2
 security:
   - bearerAuth: []
 paths:
@@ -472,6 +481,8 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/LigneFactureDto'
+        paymentStatus:
+          type: boolean
     LigneFactureDto:
       type: object
       properties:
@@ -520,12 +531,12 @@ components:
     PageProduitDto:
       type: object
       properties:
-        totalElements:
-          type: integer
-          format: int64
         totalPages:
           type: integer
           format: int32
+        totalElements:
+          type: integer
+          format: int64
         size:
           type: integer
           format: int32
@@ -563,9 +574,9 @@ components:
         pageNumber:
           type: integer
           format: int32
-        paged:
-          type: boolean
         unpaged:
+          type: boolean
+        paged:
           type: boolean
     SortObject:
       type: object
@@ -579,12 +590,12 @@ components:
     PageFactureDto:
       type: object
       properties:
-        totalElements:
-          type: integer
-          format: int64
         totalPages:
           type: integer
           format: int32
+        totalElements:
+          type: integer
+          format: int64
         size:
           type: integer
           format: int32
@@ -611,12 +622,12 @@ components:
     PageClientDto:
       type: object
       properties:
-        totalElements:
-          type: integer
-          format: int64
         totalPages:
           type: integer
           format: int32
+        totalElements:
+          type: integer
+          format: int64
         size:
           type: integer
           format: int32
@@ -643,12 +654,12 @@ components:
     PageCategorieDto:
       type: object
       properties:
-        totalElements:
-          type: integer
-          format: int64
         totalPages:
           type: integer
           format: int32
+        totalElements:
+          type: integer
+          format: int64
         size:
           type: integer
           format: int32

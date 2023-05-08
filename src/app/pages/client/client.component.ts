@@ -16,6 +16,7 @@ export class ClientComponent {
   pageClient: PageClientDto = {};
   currentPage: number = 0;
   pageSize: number = 10;
+  isLoading:boolean = false;
   constructor(
     private clientService : ClientService
   ) {
@@ -26,9 +27,11 @@ export class ClientComponent {
   }
 
   findAllPaginated(){
+    this.isLoading = true
     this.clientService.findAllPaginated(this.currentPage, this.pageSize).subscribe(page => {
       this.pageClient = page
       this.listeClients = page.content!
+      this.isLoading = false
     });
   }
 

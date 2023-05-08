@@ -29,4 +29,5 @@ export class ProduitService {
   findById(idProdtuit : number):Observable<ProduitDto>{
     return this.produitService.findById({idProdtuit})
   }
+
 }

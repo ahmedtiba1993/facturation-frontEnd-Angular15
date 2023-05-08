@@ -14,6 +14,9 @@ export class ProduitComponent {
   page: PageProduitDto = {};
   currentPage: number = 0;
   pageSize: number = 10;
+  isLoading = false;
+  showDivFiltre = false;
+
   constructor(
     private produitService:ProduitService
   ) {
@@ -24,9 +27,11 @@ export class ProduitComponent {
   }
 
   findAllPaginated(){
+    this.isLoading = true
     this.produitService.findAllPagnated(this.currentPage, this.pageSize).subscribe(page => {
       this.page = page
       this.listePrduits = page.content!
+      this.isLoading = false
     });
   }
 
@@ -50,4 +55,8 @@ export class ProduitComponent {
   }
 
   protected readonly Math = Math;
+
+  toggleDivFiltre() {
+    this.showDivFiltre = !this.showDivFiltre;
+  }
 }

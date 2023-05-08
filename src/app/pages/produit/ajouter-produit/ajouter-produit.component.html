@@ -1,3 +1,11 @@
+<div class="bg-white p-2">
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <h1 class="text-center text-primary title-underline"><u>Ajouter un produit</u></h1>
+      </div>
+    </div>
+  </div>
 <div class="alert alert-danger bg-danger text-light border-0 alert-dismissible fade show" role="alert" *ngIf="errorMessage.length > 0">
   <span *ngFor="let msg of errorMessage">{{msg}} <br></span>
 </div>
@@ -85,7 +93,14 @@
     </div>
   </div>
   <div class="form-group mb-3">
-    <button type="submit" class="btn btn-primary" (click)="ajouterProduit()">Enregistrer</button>
+    <button type="submit" class="btn btn-primary" (click)="ajouterProduit()" [disabled]="isButtonLoading">
+      <span *ngIf="!isButtonLoading">Enregistrer</span>
+      <div  *ngIf="isButtonLoading">
+        <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+        Chargement...
+      </div>
+    </button>
     <button type="button" class="btn btn-danger ms-2" data-dismiss="modal" [routerLink]="['/produit']">Annuler</button>
   </div>
 </form>
+</div>

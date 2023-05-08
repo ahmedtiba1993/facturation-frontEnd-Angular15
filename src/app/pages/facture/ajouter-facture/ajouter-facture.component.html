@@ -146,7 +146,20 @@
               <p>Total TTC : {{totalTTC | number:'1.3-3'}}
               </p>
             </div>
-            <div class="col-md-6">
+
+            <div>
+              <div class="form-check">
+                <input class="form-check-input" (change)="handleChangeTrue()" type="radio" name="paid" id="flexCheckDefault">
+                <label class="form-check-label" for="flexCheckDefault">
+                  Payé
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" (change)="handleChangeFalse()"  name="paid"  type="radio" id="flexCheckChecked" checked>
+                <label class="form-check-label" for="flexCheckChecked">
+                  Non payé
+                </label>
+              </div>
               <button (click)="save()" class="btn btn-primary">Enregistrée</button>
             </div>
           </div>

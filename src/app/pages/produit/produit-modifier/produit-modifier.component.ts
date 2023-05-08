@@ -19,7 +19,8 @@ export class ProduitModifierComponent {
   listeCategorie : Array<CategorieDto> = []
   categorie : CategorieDto = {}
   remise: string = "oui";
-
+  isLoading = false;
+  isButtonLoading:  boolean = false;
 
   constructor(
     private produitService : ProduitService,
@@ -31,15 +32,18 @@ export class ProduitModifierComponent {
 
   ngOnInit() {
     this.idProduit = parseInt(<string>this.avtiveRoute.snapshot.paramMap.get('id'));
-    this.findProduit()
     this.findAllCategorie()
+    this.findProduit()
   }
   findProduit(){
+    this.isLoading = true
     this.produitService.findById(this.idProduit).subscribe(data=>{
       this.produit = data
+      this.categorie.id = this.produit.category?.id
       if(this.produit.etatRemise == false){
         this.remise = "non"
       }
+      this.isLoading = false
     })
   }
   findAllCategorie(){
@@ -48,6 +52,7 @@ export class ProduitModifierComponent {
     })
   }
   modifier() {
+    this.isButtonLoading = true;
     if(this.remise == "oui"){
       this.produit.etatRemise = true
     }else{
@@ -56,8 +61,10 @@ export class ProduitModifierComponent {
     this.produitService.add(this.produit).subscribe(data=>{
       this.success = true
       this.findProduit()
+      this.isButtonLoading = false;
     },error=>{
       this.success = false
+      this.isButtonLoading = false
       this.errorMessage = error.error.errors
     })
   }

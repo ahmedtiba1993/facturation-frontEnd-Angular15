@@ -5,8 +5,47 @@
 
   <div *ngIf="showDivFiltre" class="card mt-3">
     <form>
-      <input type="text" class="form-control">
+      <div class="row">
+        <div class="col">
+          <div class="form-group">
+            <label for="nom">Nom</label>
+            <input type="text" class="form-control" id="nom" name="nom" [(ngModel)]="nom">
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-group">
+            <label for="code">Code</label>
+            <input type="text" class="form-control" id="code" name="code" [(ngModel)]="code">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="form-group">
+            <label for="prixMin">Prix minimum</label>
+            <input type="number" class="form-control" id="prixMin" name="prixMin" [(ngModel)]="prixMin">
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-group">
+            <label for="prixMax">Prix maximum</label>
+            <input type="number" class="form-control" id="prixMax" name="prixMax" [(ngModel)]="prixMax">
+          </div>
+        </div>
+      </div>
+      <div class="form-group row mt-2">
+        <label for="etatRemise" class="col-sm-2 col-form-label">État de remise</label>
+        <div class="col-sm-3">
+          <select class="form-control" id="etatRemise" name="etatRemise">
+            <option value="">Choisir un état de remise</option>
+            <option value="true">Avec remise</option>
+            <option value="false">Sans remise</option>
+          </select>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary" (click)="filtre()">Rechercher</button>
     </form>
+
   </div>
 
   <div class="container">

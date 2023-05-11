@@ -17,13 +17,19 @@ export class ProduitComponent {
   isLoading = false;
   showDivFiltre = false;
 
+  nom?: string;
+  code?: string;
+  prixMin?: number;
+  prixMax?: number;
+  etatRemise?: boolean;
+
   constructor(
     private produitService:ProduitService
   ) {
   }
 
   ngOnInit(){
-    this.findAllPaginated()
+    this.filtre()
   }
 
   findAllPaginated(){
@@ -35,10 +41,19 @@ export class ProduitComponent {
     });
   }
 
+  filtre(){
+    this.isLoading = true
+    this.produitService.filtre(this.currentPage, this.pageSize , this.nom! , this.code! , this.prixMin! , this.prixMax!).subscribe(page => {
+      this.page = page
+      this.listePrduits = page.content!
+      this.isLoading = false
+    });
+  }
+
   onPageChange(event : any) {
     this.currentPage = event.pageIndex;
     this.pageSize = event.pageSize;
-    this.findAllPaginated();
+    this.filtre();
   }
 
   pageNumbers(): number[] {

@@ -144,6 +144,66 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ProduitDto'
+  /facturation/v1/prodtuit/filtrer:
+    get:
+      tags:
+        - produit-controller
+      operationId: filtrerProduits
+      parameters:
+        - name: page
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 0
+        - name: size
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 3
+        - name: nom
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: code
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: prixMin
+          in: query
+          required: false
+          schema:
+            type: number
+            format: double
+        - name: prixMax
+          in: query
+          required: false
+          schema:
+            type: number
+            format: double
+        - name: stockMax
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int32
+        - name: etatRemise
+          in: query
+          required: false
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PageProduitDto'
   /facturation/v1/prodtuit/allpaginated:
     get:
       tags:
@@ -568,15 +628,15 @@ components:
           format: int64
         sort:
           $ref: '#/components/schemas/SortObject'
-        pageSize:
-          type: integer
-          format: int32
         pageNumber:
           type: integer
           format: int32
-        unpaged:
-          type: boolean
+        pageSize:
+          type: integer
+          format: int32
         paged:
+          type: boolean
+        unpaged:
           type: boolean
     SortObject:
       type: object

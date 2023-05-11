@@ -23,6 +23,8 @@ import { AjouterFactureComponent } from './pages/facture/ajouter-facture/ajouter
 import { ProduitModifierComponent } from './pages/produit/produit-modifier/produit-modifier.component';
 import {NgxSpinnerModule} from "ngx-spinner";
 import { LoaderComponent } from './composants/loader/loader.component';
+import { Loader2Component } from './composants/loader2/loader2.component';
+import { ModifierClientComponent } from './pages/client/modifier-client/modifier-client.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +44,9 @@ import { LoaderComponent } from './composants/loader/loader.component';
     DetailsFactureComponent,
     AjouterFactureComponent,
     ProduitModifierComponent,
-    LoaderComponent
+    LoaderComponent,
+    Loader2Component,
+    ModifierClientComponent
   ],
   imports: [
     BrowserModule,

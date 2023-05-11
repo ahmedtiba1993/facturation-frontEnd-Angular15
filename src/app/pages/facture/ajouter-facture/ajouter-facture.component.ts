@@ -27,6 +27,7 @@ export class AjouterFactureComponent {
   quantite: any;
   prixUtitaire: any;
   listeProduitFacture : LigneFactureDto[] = []
+  isPaid = false;
   tva: number = 19;
   timbre: any;
   totalHT: number = 0;
@@ -85,6 +86,9 @@ export class AjouterFactureComponent {
   }
 
   ajouterProduitFacture() {
+
+   this.facture.paymentStatus = this.isPaid
+    console.log(this.facture.paymentStatus)
     let prix;
     if (this.searchProduit.etatRemise == true) {
       prix = (this.prixUtitaire * this.quantite) - ((this.prixUtitaire * this.quantite) * (this.client.remise! / 100));
@@ -151,5 +155,14 @@ export class AjouterFactureComponent {
     },error=>{
       this.errorMessage = error.error.errors
     })
+  }
+
+  handleChangeTrue() {
+    this.isPaid = true;
+    console.log(this.isPaid)
+  }
+  handleChangeFalse() {
+    this.isPaid = false;
+    console.log(this.isPaid)
   }
 }

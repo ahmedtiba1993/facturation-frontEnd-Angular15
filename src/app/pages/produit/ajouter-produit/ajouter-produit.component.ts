@@ -17,6 +17,7 @@ export class AjouterProduitComponent {
   categorie : CategorieDto = {}
   errorMessage : Array<string> = []
   remise: any;
+  isButtonLoading:  boolean = false;
 
   constructor(
     private categorieService :CategorieService,
@@ -36,8 +37,9 @@ export class AjouterProduitComponent {
   }
 
   ajouterProduit(){
+    this.isButtonLoading = true
     if(this.categorie.id != null){
-      //this.produit.category = this.categorie
+      this.produit.category = this.categorie
     }
   if(this.remise == "oui"){
     this.produit.etatRemise = true
@@ -47,7 +49,9 @@ export class AjouterProduitComponent {
 
     this.produitService.add(this.produit).subscribe(data=>{
       this.router.navigate(["produit"])
+      this.isButtonLoading = false
     },error=>{
+      this.isButtonLoading = false
       this.errorMessage = error.error.errors
     })
   }

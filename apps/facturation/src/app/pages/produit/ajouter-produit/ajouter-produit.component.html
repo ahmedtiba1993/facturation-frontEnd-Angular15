@@ -1,0 +1,149 @@
+<div class="bg-white p-2">
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <h1 class="text-center text-primary title-underline">
+          <u>Ajouter un produit</u>
+        </h1>
+      </div>
+    </div>
+  </div>
+  <div
+    class="alert alert-danger bg-danger text-light border-0 alert-dismissible fade show"
+    role="alert"
+    *ngIf="errorMessage.length > 0"
+  >
+    <span *ngFor="let msg of errorMessage">{{ msg }} <br /></span>
+  </div>
+  <form>
+    <div class="form-group mb-3">
+      <label for="productName" class="form-label">Nom du produit :</label>
+      <input
+        type="text"
+        class="form-control"
+        id="productName"
+        name="nom"
+        [(ngModel)]="produit.nom"
+        placeholder="Entrez le nom du produit"
+      />
+    </div>
+    <div class="form-group mb-3">
+      <label for="productDescription" class="form-label"
+        >Description du produit :</label
+      >
+      <textarea
+        class="form-control"
+        id="productDescription"
+        rows="3"
+        name="nom"
+        [(ngModel)]="produit.description"
+        placeholder="Entrez la description du produit"
+      >
+      </textarea>
+    </div>
+    <div class="form-group mb-3">
+      <label for="productCategory" class="form-label"
+        >Catégorie du produit :</label
+      >
+      <select
+        class="form-control"
+        id="productCategory"
+        name="nom"
+        [(ngModel)]="categorie.id"
+      >
+        <option disabled selected value="undefined">
+          Sélectionnez une catégorie
+        </option>
+        <option *ngFor="let cat of listeCategorie" [value]="cat.id">
+          {{ cat.nom }}
+        </option>
+      </select>
+    </div>
+    <div class="form-group mb-3">
+      <label for="productStock" class="form-label">Stock du produit :</label>
+      <input
+        type="number"
+        class="form-control"
+        id="productStock"
+        name="stock"
+        [(ngModel)]="produit.stock"
+        placeholder="Entrez le stock du produit"
+      />
+    </div>
+    <div class="form-group mb-3">
+      <label for="productCode" class="form-label">Code du produit :</label>
+      <input
+        type="text"
+        class="form-control"
+        id="productCode"
+        name="nom"
+        [(ngModel)]="produit.code"
+        placeholder="Entrez le code du produit"
+      />
+    </div>
+
+    <div class="form-group mb-3">
+      <label for="productPrice" class="form-label">Prix du produit :</label>
+      <input
+        type="number"
+        class="form-control"
+        id="productPrice"
+        name="nom"
+        [(ngModel)]="produit.prix"
+        placeholder="Entrez le prix du produit"
+      />
+    </div>
+    <div class="form-group mb-3">
+      <label class="form-label">Remise</label>
+      <div class="form-check">
+        <input
+          class="form-check-input"
+          checked
+          type="radio"
+          name="remise"
+          id="remiseOui"
+          value="oui"
+          [(ngModel)]="remise"
+        />
+        <label class="form-check-label" for="remiseOui"> Oui </label>
+      </div>
+      <div class="form-check">
+        <input
+          class="form-check-input"
+          type="radio"
+          name="remise"
+          id="remiseNon"
+          value="non"
+          [(ngModel)]="remise"
+        />
+        <label class="form-check-label" for="remiseNon"> Non </label>
+      </div>
+    </div>
+    <div class="form-group mb-3">
+      <button
+        type="submit"
+        class="btn btn-primary"
+        (click)="ajouterProduit()"
+        [disabled]="isButtonLoading"
+      >
+        <span *ngIf="!isButtonLoading">Enregistrer</span>
+        <div *ngIf="isButtonLoading">
+          <span
+            class="spinner-grow spinner-grow-sm"
+            role="status"
+            aria-hidden="true"
+          ></span>
+          Chargement...
+        </div>
+      </button>
+      <button
+        type="button"
+        class="btn btn-danger ms-2"
+        data-dismiss="modal"
+        [routerLink]="['/produit']"
+      >
+        Annuler
+      </button>
+    </div>
+  </form>
+</div>

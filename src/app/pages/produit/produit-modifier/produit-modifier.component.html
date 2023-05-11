@@ -1,9 +1,18 @@
+<div class="card p-5">
+  <app-loader2 *ngIf="isLoading"></app-loader2>
 <div *ngIf="success == true" class="alert alert-success" role="alert" data-mdb-color="success">
   <i class="fas fa-check-circle me-3"></i>La modification a été effectuée avec succès!
 </div>
 <div class="alert alert-danger bg-danger text-light border-0 alert-dismissible fade show" role="alert" *ngIf="errorMessage.length > 0">
   <span *ngFor="let msg of errorMessage">{{msg}} <br></span>
 </div>
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <h1 class="text-center text-primary title-underline"><u>Modifier un produit</u></h1>
+      </div>
+    </div>
+  </div>
 <form>
   <div class="form-group mb-3">
     <label for="productName" class="form-label">Nom du produit :</label>
@@ -35,8 +44,7 @@
       [(ngModel)]="categorie.id"
     >
       <option  value="undefined">Sélectionnez une catégorie</option>
-      <option selected *ngIf="categorie.id != null">{{categorie.nom}} </option>
-      <option *ngFor="let cat of listeCategorie" [value]="cat.id" [selected]="cat.id === listeCategorie[0].id">{{cat.nom}}</option>
+      <option *ngFor="let cat of listeCategorie" [value]="cat.id" [selected]="cat.id === produit.category!.id">{{cat.nom}}</option>
     </select>
   </div>
   <div class="form-group mb-3">
@@ -88,7 +96,15 @@
     </div>
   </div>
   <div class="form-group mb-3">
-    <button type="submit" class="btn btn-warning" (click)="modifier()">Modifier</button>
+    <button type="submit" class="btn btn-warning" (click)="modifier()" [disabled]="isButtonLoading">
+      <span *ngIf="!isButtonLoading">Modifier</span>
+      <div  *ngIf="isButtonLoading">
+        <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+        Chargement...
+      </div>
+    </button>
     <button type="button" class="btn btn-danger ms-2" data-dismiss="modal" [routerLink]="['/produit']">Annuler</button>
   </div>
 </form>
+</div>
+

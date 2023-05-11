@@ -1,5 +1,12 @@
-<button type="button" routerLink="/ajouterClient" class="btn btn-primary">Ajouter</button>
-
+<app-loader *ngIf="isLoading"></app-loader>
+<div class="card p-2 d-none d-md-block">
+  <button type="button" routerLink="/ajouterClient" class="btn btn-primary">Ajouter</button>
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <h1 class="text-center text-primary title-underline"><u>Liste des clients</u></h1>
+      </div>
+    </div>
 <table class="table">
   <thead>
   <tr>
@@ -19,6 +26,7 @@
     <td>{{c.adresse}}</td>
     <td>{{c.tel}}</td>
     <td>{{c.remise}} %</td>
+    <td><button class="btn btn-warning" [routerLink]="['/client', c.id]">Modifier</button></td>
   </tr>
   </tbody>
 </table>
@@ -49,8 +57,41 @@
     </li>
   </ul>
 </nav>
-
-
-
+</div>
+</div>
+<div class="d-block d-md-none">
+    <!-- Contenu à afficher sur petit écran -->
+    <div class="card p-2">
+      <div class="container">
+        <button type="button" routerLink="/ajouterClient" class="btn btn-primary">Ajouter</button>
+        <div class="container">
+          <div class="row">
+            <div class="col">
+              <h1 class="text-center text-primary title-underline"><u>Liste des clients</u></h1>
+            </div>
+          </div>
+      </div>
+      <tbody class="row">
+      <div class="row border-bottom border-primary pt-2" *ngFor="let c of listeClients">
+        <div class="col">
+          <div><strong>Nom:</strong></div>
+          <div>{{c.nom}}</div>
+          <div><strong>Prenom:</strong></div>
+          <div>{{c.prenom}}</div>
+          <div><strong>Nom Commercial:</strong></div>
+          <div>{{c.nomCommercial}}</div>
+        </div>
+        <div class="col">
+          <div><strong>Tel:</strong></div>
+          <div>{{c.tel}}</div>
+          <div><strong>Remise:</strong></div>
+          <div>{{c.remise}}</div>
+          <button class="btn btn-warning float-right">Modifier</button>
+        </div>
+      </div>
+      </tbody>
+    </div>
+  </div>
+  </div>
 
 

@@ -1,0 +1,196 @@
+<div class="card text-black" #myDiv id="htmlData">
+  <div class="card-body">
+    <div class="container mb-5 mt-3">
+      <div class="row d-flex align-items-baseline">
+        <div class="col-xl-9">
+          <p style="color: #7e8d9f; font-size: 20px">
+            Facture : <strong>{{ facture.reference }}</strong>
+          </p>
+        </div>
+        <hr />
+      </div>
+
+      <div class="container">
+        <div class="row align-items-baseline">
+          <div class="col-xl-5">
+            <img src="assets/img/logofacture.png" width="300" height="200" />
+          </div>
+          <div class="col-xl-5 float-end">
+            <div class="text-center">
+              <i class="fab fa-mdb fa-4x ms-0" style="color: #5d9fc5"></i>
+              <h1 class="pt-0 fw-bold text-primary">
+                <span class="text-danger">A</span>larme
+                <span class="text-danger">A</span>ssistace
+              </h1>
+              <h3 class="pt-0 fw-bold">Nifes Jilani</h3>
+            </div>
+          </div>
+          <hr />
+        </div>
+
+        <div class="row border-bottom">
+          <div class="col-xl-8">
+            <ul class="list-unstyled">
+              <li>Alarme Assistance</li>
+              <li>AV république 5000 Monastir</li>
+              <li>En face de station de bus</li>
+              <li>Matricule fiscal: 1418543 C/A/C/000</li>
+              <li>Registre de commerce : A15185872015</li>
+            </ul>
+          </div>
+          <div class="col-xl-4">
+            <ul class="list-unstyled">
+              <li>
+                <i class="fas fa-circle" style="color: #84b0ca"></i>
+                <span>Téléphone: 73 467 940</span>
+              </li>
+              <li>
+                <i class="fas fa-circle" style="color: #84b0ca"></i>
+                <span>Fax: 73 467 940</span>
+              </li>
+              <li>
+                <i class="fas fa-circle" style="color: #84b0ca"></i>
+                <span> Mobile: 97 366 747</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="row border-bottom mt-2">
+          <div class="col-xl-8">
+            Facture : {{ facture.reference }}<br />
+            Date : {{ facture.dateFacture }}
+          </div>
+          <div class="col-xl-4">
+            <ul class="list-unstyled">
+              <li>Client : {{ facture.client!.nomCommercial }}</li>
+              <li>Adresse : {{ facture.client!.adresse }}</li>
+              <li>Mf : {{ facture.client!.code }}</li>
+            </ul>
+          </div>
+        </div>
+        <div class="row my-2 mx-1 justify-content-center">
+          <table class="table table-borderless">
+            <thead style="background-color: #84b0ca" class="text-white">
+              <tr>
+                <th scope="col">Code</th>
+                <th scope="col">Désignation</th>
+                <th scope="col">Quantité</th>
+                <th scope="col">Prix Unitaire</th>
+                <th scope="col">Remise</th>
+                <th scope="col">Total HT</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let f of facture.lignesFacture" class="border-bottom">
+                <td scope="row">{{ f.produit!.code }}</td>
+                <td>{{ f.produit!.description }}</td>
+                <td>{{ f.quantite }}</td>
+                <td>{{ f.prixUnitaire | number : '1.3-3' }} TND</td>
+                <td *ngIf="f.produit!.etatRemise">{{ f.remise }}%</td>
+                <td *ngIf="!f.produit!.etatRemise">0%</td>
+                <td>{{ f.prixTotal | number : '1.3-3' }} TND</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="row mt-5">
+          <div class="col-xl-8">
+            <!--<p class="ms-3">Add additional notes and payment information</p>-->
+          </div>
+          <div class="col-xl-4">
+            <ul class="list-unstyled">
+              <li class="ms-3 mb-3">
+                <span class="text-black me-4 fw-bold">Total brut HT</span
+                >{{ facture.montantHt | number : '1.3-3' }} TND
+              </li>
+              <li class="ms-3 mb-3">
+                <span class="text-black me-4 fw-bold">TVA 19 % : </span
+                >{{
+                  facture.montantHt! * (facture.tauxTVA! / 100)
+                    | number : '1.3-3'
+                }}
+                TND
+              </li>
+              <li class="ms-3 mb-3">
+                <span class="text-black me-4 fw-bold">Droit de timbre</span
+                >1.000 TND
+              </li>
+            </ul>
+            <p
+              style="background-color: #84b0ca"
+              class="text-black float-start fs-5 border p-1 rounded"
+            >
+              <span class="text-black me-3" fw-bold> Total TTC</span
+              ><span style="font-size: 25px"
+                >{{ facture.montantTTC | number : '1.3-3' }} TND</span
+              >
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--
+<div class="container" id="htmlData">
+  <div class="row">
+    <div class="col-md-6">
+      <h3>Informations client</h3>
+      <p>Nom:   {{facture.client!.nom}}</p>
+      <p>Adresse: {{facture.client!.adresse}}</p>
+      <p>Téléphone: {{facture.client!.tel}}</p>
+    </div>
+    <div class="col-md-6">
+      <h3>Informations facture</h3>
+      <p>Réference de facture: {{facture.reference}}</p>
+      <p>Date de facturation: {{facture.dateFacture}}</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <h3>Produits</h3>
+      <table class="table table-bordered">
+        <thead>
+        <tr>
+          <th>Code</th>
+          <th>Désignation</th>
+          <th>Quantité</th>
+          <th>Prix unitaire</th>
+          <th>Prix total</th>
+          <th>Remise</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let f of facture.lignesFacture">
+          <td>{{f.produit!.code}}</td>
+          <td>{{f.produit!.description}}</td>
+          <td>{{f.quantite}}</td>
+          <td>{{f.prixUnitaire | number:'1.3-3' }}</td>
+          <td>{{f.prixTotal | number:'1.3-3' }}</td>
+          <td>{{f.remise}}%</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+    </div>
+    <div class="col-md-6">
+      <h3>total</h3>
+      <p>Total brut HT: {{facture.montantHt}}</p>
+      <p>TVA 19% : {{ facture.montantHt! * (facture.tauxTVA! / 100) | number:'1.3-3'}}
+      <p>Droit de timbre : {{ facture.timbreFiscale | number:'1.3-3'}}
+      <p>Total TTC : {{ facture.montantTTC | number:'1.3-3'}}
+
+      </p>
+    </div>
+  </div>
+</div>
+-->
+<div class="col-md-4 text-right">
+  <button class="btn btn-success btn-block" (click)="openPDF()">
+    Download PDF
+  </button>
+</div>

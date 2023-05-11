@@ -1,0 +1,47 @@
+<div
+  class="alert alert-danger bg-danger text-light border-0 alert-dismissible fade show"
+  role="alert"
+  *ngIf="errorMessage.length > 0"
+>
+  <span *ngFor="let msg of errorMessage">{{ msg }} <br /></span>
+</div>
+<form>
+  <div class="form-group mb-3">
+    <label for="categoryName" class="form-label">Nom de catégorie :</label>
+    <input
+      type="text"
+      class="form-control"
+      id="categoryName"
+      name="nom"
+      placeholder="Entrez le nom de la catégorie"
+      [(ngModel)]="categorie.nom"
+    />
+  </div>
+  <div class="form-group mb-3">
+    <label for="categoryDescription" class="form-label"
+      >Description de catégorie :</label
+    >
+    <textarea
+      class="form-control"
+      id="categoryDescription"
+      rows="3"
+      name="description"
+      placeholder="Entrez la description de la catégorie"
+      [(ngModel)]="categorie.description"
+    >
+    </textarea>
+  </div>
+  <div class="form-group">
+    <button type="submit" class="btn btn-primary m-2" (click)="ajouter()">
+      Enregistrer
+    </button>
+    <button
+      type="button"
+      class="btn btn-danger"
+      [routerLink]="['/categorie']"
+      data-dismiss="modal"
+    >
+      Annuler
+    </button>
+  </div>
+</form>

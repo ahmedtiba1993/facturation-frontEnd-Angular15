@@ -3,6 +3,9 @@ import {FactureService} from "../../../services/facture/facture.service";
 import {ActivatedRoute} from "@angular/router";
 import {FactureDto} from "../../../api/models/facture-dto";
 import {PdfService} from "../../../services/pdf/pdf.service";
+import jsPDF from "jspdf";
+import * as pdfMake from 'pdfmake/build/pdfmake';
+import * as pdfFonts from "pdfmake/build/vfs_fonts";
 
 @Component({
   selector: 'app-details-facture',
@@ -10,13 +13,14 @@ import {PdfService} from "../../../services/pdf/pdf.service";
   styleUrls: ['./details-facture.component.css']
 })
 export class DetailsFactureComponent {
+
   idFacture : number = 0
   facture : FactureDto = {}
 
   constructor(
     private factureService : FactureService,
     private route: ActivatedRoute,
-    private pdfService : PdfService
+    private pdfService : PdfService,
   ) {
   }
 
@@ -35,6 +39,4 @@ export class DetailsFactureComponent {
 
       this.pdfService.downloadPDF(this.facture.reference!);
   }
-
-
 }

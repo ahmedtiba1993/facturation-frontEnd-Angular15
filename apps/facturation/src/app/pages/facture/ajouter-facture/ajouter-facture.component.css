@@ -1,0 +1,7 @@
+.cursor-pointer {
+  cursor: pointer;
+  border-bottom: solid gray;
+}
+.cursor-pointer:hover {
+  background-color: gold;
+}

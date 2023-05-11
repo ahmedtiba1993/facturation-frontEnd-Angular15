@@ -29,4 +29,9 @@ export class ProduitService {
   findById(idProdtuit : number):Observable<ProduitDto>{
     return this.produitService.findById({idProdtuit})
   }
+
+  filtre(page: number, size: number , nom : string , code: string , prixMin: number , prixMax: number):Observable<PageProduitDto>{
+    return this.produitService.filtrerProduits({page,size,nom , code , prixMin , prixMax});
+  }
+
 }

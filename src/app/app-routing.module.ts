@@ -13,6 +13,7 @@ import {FactureComponent} from "./pages/facture/facture.component";
 import {DetailsFactureComponent} from "./pages/facture/details-facture/details-facture.component";
 import {AjouterFactureComponent} from "./pages/facture/ajouter-facture/ajouter-facture.component";
 import {ProduitModifierComponent} from "./pages/produit/produit-modifier/produit-modifier.component";
+import {ModifierClientComponent} from "./pages/client/modifier-client/modifier-client.component";
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -48,6 +49,9 @@ const routes: Routes = [
       },
       {
         path: 'produit/:id', component : ProduitModifierComponent,
+      },
+      {
+        path: 'client/:id', component : ModifierClientComponent,
       },
     ]
   }];

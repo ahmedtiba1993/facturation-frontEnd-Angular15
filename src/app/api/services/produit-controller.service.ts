@@ -130,6 +130,80 @@ export class ProduitControllerService extends BaseService {
   }
 
   /**
+   * Path part for operation filtrerProduits
+   */
+  static readonly FiltrerProduitsPath = '/facturation/v1/prodtuit/filtrer';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `filtrerProduits()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  filtrerProduits$Response(params?: {
+    page?: number;
+    size?: number;
+    nom?: string;
+    code?: string;
+    prixMin?: number;
+    prixMax?: number;
+    stockMax?: number;
+    etatRemise?: boolean;
+  },
+  context?: HttpContext
+
+): Observable<StrictHttpResponse<PageProduitDto>> {
+
+    const rb = new RequestBuilder(this.rootUrl, ProduitControllerService.FiltrerProduitsPath, 'get');
+    if (params) {
+      rb.query('page', params.page, {});
+      rb.query('size', params.size, {});
+      rb.query('nom', params.nom, {});
+      rb.query('code', params.code, {});
+      rb.query('prixMin', params.prixMin, {});
+      rb.query('prixMax', params.prixMax, {});
+      rb.query('stockMax', params.stockMax, {});
+      rb.query('etatRemise', params.etatRemise, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json',
+      context: context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<PageProduitDto>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `filtrerProduits$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  filtrerProduits(params?: {
+    page?: number;
+    size?: number;
+    nom?: string;
+    code?: string;
+    prixMin?: number;
+    prixMax?: number;
+    stockMax?: number;
+    etatRemise?: boolean;
+  },
+  context?: HttpContext
+
+): Observable<PageProduitDto> {
+
+    return this.filtrerProduits$Response(params,context).pipe(
+      map((r: StrictHttpResponse<PageProduitDto>) => r.body as PageProduitDto)
+    );
+  }
+
+  /**
    * Path part for operation findAllPaginated
    */
   static readonly FindAllPaginatedPath = '/facturation/v1/prodtuit/allpaginated';

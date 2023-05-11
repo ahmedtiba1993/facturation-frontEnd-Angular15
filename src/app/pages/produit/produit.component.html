@@ -1,6 +1,62 @@
-<button type="button" routerLink="/ajouterProduit" class="btn btn-primary">Ajouter</button>
+<app-loader *ngIf="isLoading"></app-loader>
+<div class="card p-2 d-none d-md-block">
+  <button type="button" routerLink="/ajouterProduit" class="btn btn-primary">Ajouter</button>
+  <button class="btn btn-danger ms-2" (click)="toggleDivFiltre()">Filtre</button>
 
-<table class="table">
+  <div *ngIf="showDivFiltre" class="card mt-3">
+    <form>
+      <div class="row">
+        <div class="col">
+          <div class="form-group">
+            <label for="nom">Nom</label>
+            <input type="text" class="form-control" id="nom" name="nom" [(ngModel)]="nom">
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-group">
+            <label for="code">Code</label>
+            <input type="text" class="form-control" id="code" name="code" [(ngModel)]="code">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="form-group">
+            <label for="prixMin">Prix minimum</label>
+            <input type="number" class="form-control" id="prixMin" name="prixMin" [(ngModel)]="prixMin">
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-group">
+            <label for="prixMax">Prix maximum</label>
+            <input type="number" class="form-control" id="prixMax" name="prixMax" [(ngModel)]="prixMax">
+          </div>
+        </div>
+      </div>
+      <div class="form-group row mt-2">
+        <label for="etatRemise" class="col-sm-2 col-form-label">État de remise</label>
+        <div class="col-sm-3">
+          <select class="form-control" id="etatRemise" name="etatRemise">
+            <option value="">Choisir un état de remise</option>
+            <option value="true">Avec remise</option>
+            <option value="false">Sans remise</option>
+          </select>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary" (click)="filtre()">Rechercher</button>
+    </form>
+
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <h1 class="text-center text-primary title-underline"><u>Liste des produits</u></h1>
+      </div>
+    </div>
+  </div>
+  <div class="table-responsive">
+  <table class="table">
   <thead>
   <tr>
     <th scope="col">Code</th>
@@ -23,7 +79,7 @@
   </tr>
   </tbody>
 </table>
-
+  </div>
 <nav *ngIf="page" aria-label="Page navigation">
   <ul class="pagination">
     <li class="page-item" [class.disabled]="currentPage === 0">
@@ -50,8 +106,65 @@
     </li>
   </ul>
 </nav>
+</div>
 
+<div class="d-block d-md-none">
+  <!-- Contenu à afficher sur petit écran -->
+  <div class="card p-2">
+    <div class="container">
+      <button type="button" routerLink="/ajouterProduit" class="btn btn-primary">Ajouter</button>
+      <div class="row">
+        <div class="col">
+          <h1 class="text-center text-primary p-2 title-underline"><u>Liste des produits</u></h1>
+        </div>
+      </div>
+    </div>
+    <tbody>
+    <div class="row border-bottom border-primary pt-2" *ngFor="let p of listePrduits">
+      <div class="col">
+        <div><strong>Code:</strong></div>
+        <div>{{p.code}}</div>
+        <div><strong>Nom:</strong></div>
+        <div>{{p.nom}}</div>
+        <div><strong>Description:</strong></div>
+        <div>{{p.description!.length > 15 ? p.description!.substr(0, 15) + '...' : p.description}}</div>
+      </div>
+      <div class="col">
+        <div><strong>Remise:</strong></div>
+        <div>{{p.etatRemise ? 'Oui' : 'Non'}}</div>
+        <div><strong>Prix:</strong></div>
+        <div>{{p.prix}}</div>
+        <button class="btn btn-warning float-right" [routerLink]="['/produit', p.id]">Modifier</button>
+      </div>
+    </div>
+    </tbody>
+  </div>
+  <nav *ngIf="page" aria-label="Page navigation">
+    <ul class="pagination">
+      <li class="page-item" [class.disabled]="currentPage === 0">
+        <a class="page-link" href="javascript:void(0);" (click)="onPageChange({pageIndex: currentPage - 1, pageSize: pageSize})" aria-label="Previous">
+          <span aria-hidden="true">&laquo;</span>
+          <span class="sr-only">Previous</span>
+        </a>
+      </li>
 
+      <ng-container *ngFor="let i of pageNumbers()">
+        <li class="page-item" [class.active]="currentPage === i" *ngIf="i < 5 || i >= page.totalPages! - 2 || Math.abs(i - currentPage) < 2">
+          <a class="page-link" href="javascript:void(0);" (click)="onPageChange({pageIndex: i, pageSize: pageSize})">{{i + 1}}</a>
+        </li>
+        <li class="page-item disabled" *ngIf="i === currentPage+3 && currentPage + 3 < page.totalPages!">
+          <a class="page-link">...</a>
+        </li>
+      </ng-container>
 
+      <li class="page-item" [class.disabled]="currentPage === (page.totalPages ?? 0) - 1">
+        <a class="page-link" href="javascript:void(0);" (click)="onPageChange({pageIndex: currentPage + 1, pageSize: pageSize})" aria-label="Next">
+          <span aria-hidden="true">&raquo;</span>
+          <span class="sr-only">Next</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+</div>
 
 

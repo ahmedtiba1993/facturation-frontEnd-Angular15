@@ -130,6 +130,59 @@ export class FactureControllerService extends BaseService {
   }
 
   /**
+   * Path part for operation generatePdf
+   */
+  static readonly GeneratePdfPath = '/facturation/v1/facture/generate-pdf/{idFacture}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `generatePdf()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  generatePdf$Response(params: {
+    idFacture: number;
+  },
+  context?: HttpContext
+
+): Observable<StrictHttpResponse<Blob>> {
+
+    const rb = new RequestBuilder(this.rootUrl, FactureControllerService.GeneratePdfPath, 'get');
+    if (params) {
+      rb.path('idFacture', params.idFacture, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'blob',
+      accept: 'application/pdf',
+      context: context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<Blob>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `generatePdf$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  generatePdf(params: {
+    idFacture: number;
+  },
+  context?: HttpContext
+
+): Observable<Blob> {
+
+    return this.generatePdf$Response(params,context).pipe(
+      map((r: StrictHttpResponse<Blob>) => r.body as Blob)
+    );
+  }
+
+  /**
    * Path part for operation findAll1
    */
   static readonly FindAll1Path = '/facturation/v1/facture/all';

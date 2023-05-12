@@ -33,17 +33,17 @@ export class ProduitComponent {
   }
 
   findAllPaginated(){
-    this.isLoading = true
+    //this.isLoading = true
     this.produitService.findAllPagnated(this.currentPage, this.pageSize).subscribe(page => {
       this.page = page
       this.listePrduits = page.content!
-      this.isLoading = false
+      //this.isLoading = false
     });
   }
 
   filtre(){
     this.isLoading = true
-    this.produitService.filtre(this.currentPage, this.pageSize , this.nom! , this.code! , this.prixMin! , this.prixMax!).subscribe(page => {
+    this.produitService.filtre(this.currentPage, this.pageSize , this.nom! , this.code! , this.prixMin! , this.prixMax! , this.etatRemise!).subscribe(page => {
       this.page = page
       this.listePrduits = page.content!
       this.isLoading = false

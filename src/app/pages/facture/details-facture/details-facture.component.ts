@@ -39,4 +39,12 @@ export class DetailsFactureComponent {
 
       this.pdfService.downloadPDF(this.facture.reference!);
   }
+
+  openPDF2() {
+    this.factureService.generatePdf(this.idFacture).subscribe(data=>{
+      const file = new Blob([data], { type: 'application/pdf' });
+      const fileURL = URL.createObjectURL(file);
+      window.open(fileURL);
+    })
+  }
 }

@@ -1,4 +1,4 @@
-<app-loader *ngIf="isLoading"></app-loader>
+<app-loader2 *ngIf="isLoading"></app-loader2>
 <div class="card p-2 d-none d-md-block">
   <button type="button" routerLink="/ajouterProduit" class="btn btn-primary">Ajouter</button>
   <button class="btn btn-danger ms-2" (click)="toggleDivFiltre()">Filtre</button>
@@ -36,8 +36,8 @@
       <div class="form-group row mt-2">
         <label for="etatRemise" class="col-sm-2 col-form-label">État de remise</label>
         <div class="col-sm-3">
-          <select class="form-control" id="etatRemise" name="etatRemise">
-            <option value="">Choisir un état de remise</option>
+          <select class="form-control" id="etatRemise" name="etatRemise" [(ngModel)]="etatRemise">
+            <option disabled selected value="undefined">Choisir un état de remise</option>
             <option value="true">Avec remise</option>
             <option value="false">Sans remise</option>
           </select>

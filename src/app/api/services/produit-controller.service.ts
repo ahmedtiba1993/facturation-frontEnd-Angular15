@@ -147,7 +147,6 @@ export class ProduitControllerService extends BaseService {
     code?: string;
     prixMin?: number;
     prixMax?: number;
-    stockMax?: number;
     etatRemise?: boolean;
   },
   context?: HttpContext
@@ -162,7 +161,6 @@ export class ProduitControllerService extends BaseService {
       rb.query('code', params.code, {});
       rb.query('prixMin', params.prixMin, {});
       rb.query('prixMax', params.prixMax, {});
-      rb.query('stockMax', params.stockMax, {});
       rb.query('etatRemise', params.etatRemise, {});
     }
 
@@ -191,7 +189,6 @@ export class ProduitControllerService extends BaseService {
     code?: string;
     prixMin?: number;
     prixMax?: number;
-    stockMax?: number;
     etatRemise?: boolean;
   },
   context?: HttpContext

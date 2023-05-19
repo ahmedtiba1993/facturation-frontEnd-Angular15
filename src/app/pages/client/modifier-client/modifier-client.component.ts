@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
+import {ClientDto} from "../../../api/models/client-dto";
+import {ClientService} from "../../../services/client/client.service";
 
 @Component({
   selector: 'app-modifier-client',
@@ -9,17 +11,45 @@ import {ActivatedRoute, Router} from "@angular/router";
 export class ModifierClientComponent {
 
   idClient : number = 0
-  errorMessage: Array<String> = [];
+  client : ClientDto = {}
+  errorMessage : Array<string> = []
+  success : boolean = false
+  isLoading = false;
+  isButtonLoading:  boolean = false;
 
   constructor(
     private avtiveRoute : ActivatedRoute,
     private route : Router,
+    private clientService :ClientService,
   ) {
   }
 
   ngOnInit(){
     this.idClient = parseInt(<string>this.avtiveRoute.snapshot.paramMap.get('id'));
-
+    this.findClientById()
   }
 
+  findClientById(){
+    this.isLoading = true
+    this.clientService.findById(this.idClient).subscribe(data=>{
+      this.client = data
+      this.isLoading = false
+    })
+  }
+
+
+  modifierClient() {
+    this.isLoading = true
+    this.clientService.add(this.client).subscribe(data=>{
+      this.findClientById()
+      this.success = true
+      this.isLoading = false
+      this.errorMessage = []
+    },error=>{
+      this.success = false
+      this.isButtonLoading = false
+      this.errorMessage = error.error.errors
+      this.isLoading = false
+    })
+  }
 }

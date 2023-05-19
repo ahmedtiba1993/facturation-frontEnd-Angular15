@@ -21,7 +21,7 @@ export class ProduitComponent {
   code?: string;
   prixMin?: number;
   prixMax?: number;
-  etatRemise?: boolean;
+  etatRemise  = null;
 
   constructor(
     private produitService:ProduitService
@@ -43,6 +43,9 @@ export class ProduitComponent {
 
   filtre(){
     this.isLoading = true
+    if(this.etatRemise == "null"){
+      this.etatRemise = null
+    }
     this.produitService.filtre(this.currentPage, this.pageSize , this.nom! , this.code! , this.prixMin! , this.prixMax! , this.etatRemise!).subscribe(page => {
       this.page = page
       this.listePrduits = page.content!

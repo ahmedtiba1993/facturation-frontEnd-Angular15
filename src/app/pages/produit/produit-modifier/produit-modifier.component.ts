@@ -62,6 +62,7 @@ export class ProduitModifierComponent {
       this.success = true
       this.findProduit()
       this.isButtonLoading = false;
+      this.errorMessage = []
     },error=>{
       this.success = false
       this.isButtonLoading = false

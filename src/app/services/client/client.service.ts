@@ -24,4 +24,8 @@ export class ClientService {
   findAll():Observable<ClientDto[]>{
     return this.clientService.findAll2()
   }
+
+  findById(idClient : number):Observable<ClientDto>{
+    return this.clientService.findById2({idClient})
+  }
 }

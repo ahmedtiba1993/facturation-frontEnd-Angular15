@@ -24,6 +24,59 @@ export class FactureControllerService extends BaseService {
   }
 
   /**
+   * Path part for operation updateStatut
+   */
+  static readonly UpdateStatutPath = '/facturation/v1/facture/statutupdate/{idFacture}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `updateStatut()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  updateStatut$Response(params: {
+    idFacture: number;
+  },
+  context?: HttpContext
+
+): Observable<StrictHttpResponse<void>> {
+
+    const rb = new RequestBuilder(this.rootUrl, FactureControllerService.UpdateStatutPath, 'post');
+    if (params) {
+      rb.path('idFacture', params.idFacture, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'text',
+      accept: '*/*',
+      context: context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `updateStatut$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  updateStatut(params: {
+    idFacture: number;
+  },
+  context?: HttpContext
+
+): Observable<void> {
+
+    return this.updateStatut$Response(params,context).pipe(
+      map((r: StrictHttpResponse<void>) => r.body as void)
+    );
+  }
+
+  /**
    * Path part for operation save1
    */
   static readonly Save1Path = '/facturation/v1/facture/create';

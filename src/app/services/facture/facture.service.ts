@@ -29,4 +29,8 @@ export class FactureService {
   generatePdf(idFacture : number):Observable<Blob>{
     return this.factureService.generatePdf({idFacture});
   }
+
+  payé(idFacture : number):Observable<void>{
+    return this.factureService.updateStatut( {idFacture});
+  }
 }

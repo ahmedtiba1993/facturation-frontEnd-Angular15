@@ -16,6 +16,7 @@ export class FactureComponent {
   currentPage: number = 0;
   pageSize: number = 10;
   isLoading = false;
+  idFact : number =0;
 
   constructor(
     private factureService : FactureService,
@@ -55,4 +56,15 @@ export class FactureComponent {
   }
 
   protected readonly Math = Math;
+
+  updatePaymentStatus() {
+    this.factureService.payé(this.idFact).subscribe(data=>{
+      this.findAllPaginated()
+    });
+  }
+
+  setId(id: number | undefined) {
+    this.idFact = id!;
+  }
+
 }

@@ -3,6 +3,7 @@ import {Observable} from "rxjs";
 import {PageFactureDto} from "../../api/models/page-facture-dto";
 import {FactureControllerService} from "../../api/services/facture-controller.service";
 import {FactureDto} from "../../api/models/facture-dto";
+import {StrictHttpResponse} from "../../api/strict-http-response";
 
 @Injectable({
   providedIn: 'root'
@@ -23,5 +24,13 @@ export class FactureService {
 
   ajouter(facture : FactureDto):Observable<FactureDto>{
     return this.factureService.save1({body : facture})
+  }
+
+  generatePdf(idFacture : number):Observable<Blob>{
+    return this.factureService.generatePdf({idFacture});
+  }
+
+  payé(idFacture : number):Observable<void>{
+    return this.factureService.updateStatut( {idFacture});
   }
 }

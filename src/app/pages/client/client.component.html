@@ -10,6 +10,7 @@
 <table class="table">
   <thead>
   <tr>
+    <th scope="col">code</th>
     <th scope="col">Nom</th>
     <th scope="col">Prenom</th>
     <th scope="col">Nom commercial</th>
@@ -20,6 +21,7 @@
   </thead>
   <tbody>
   <tr *ngFor="let c of listeClients">
+    <td>{{c.code}}</td>
     <td>{{c.nom}}</td>
     <td>{{c.prenom}}</td>
     <td>{{c.nomCommercial}}</td>

@@ -86,9 +86,6 @@ export class AjouterFactureComponent {
   }
 
   ajouterProduitFacture() {
-
-   this.facture.paymentStatus = this.isPaid
-    console.log(this.facture.paymentStatus)
     let prix;
     if (this.searchProduit.etatRemise == true) {
       prix = (this.prixUtitaire * this.quantite) - ((this.prixUtitaire * this.quantite) * (this.client.remise! / 100));
@@ -148,6 +145,7 @@ export class AjouterFactureComponent {
   }
 
   save() {
+    this.facture.paymentStatus = this.isPaid
     this.facture.client = this.client
     this.facture.lignesFacture = this.listeProduitFacture
     this.factureService.ajouter(this.facture).subscribe(data=>{

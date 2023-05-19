@@ -1,5 +1,7 @@
-<div class="card text-black" #myDiv id="htmlData">
-  <div class="card-body">
+<app-loader2 *ngIf="isLoading"></app-loader2>
+
+<div class="card text-black d-none d-md-block" #myDiv id="htmlData">
+<div class="card-body">
     <div class="container mb-5 mt-3">
       <div class="row d-flex align-items-baseline">
         <div class="col-xl-9">
@@ -100,67 +102,65 @@
       </div>
     </div>
   </div>
-</div>
-
-
-<!--
-<div class="container" id="htmlData">
-  <div class="row">
-    <div class="col-md-6">
-      <h3>Informations client</h3>
-      <p>Nom:   {{facture.client!.nom}}</p>
-      <p>Adresse: {{facture.client!.adresse}}</p>
-      <p>Téléphone: {{facture.client!.tel}}</p>
-    </div>
-    <div class="col-md-6">
-      <h3>Informations facture</h3>
-      <p>Réference de facture: {{facture.reference}}</p>
-      <p>Date de facturation: {{facture.dateFacture}}</p>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-md-12">
-      <h3>Produits</h3>
-      <table class="table table-bordered">
-        <thead>
-        <tr>
-          <th>Code</th>
-          <th>Désignation</th>
-          <th>Quantité</th>
-          <th>Prix unitaire</th>
-          <th>Prix total</th>
-          <th>Remise</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let f of facture.lignesFacture">
-          <td>{{f.produit!.code}}</td>
-          <td>{{f.produit!.description}}</td>
-          <td>{{f.quantite}}</td>
-          <td>{{f.prixUnitaire | number:'1.3-3' }}</td>
-          <td>{{f.prixTotal | number:'1.3-3' }}</td>
-          <td>{{f.remise}}%</td>
-        </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-md-6">
-    </div>
-    <div class="col-md-6">
-      <h3>total</h3>
-      <p>Total brut HT: {{facture.montantHt}}</p>
-      <p>TVA 19% : {{ facture.montantHt! * (facture.tauxTVA! / 100) | number:'1.3-3'}}
-      <p>Droit de timbre : {{ facture.timbreFiscale | number:'1.3-3'}}
-      <p>Total TTC : {{ facture.montantTTC | number:'1.3-3'}}
-
-      </p>
-    </div>
+  <div class="col-md-4 text-right m-5">
+    <button class="btn btn-success btn-block" (click)="openPDF2()">Téléchargez PDF</button>
   </div>
 </div>
--->
-<div class="col-md-4 text-right">
-  <button class="btn btn-success btn-block" (click)="openPDF()">Download PDF</button>
-</div>
+<div class="d-block d-md-none">
+  <button type="button" class="btn btn-success" routerLink="/facture"> <i class="bi bi-arrow-left-circle-fill"></i> Retour</button>
+  <button class="btn btn-primary btn-block ms-2" (click)="openPDF2()"><i class="bi bi-download"></i> Télécharger en PDF</button>
+  <div class="container">
+    <div class="row">
+      <div class="card text-bg-primary mb-3" style="max-width: 18rem;">
+      </div>
+        <div class="card">
+          <h5 class="card-title">Facture</h5>
+          <div class="card-body">
+            <p><b>Facture : </b>{{facture.reference}}</p>
+            <p><b>Date : </b>{{facture.dateFacture}}</p>
+            <p><b>Total brut HT : </b>{{facture.montantHt | number:'1.3-3'}} TND</p>
+            <p><b>TVA 19 % : </b>{{ facture.montantHt! * (facture.tauxTVA! / 100) | number:'1.3-3'}} TND</p>
+            <p><b>Droit de timbre : </b>1.000 TND</p>
+            <p><b>Total TTC : </b>{{facture.montantTTC | number:'1.3-3'}} TND</p>
+          </div>
+        </div>
+        <div class="card">
+            <h2 class="card-title">Informations du client</h2>
+          <div class="card-body">
+            <div class="mb-4">
+              <p><b>Nom: </b>{{facture.client!.nomCommercial}}</p>
+              <p><b>Adresse: </b>{{facture.client!.adresse}}</p>
+              <p><b>MF : </b>{{facture.client!.code}}</p>
+            </div>
+          </div>
+        </div>
+          <div class="card">
+              <h2 class="card-title">Les produits</h2>
+            <div>
+              <div *ngFor="let f of facture.lignesFacture" class="row border-top border-secondary border-1 rounded pt-2">
+                <div class="col-6">
+                  <p><b>Code : </b>{{f.produit!.code}}</p>
+                </div>
+                <div class="col-6">
+                  <p><b>Quantite : </b>{{f.quantite}}</p>
+                </div>
+                <div class="col-6">
+                  <p><b>Prix Unitaire : </b>{{f.prixUnitaire | number:'1.3-3' }} TND</p>
+                </div>
+                <div class="col-6">
+                  <p>
+                    <b>Remise : </b><span *ngIf="f.produit!.etatRemise">{{f.remise}}%</span>
+                            <span *ngIf="!f.produit!.etatRemise">0%</span>
+                  </p>
+                </div>
+                <div class="col-6">
+                  <p> <b>Total HT :</b><br> {{f.prixTotal | number:'1.3-3' }} TND</p>
+                </div>
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+
+  </div>
 

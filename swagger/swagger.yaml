@@ -35,6 +35,21 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ProduitDto'
+  /facturation/v1/facture/statutupdate/{idFacture}:
+    post:
+      tags:
+        - facture-controller
+      operationId: updateStatut
+      parameters:
+        - name: idFacture
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
   /facturation/v1/facture/create:
     post:
       tags:
@@ -186,12 +201,6 @@ paths:
           schema:
             type: number
             format: double
-        - name: stockMax
-          in: query
-          required: false
-          schema:
-            type: integer
-            format: int32
         - name: etatRemise
           in: query
           required: false
@@ -264,6 +273,26 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/FactureDto'
+  /facturation/v1/facture/generate-pdf/{idFacture}:
+    get:
+      tags:
+        - facture-controller
+      operationId: generatePdf
+      parameters:
+        - name: idFacture
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            application/pdf:
+              schema:
+                type: string
+                format: binary
   /facturation/v1/facture/all:
     get:
       tags:

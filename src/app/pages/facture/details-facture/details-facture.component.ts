@@ -16,6 +16,7 @@ export class DetailsFactureComponent {
 
   idFacture : number = 0
   facture : FactureDto = {}
+  isLoading = false;
 
   constructor(
     private factureService : FactureService,
@@ -30,13 +31,18 @@ export class DetailsFactureComponent {
   }
 
   findByID(){
+    this.isLoading = true
     this.factureService.findById(this.idFacture).subscribe(data=>{
       this.facture = data
+      this.isLoading = false
     })
   }
 
-  openPDF(){
-
-      this.pdfService.downloadPDF(this.facture.reference!);
+  openPDF2() {
+    this.factureService.generatePdf(this.idFacture).subscribe(data=>{
+      const file = new Blob([data], { type: 'application/pdf' });
+      const fileURL = URL.createObjectURL(file);
+      window.open(fileURL);
+    })
   }
 }

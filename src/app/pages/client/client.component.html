@@ -88,7 +88,7 @@
           <div>{{c.tel}}</div>
           <div><strong>Remise:</strong></div>
           <div>{{c.remise}}</div>
-          <button class="btn btn-warning float-right">Modifier</button>
+          <td><button class="btn btn-warning" [routerLink]="['/client', c.id]">Modifier</button></td>
         </div>
       </div>
       </tbody>

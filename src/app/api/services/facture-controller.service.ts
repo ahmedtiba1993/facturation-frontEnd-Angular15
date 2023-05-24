@@ -249,6 +249,13 @@ export class FactureControllerService extends BaseService {
   findAll1$Response(params?: {
     page?: number;
     size?: number;
+    refFacture?: string;
+    minMontatnTTC?: number;
+    maxMontatnTTC?: number;
+    paymentStatus?: boolean;
+    idClient?: number;
+    dateDebut?: string;
+    dateFin?: string;
   },
   context?: HttpContext
 
@@ -258,6 +265,13 @@ export class FactureControllerService extends BaseService {
     if (params) {
       rb.query('page', params.page, {});
       rb.query('size', params.size, {});
+      rb.query('refFacture', params.refFacture, {});
+      rb.query('minMontatnTTC', params.minMontatnTTC, {});
+      rb.query('maxMontatnTTC', params.maxMontatnTTC, {});
+      rb.query('paymentStatus', params.paymentStatus, {});
+      rb.query('idClient', params.idClient, {});
+      rb.query('dateDebut', params.dateDebut, {});
+      rb.query('dateFin', params.dateFin, {});
     }
 
     return this.http.request(rb.build({
@@ -281,6 +295,13 @@ export class FactureControllerService extends BaseService {
   findAll1(params?: {
     page?: number;
     size?: number;
+    refFacture?: string;
+    minMontatnTTC?: number;
+    maxMontatnTTC?: number;
+    paymentStatus?: boolean;
+    idClient?: number;
+    dateDebut?: string;
+    dateFin?: string;
   },
   context?: HttpContext
 

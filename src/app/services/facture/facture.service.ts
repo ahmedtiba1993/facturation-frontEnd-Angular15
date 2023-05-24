@@ -14,8 +14,15 @@ export class FactureService {
     private factureService : FactureControllerService
   ) { }
 
-  getAll(page: number, size: number):Observable<PageFactureDto>{
-    return this.factureService.findAll1({page,size})
+  getAll(page: number, size: number ,
+         refFacture: string,
+          minMontatnTTC: number,
+          maxMontatnTTC: number,
+          paymentStatus: boolean,
+          idClient: number,
+          dateDebut: string,
+          dateFin?: string):Observable<PageFactureDto>{
+    return this.factureService.findAll1({page,size,refFacture,minMontatnTTC,maxMontatnTTC,paymentStatus,idClient,dateDebut,dateFin})
   }
 
   findById(idFacture : number):Observable<FactureDto>{

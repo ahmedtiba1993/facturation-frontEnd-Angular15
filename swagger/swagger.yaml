@@ -234,6 +234,26 @@
         }
       }
     },
+    "/facturation/v1/statistique/statique": {
+      "get": {
+        "tags": [
+          "facture-controller"
+        ],
+        "operationId": "getStatistique",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Statistique"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/facturation/v1/prodtuitid/{idProdtuit}": {
       "get": {
         "tags": [
@@ -1037,6 +1057,31 @@
           }
         }
       },
+      "Statistique": {
+        "type": "object",
+        "properties": {
+          "nbFactureNonPaye": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "montatPaye": {
+            "type": "number",
+            "format": "double"
+          },
+          "nbFacturePaye": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "montantNonPaye": {
+            "type": "number",
+            "format": "double"
+          },
+          "nbClient": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
       "PageProduitDto": {
         "type": "object",
         "properties": {
@@ -1065,9 +1110,6 @@
           "sort": {
             "$ref": "#/components/schemas/SortObject"
           },
-          "pageable": {
-            "$ref": "#/components/schemas/PageableObject"
-          },
           "first": {
             "type": "boolean"
           },
@@ -1077,6 +1119,9 @@
           "numberOfElements": {
             "type": "integer",
             "format": "int32"
+          },
+          "pageable": {
+            "$ref": "#/components/schemas/PageableObject"
           },
           "empty": {
             "type": "boolean"
@@ -1093,18 +1138,18 @@
           "sort": {
             "$ref": "#/components/schemas/SortObject"
           },
-          "pageSize": {
-            "type": "integer",
-            "format": "int32"
-          },
           "pageNumber": {
             "type": "integer",
             "format": "int32"
           },
-          "unpaged": {
-            "type": "boolean"
+          "pageSize": {
+            "type": "integer",
+            "format": "int32"
           },
           "paged": {
+            "type": "boolean"
+          },
+          "unpaged": {
             "type": "boolean"
           }
         }
@@ -1151,9 +1196,6 @@
           "sort": {
             "$ref": "#/components/schemas/SortObject"
           },
-          "pageable": {
-            "$ref": "#/components/schemas/PageableObject"
-          },
           "first": {
             "type": "boolean"
           },
@@ -1163,6 +1205,9 @@
           "numberOfElements": {
             "type": "integer",
             "format": "int32"
+          },
+          "pageable": {
+            "$ref": "#/components/schemas/PageableObject"
           },
           "empty": {
             "type": "boolean"
@@ -1197,9 +1242,6 @@
           "sort": {
             "$ref": "#/components/schemas/SortObject"
           },
-          "pageable": {
-            "$ref": "#/components/schemas/PageableObject"
-          },
           "first": {
             "type": "boolean"
           },
@@ -1209,6 +1251,9 @@
           "numberOfElements": {
             "type": "integer",
             "format": "int32"
+          },
+          "pageable": {
+            "$ref": "#/components/schemas/PageableObject"
           },
           "empty": {
             "type": "boolean"
@@ -1243,9 +1288,6 @@
           "sort": {
             "$ref": "#/components/schemas/SortObject"
           },
-          "pageable": {
-            "$ref": "#/components/schemas/PageableObject"
-          },
           "first": {
             "type": "boolean"
           },
@@ -1255,6 +1297,9 @@
           "numberOfElements": {
             "type": "integer",
             "format": "int32"
+          },
+          "pageable": {
+            "$ref": "#/components/schemas/PageableObject"
           },
           "empty": {
             "type": "boolean"

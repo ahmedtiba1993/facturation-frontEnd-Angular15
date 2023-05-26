@@ -25,6 +25,7 @@ import {NgxSpinnerModule} from "ngx-spinner";
 import { LoaderComponent } from './composants/loader/loader.component';
 import { Loader2Component } from './composants/loader2/loader2.component';
 import { ModifierClientComponent } from './pages/client/modifier-client/modifier-client.component';
+import { StatistiqueComponent } from './pages/statistique/statistique.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { ModifierClientComponent } from './pages/client/modifier-client/modifier
     ProduitModifierComponent,
     LoaderComponent,
     Loader2Component,
-    ModifierClientComponent
+    ModifierClientComponent,
+    StatistiqueComponent
   ],
   imports: [
     BrowserModule,

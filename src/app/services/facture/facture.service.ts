@@ -4,6 +4,7 @@ import {PageFactureDto} from "../../api/models/page-facture-dto";
 import {FactureControllerService} from "../../api/services/facture-controller.service";
 import {FactureDto} from "../../api/models/facture-dto";
 import {StrictHttpResponse} from "../../api/strict-http-response";
+import {Statistique} from "../../api/models/statistique";
 
 @Injectable({
   providedIn: 'root'
@@ -39,5 +40,9 @@ export class FactureService {
 
   payé(idFacture : number):Observable<void>{
     return this.factureService.updateStatut( {idFacture});
+  }
+
+  getStatistique():Observable<Statistique>{
+    return this.factureService.getStatistique()
   }
 }

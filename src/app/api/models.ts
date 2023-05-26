@@ -6,6 +6,7 @@ export { LigneFactureDto } from './models/ligne-facture-dto';
 export { RegisterRequest } from './models/register-request';
 export { AuthenticationResponse } from './models/authentication-response';
 export { AuthenticationRequest } from './models/authentication-request';
+export { Statistique } from './models/statistique';
 export { PageProduitDto } from './models/page-produit-dto';
 export { PageableObject } from './models/pageable-object';
 export { SortObject } from './models/sort-object';

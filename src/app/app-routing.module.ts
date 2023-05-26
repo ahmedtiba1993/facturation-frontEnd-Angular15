@@ -14,12 +14,16 @@ import {DetailsFactureComponent} from "./pages/facture/details-facture/details-f
 import {AjouterFactureComponent} from "./pages/facture/ajouter-facture/ajouter-facture.component";
 import {ProduitModifierComponent} from "./pages/produit/produit-modifier/produit-modifier.component";
 import {ModifierClientComponent} from "./pages/client/modifier-client/modifier-client.component";
+import {StatistiqueComponent} from "./pages/statistique/statistique.component";
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   {
     path: '', component: IndexComponent, canActivate: [GuardService],
     children: [
+      {
+        path: '', component: StatistiqueComponent,
+      },
       {
         path: 'produit', component: ProduitComponent,
       },

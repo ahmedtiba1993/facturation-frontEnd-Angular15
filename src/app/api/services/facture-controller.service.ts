@@ -11,6 +11,7 @@ import { map, filter } from 'rxjs/operators';
 
 import { FactureDto } from '../models/facture-dto';
 import { PageFactureDto } from '../models/page-facture-dto';
+import { Statistique } from '../models/statistique';
 
 @Injectable({
   providedIn: 'root',
@@ -126,6 +127,56 @@ export class FactureControllerService extends BaseService {
 
     return this.save1$Response(params,context).pipe(
       map((r: StrictHttpResponse<FactureDto>) => r.body as FactureDto)
+    );
+  }
+
+  /**
+   * Path part for operation getStatistique
+   */
+  static readonly GetStatistiquePath = '/facturation/v1/statistique/statique';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `getStatistique()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getStatistique$Response(params?: {
+  },
+  context?: HttpContext
+
+): Observable<StrictHttpResponse<Statistique>> {
+
+    const rb = new RequestBuilder(this.rootUrl, FactureControllerService.GetStatistiquePath, 'get');
+    if (params) {
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json',
+      context: context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<Statistique>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `getStatistique$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getStatistique(params?: {
+  },
+  context?: HttpContext
+
+): Observable<Statistique> {
+
+    return this.getStatistique$Response(params,context).pipe(
+      map((r: StrictHttpResponse<Statistique>) => r.body as Statistique)
     );
   }
 

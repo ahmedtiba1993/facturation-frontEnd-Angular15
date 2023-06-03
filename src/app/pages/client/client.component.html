@@ -11,8 +11,6 @@
   <thead>
   <tr>
     <th scope="col">code</th>
-    <th scope="col">Nom</th>
-    <th scope="col">Prenom</th>
     <th scope="col">Nom commercial</th>
     <th scope="col">adresse</th>
     <th scope="col">tel</th>
@@ -22,8 +20,6 @@
   <tbody>
   <tr *ngFor="let c of listeClients">
     <td>{{c.code}}</td>
-    <td>{{c.nom}}</td>
-    <td>{{c.prenom}}</td>
     <td>{{c.nomCommercial}}</td>
     <td>{{c.adresse}}</td>
     <td>{{c.tel}}</td>
@@ -76,10 +72,8 @@
       <tbody class="row">
       <div class="row border-bottom border-primary pt-2" *ngFor="let c of listeClients">
         <div class="col">
-          <div><strong>Nom:</strong></div>
-          <div>{{c.nom}}</div>
-          <div><strong>Prenom:</strong></div>
-          <div>{{c.prenom}}</div>
+          <div><strong>Code:</strong></div>
+          <div>{{c.code}}</div>
           <div><strong>Nom Commercial:</strong></div>
           <div>{{c.nomCommercial}}</div>
         </div>

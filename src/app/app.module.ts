@@ -26,6 +26,7 @@ import { LoaderComponent } from './composants/loader/loader.component';
 import { Loader2Component } from './composants/loader2/loader2.component';
 import { ModifierClientComponent } from './pages/client/modifier-client/modifier-client.component';
 import { StatistiqueComponent } from './pages/statistique/statistique.component';
+import { RecapClientComponent } from './pages/recap-client/recap-client.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { StatistiqueComponent } from './pages/statistique/statistique.component'
     LoaderComponent,
     Loader2Component,
     ModifierClientComponent,
-    StatistiqueComponent
+    StatistiqueComponent,
+    RecapClientComponent
   ],
   imports: [
     BrowserModule,

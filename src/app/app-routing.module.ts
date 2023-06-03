@@ -15,6 +15,7 @@ import {AjouterFactureComponent} from "./pages/facture/ajouter-facture/ajouter-f
 import {ProduitModifierComponent} from "./pages/produit/produit-modifier/produit-modifier.component";
 import {ModifierClientComponent} from "./pages/client/modifier-client/modifier-client.component";
 import {StatistiqueComponent} from "./pages/statistique/statistique.component";
+import {RecapClientComponent} from "./pages/recap-client/recap-client.component";
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -56,6 +57,9 @@ const routes: Routes = [
       },
       {
         path: 'client/:id', component : ModifierClientComponent,
+      },
+      {
+        path: 'recapClient', component : RecapClientComponent,
       },
     ]
   }];

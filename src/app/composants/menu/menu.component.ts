@@ -57,6 +57,12 @@ public menuProperties : Array<Menu> =[
         titre: "Liste des facures",
         icon: '',
         url: 'facture'
+      },
+      {
+        id: "62",
+        titre: "Recap Client",
+        icon: '',
+        url: 'recapClient'
       }
     ]
   }

@@ -29,7 +29,7 @@ export class AjouterFactureComponent {
   listeProduitFacture : LigneFactureDto[] = []
   isPaid = false;
   tva: number = 19;
-  timbre: any;
+  timbre: number = 1;
   totalHT: number = 0;
   totalTTC: number = 0;
   errorMessage : Array<string> = []
@@ -162,5 +162,15 @@ export class AjouterFactureComponent {
   handleChangeFalse() {
     this.isPaid = false;
     console.log(this.isPaid)
+  }
+
+  supprimerProdui(p: LigneFactureDto) {
+    this.totalHT = this.totalHT - p.prixTotal!
+    this.totalTTC = this.totalHT + (this.totalHT* (19/100))
+    this.listeProduitFacture = this.listeProduitFacture.filter(item => item !== p);
+    if(this.listeProduitFacture.length == 0 ){
+      this.totalTTC = 0
+    }
+
   }
 }

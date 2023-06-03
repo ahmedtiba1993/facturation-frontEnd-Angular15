@@ -3,7 +3,7 @@
 export interface Statistique {
   montantNonPaye?: number;
   montatPaye?: number;
+  nbClient?: number;
   nbFactureNonPaye?: number;
   nbFacturePaye?: number;
-  nbClient?: number;
 }

@@ -11,6 +11,7 @@ import { map, filter } from 'rxjs/operators';
 
 import { FactureDto } from '../models/facture-dto';
 import { PageFactureDto } from '../models/page-facture-dto';
+import { PageRecapClient } from '../models/page-recap-client';
 import { Statistique } from '../models/statistique';
 
 @Injectable({
@@ -177,6 +178,62 @@ export class FactureControllerService extends BaseService {
 
     return this.getStatistique$Response(params,context).pipe(
       map((r: StrictHttpResponse<Statistique>) => r.body as Statistique)
+    );
+  }
+
+  /**
+   * Path part for operation getRecapClient
+   */
+  static readonly GetRecapClientPath = '/facturation/v1/statistique/recapClient';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `getRecapClient()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getRecapClient$Response(params?: {
+    page?: number;
+    size?: number;
+  },
+  context?: HttpContext
+
+): Observable<StrictHttpResponse<PageRecapClient>> {
+
+    const rb = new RequestBuilder(this.rootUrl, FactureControllerService.GetRecapClientPath, 'get');
+    if (params) {
+      rb.query('page', params.page, {});
+      rb.query('size', params.size, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json',
+      context: context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<PageRecapClient>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `getRecapClient$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getRecapClient(params?: {
+    page?: number;
+    size?: number;
+  },
+  context?: HttpContext
+
+): Observable<PageRecapClient> {
+
+    return this.getRecapClient$Response(params,context).pipe(
+      map((r: StrictHttpResponse<PageRecapClient>) => r.body as PageRecapClient)
     );
   }
 

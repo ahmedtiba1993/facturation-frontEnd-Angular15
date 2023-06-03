@@ -86,7 +86,7 @@
       <td scope="row">{{f.reference}}</td>
       <td>{{f.dateFacture}}</td>
       <td>{{f.montantTTC | number:'1.3-3' }} TND</td>
-      <td>{{f.client!.nom}}  {{f.client!.prenom}}</td>
+      <td>{{f.client!.nomCommercial}}</td>
       <td *ngIf="f.paymentStatus"><span class="badge bg-success">Payé</span></td>
       <td *ngIf="!f.paymentStatus"><span class="badge bg-danger">Non payé</span></td>
       <td>

@@ -1,0 +1,112 @@
+<app-loader2 *ngIf="isLoading"></app-loader2>
+<div class="card p-2 d-none d-md-block">
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <h1 class="text-center text-primary title-underline"><u>Recap Client</u></h1>
+      </div>
+    </div>
+  </div>
+  <div class="table-responsive">
+    <table class="table">
+      <thead>
+      <tr>
+        <th scope="col">nom commercial</th>
+        <th scope="col">Nombre Facture</th>
+        <th scope="col">Montant Facture Payé</th>
+        <th scope="col">Montant Facture Non Payé</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let r of listRecap">
+        <td>{{r.nomCommercial}}</td>
+        <td>{{r.numFacture}}</td>
+        <td>{{(r.nmontantPaye == null ? 0 : r.nmontantPaye) | number:'1.3-3' }} TND</td>
+        <td>{{(r.nmontantNonPaye == null ? 0 : r.nmontantNonPaye) | number:'1.3-3' }} TND</td>
+
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <nav *ngIf="page" aria-label="Page navigation">
+    <ul class="pagination">
+      <li class="page-item" [class.disabled]="currentPage === 0">
+        <a class="page-link" href="javascript:void(0);" (click)="onPageChange({pageIndex: currentPage - 1, pageSize: pageSize})" aria-label="Previous">
+          <span aria-hidden="true">&laquo;</span>
+          <span class="sr-only">Previous</span>
+        </a>
+      </li>
+
+      <ng-container *ngFor="let i of pageNumbers()">
+        <li class="page-item" [class.active]="currentPage === i" *ngIf="i < 5 || i >= page.totalPages! - 2 || Math.abs(i - currentPage) < 2">
+          <a class="page-link" href="javascript:void(0);" (click)="onPageChange({pageIndex: i, pageSize: pageSize})">{{i + 1}}</a>
+        </li>
+        <li class="page-item disabled" *ngIf="i === currentPage+3 && currentPage + 3 < page.totalPages!">
+          <a class="page-link">...</a>
+        </li>
+      </ng-container>
+
+      <li class="page-item" [class.disabled]="currentPage === (page.totalPages ?? 0) - 1">
+        <a class="page-link" href="javascript:void(0);" (click)="onPageChange({pageIndex: currentPage + 1, pageSize: pageSize})" aria-label="Next">
+          <span aria-hidden="true">&raquo;</span>
+          <span class="sr-only">Next</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+</div>
+
+<div class="d-block d-md-none">
+  <!-- Contenu à afficher sur petit écran -->
+  <div class="card p-2">
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <h1 class="text-center text-primary title-underline"><u>Recap Client</u></h1>
+        </div>
+      </div>
+    </div>
+    <tbody>
+    <div class="row border-bottom border-primary pt-2" *ngFor="let r of listRecap">
+      <div class="col">
+        <div><strong>Code:</strong></div>
+        <div>{{r.nomCommercial}}</div>
+        <div><strong>Nombre Facture:</strong></div>
+        <div>{{r.numFacture}}</div>
+      </div>
+      <div class="col">
+        <div><strong>Montant Facture Payé</strong></div>
+        <div>{{(r.nmontantPaye == null ? 0 : r.nmontantPaye) | number:'1.3-3' }} TND</div>
+        <div><strong>Montant Facture Non Payé:</strong></div>
+        <div>{{(r.nmontantNonPaye == null ? 0 : r.nmontantNonPaye) | number:'1.3-3' }} TND</div>
+      </div>
+    </div>
+    </tbody>
+  </div>
+  <nav *ngIf="page" aria-label="Page navigation">
+    <ul class="pagination">
+      <li class="page-item" [class.disabled]="currentPage === 0">
+        <a class="page-link" href="javascript:void(0);" (click)="onPageChange({pageIndex: currentPage - 1, pageSize: pageSize})" aria-label="Previous">
+          <span aria-hidden="true">&laquo;</span>
+          <span class="sr-only">Previous</span>
+        </a>
+      </li>
+
+      <ng-container *ngFor="let i of pageNumbers()">
+        <li class="page-item" [class.active]="currentPage === i" *ngIf="i < 5 || i >= page.totalPages! - 2 || Math.abs(i - currentPage) < 2">
+          <a class="page-link" href="javascript:void(0);" (click)="onPageChange({pageIndex: i, pageSize: pageSize})">{{i + 1}}</a>
+        </li>
+        <li class="page-item disabled" *ngIf="i === currentPage+3 && currentPage + 3 < page.totalPages!">
+          <a class="page-link">...</a>
+        </li>
+      </ng-container>
+
+      <li class="page-item" [class.disabled]="currentPage === (page.totalPages ?? 0) - 1">
+        <a class="page-link" href="javascript:void(0);" (click)="onPageChange({pageIndex: currentPage + 1, pageSize: pageSize})" aria-label="Next">
+          <span aria-hidden="true">&raquo;</span>
+          <span class="sr-only">Next</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+</div>

@@ -5,6 +5,7 @@ import {FactureControllerService} from "../../api/services/facture-controller.se
 import {FactureDto} from "../../api/models/facture-dto";
 import {StrictHttpResponse} from "../../api/strict-http-response";
 import {Statistique} from "../../api/models/statistique";
+import {PageRecapClient} from "../../api/models/page-recap-client";
 
 @Injectable({
   providedIn: 'root'
@@ -44,5 +45,9 @@ export class FactureService {
 
   getStatistique():Observable<Statistique>{
     return this.factureService.getStatistique()
+  }
+
+  recapClient(page: number, size: number):Observable<PageRecapClient>{
+    return this.factureService.getRecapClient({page,size})
   }
 }

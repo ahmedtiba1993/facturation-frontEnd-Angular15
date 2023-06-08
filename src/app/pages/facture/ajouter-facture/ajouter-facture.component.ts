@@ -36,6 +36,8 @@ export class AjouterFactureComponent {
   errorClient = false;
   errorProduit : boolean = false;
   errorQnt : boolean = false;
+  remise : number = 0
+
   constructor(
     private factureService : FactureService,
     private clientService : ClientService,
@@ -68,16 +70,17 @@ export class AjouterFactureComponent {
     this.listProduitFiltrer = []
     this.prixUtitaire = p.prix
     this.quantite = 1
+    if(p.etatRemise){
+      this.remise = this.client.remise!
+    }else{
+      this.remise = 0
+    }
   }
 
   search() {
     if(this.codeProduit == ''){
       this.findAllProduit()
     }
-   /* this.listProduit = this.listProduit
-      .filter(
-        pro=> pro.code?.startsWith(this.codeProduit) || pro.nom?.startsWith(this.codeProduit)
-      )*/
     this.listProduitFiltrer = this.listProduit
     this.listProduitFiltrer = this.listProduitFiltrer
       .filter(
@@ -88,7 +91,7 @@ export class AjouterFactureComponent {
   ajouterProduitFacture() {
     let prix;
     if (this.searchProduit.etatRemise == true) {
-      prix = (this.prixUtitaire * this.quantite) - ((this.prixUtitaire * this.quantite) * (this.client.remise! / 100));
+      prix = (this.prixUtitaire * this.quantite) - ((this.prixUtitaire * this.quantite) * (this.remise! / 100));
     }else{
         prix = (this.prixUtitaire * this.quantite);
     }
@@ -96,7 +99,8 @@ export class AjouterFactureComponent {
       produit : this.searchProduit,
       quantite : this.quantite,
       prixUnitaire : this.prixUtitaire,
-      prixTotal : prix
+      prixTotal : prix,
+      remise : this.remise
     }
     if (this.client.id == null) {
       this.errorClient = true;

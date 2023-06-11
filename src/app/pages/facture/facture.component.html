@@ -1,6 +1,8 @@
 <div class="card p-2 d-none d-md-block">
   <button type="button" routerLink="/ajouterFacture" class="btn btn-primary">Ajouter</button>
   <button class="btn btn-danger ms-2" (click)="toggleDivFiltre()">Filtre</button>
+  <button class="btn btn-success ms-2" (click)="pdf()"><i class="bi bi-file-earmark-pdf"></i>Telecherger PDF ({{ids.length}}) </button>
+
   <div *ngIf="showDivFiltre" class="card mt-3">
     <form>
       <div class="row">
@@ -26,9 +28,9 @@
       <div class="row">
         <div class="col-md-4">
           <div class="form-group mt-2">
-            <label for="status" class="col-form-label">Statut de payement</label>
+            <label for="statusA" class="col-form-label">Statut de payement</label>
             <div>
-              <select class="form-control" id="status" name="status" [(ngModel)]="paymentStatus">
+              <select class="form-control" id="statusA" name="status" [(ngModel)]="paymentStatus">
                 <option selected value="null">Choisir un status de payement</option>
                 <option value="true">Payé</option>
                 <option value="false">Non Payé</option>
@@ -64,7 +66,7 @@
 
         </div>
       </div>
-      <button type="submit" class="btn btn-success mt-2" (click)="findAllPaginated()">Rechercher</button>
+      <button type="submit" class="btn btn-success mt-2" (click)="findWidthFiltre()">Rechercher</button>
     </form>
   </div>
   <h2>Liste des factures</h2>
@@ -72,6 +74,7 @@
   <table class="table text-center">
     <thead>
     <tr>
+      <th>Select</th>
       <th>Référence</th>
       <th>Date de facture</th>
       <th>Montant TTC</th>
@@ -83,6 +86,7 @@
     </thead>
     <tbody>
     <tr *ngFor="let f of listeFacture">
+      <td><input class="form-check-input" type="checkbox" [value]="f.id" (click)="ajouterListIdFacture(f.id!)" [checked]="ids.includes(f.id!)"></td>
       <td scope="row">{{f.reference}}</td>
       <td>{{f.dateFacture}}</td>
       <td>{{f.montantTTC | number:'1.3-3' }} TND</td>
@@ -156,6 +160,8 @@
     <div class="container">
       <button type="button" routerLink="/ajouterFacture" class="btn btn-primary">Ajouter</button>
       <button class="btn btn-danger ms-2" (click)="toggleDivFiltre()">Filtre</button>
+      <button class="btn btn-success ms-2" (click)="pdf()"><i class="bi bi-file-earmark-pdf"></i>PDF ({{ids.length}}) </button>
+
       <div *ngIf="showDivFiltre" class="card mt-3">
         <form>
             <div class="col">
@@ -245,6 +251,7 @@
         <button *ngIf="!f.paymentStatus" type="button" class="btn btn-success mt-3 ms-2" (click)="setId(f.id)" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
           Payé
         </button>
+        <input class="form-check-input mt-4 ms-2" style="width: 25px; height: 25px" type="checkbox" [value]="f.id" (click)="ajouterListIdFacture(f.id!)" [checked]="ids.includes(f.id!)">
       </div>
     </div>
     </tbody>

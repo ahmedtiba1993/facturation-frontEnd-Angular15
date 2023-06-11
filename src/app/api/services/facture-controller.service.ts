@@ -293,7 +293,7 @@ export class FactureControllerService extends BaseService {
   /**
    * Path part for operation generatePdf
    */
-  static readonly GeneratePdfPath = '/facturation/v1/facture/generate-pdf/{idFacture}';
+  static readonly GeneratePdfPath = '/facturation/v1/facture/generate-pdf';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
@@ -302,7 +302,7 @@ export class FactureControllerService extends BaseService {
    * This method doesn't expect any request body.
    */
   generatePdf$Response(params: {
-    idFacture: number;
+    ids: Array<number>;
   },
   context?: HttpContext
 
@@ -310,12 +310,12 @@ export class FactureControllerService extends BaseService {
 
     const rb = new RequestBuilder(this.rootUrl, FactureControllerService.GeneratePdfPath, 'get');
     if (params) {
-      rb.path('idFacture', params.idFacture, {});
+      rb.query('ids', params.ids, {});
     }
 
     return this.http.request(rb.build({
       responseType: 'blob',
-      accept: 'application/pdf',
+      accept: '*/*',
       context: context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
@@ -332,7 +332,7 @@ export class FactureControllerService extends BaseService {
    * This method doesn't expect any request body.
    */
   generatePdf(params: {
-    idFacture: number;
+    ids: Array<number>;
   },
   context?: HttpContext
 

@@ -17,6 +17,7 @@ export class DetailsFactureComponent {
   idFacture : number = 0
   facture : FactureDto = {}
   isLoading = false;
+  ids : Array<number> = []
 
   constructor(
     private factureService : FactureService,
@@ -28,6 +29,7 @@ export class DetailsFactureComponent {
   ngOnInit() {
     this.idFacture = parseInt(<string>this.route.snapshot.paramMap.get('id'));
     this.findByID()
+    this.ids.push(this.idFacture)
   }
 
   findByID(){
@@ -39,7 +41,7 @@ export class DetailsFactureComponent {
   }
 
   openPDF2() {
-    this.factureService.generatePdf(this.idFacture).subscribe(data=>{
+    this.factureService.generatePdf(this.ids).subscribe(data=>{
       const file = new Blob([data], { type: 'application/pdf' });
       const fileURL = URL.createObjectURL(file);
       window.open(fileURL);

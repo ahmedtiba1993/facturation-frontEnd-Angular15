@@ -35,8 +35,8 @@ export class FactureService {
     return this.factureService.save1({body : facture})
   }
 
-  generatePdf(idFacture : number):Observable<Blob>{
-    return this.factureService.generatePdf({idFacture});
+  generatePdf(ids: Array<number>):Observable<Blob>{
+    return this.factureService.generatePdf({ids});
   }
 
   payé(idFacture : number):Observable<void>{

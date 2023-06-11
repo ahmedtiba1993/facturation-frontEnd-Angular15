@@ -22,6 +22,7 @@ export class FactureComponent {
   idFact : number =0;
   showDivFiltre = false;
   listClient : Array<ClientDto> = []
+  ids : Array<number> = []
 
   //filtre
   refFacture?: string;
@@ -101,5 +102,28 @@ export class FactureComponent {
   }
   toggleDivFiltre() {
     this.showDivFiltre = !this.showDivFiltre;
+  }
+
+  ajouterListIdFacture(id:number) {
+    if(this.ids.indexOf(id) == -1){
+      this.ids.push(id)
+    }else{
+      const newIds = this.ids.filter(item => item !== id);
+      this.ids = newIds
+    }
+    console.log(this.ids)
+  }
+
+  pdf() {
+    this.factureService.generatePdf(this.ids).subscribe(data=>{
+      const file = new Blob([data], { type: 'application/pdf' });
+      const fileURL = URL.createObjectURL(file);
+      window.open(fileURL);
+    })
+  }
+
+  findWidthFiltre() {
+    this.findAllPaginated()
+    this.ids = []
   }
 }

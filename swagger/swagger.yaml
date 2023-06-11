@@ -507,7 +507,7 @@
         }
       }
     },
-    "/facturation/v1/facture/generate-pdf/{idFacture}": {
+    "/facturation/v1/facture/generate-pdf": {
       "get": {
         "tags": [
           "facture-controller"
@@ -515,12 +515,15 @@
         "operationId": "generatePdf",
         "parameters": [
           {
-            "name": "idFacture",
-            "in": "path",
+            "name": "ids",
+            "in": "query",
             "required": true,
             "schema": {
-              "type": "integer",
-              "format": "int64"
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "format": "int64"
+              }
             }
           }
         ],
@@ -528,7 +531,7 @@
           "200": {
             "description": "OK",
             "content": {
-              "application/pdf": {
+              "*/*": {
                 "schema": {
                   "type": "string",
                   "format": "binary"
@@ -1102,15 +1105,7 @@
       "Statistique": {
         "type": "object",
         "properties": {
-          "montatPaye": {
-            "type": "number",
-            "format": "double"
-          },
-          "montantNonPaye": {
-            "type": "number",
-            "format": "double"
-          },
-          "nbFacturePaye": {
+          "nbFactureNonPaye": {
             "type": "integer",
             "format": "int32"
           },
@@ -1118,9 +1113,17 @@
             "type": "integer",
             "format": "int32"
           },
-          "nbFactureNonPaye": {
+          "nbFacturePaye": {
             "type": "integer",
             "format": "int32"
+          },
+          "montatPaye": {
+            "type": "number",
+            "format": "double"
+          },
+          "montantNonPaye": {
+            "type": "number",
+            "format": "double"
           }
         }
       },
@@ -1152,15 +1155,15 @@
           "sort": {
             "$ref": "#/components/schemas/SortObject"
           },
-          "numberOfElements": {
-            "type": "integer",
-            "format": "int32"
-          },
           "first": {
             "type": "boolean"
           },
           "last": {
             "type": "boolean"
+          },
+          "numberOfElements": {
+            "type": "integer",
+            "format": "int32"
           },
           "pageable": {
             "$ref": "#/components/schemas/PageableObject"
@@ -1180,11 +1183,11 @@
           "sort": {
             "$ref": "#/components/schemas/SortObject"
           },
-          "pageSize": {
+          "pageNumber": {
             "type": "integer",
             "format": "int32"
           },
-          "pageNumber": {
+          "pageSize": {
             "type": "integer",
             "format": "int32"
           },
@@ -1206,23 +1209,23 @@
           "nomCommercial": {
             "type": "string"
           },
-          "nmontantNonPaye": {
-            "type": "number",
-            "format": "double"
+          "idClient": {
+            "type": "integer",
+            "format": "int64"
           },
           "nmontantPaye": {
             "type": "number",
             "format": "double"
           },
-          "idClient": {
-            "type": "integer",
-            "format": "int64"
+          "nomClient": {
+            "type": "string"
           },
           "prenomClient": {
             "type": "string"
           },
-          "nomClient": {
-            "type": "string"
+          "nmontantNonPaye": {
+            "type": "number",
+            "format": "double"
           }
         }
       },
@@ -1268,15 +1271,15 @@
           "sort": {
             "$ref": "#/components/schemas/SortObject"
           },
-          "numberOfElements": {
-            "type": "integer",
-            "format": "int32"
-          },
           "first": {
             "type": "boolean"
           },
           "last": {
             "type": "boolean"
+          },
+          "numberOfElements": {
+            "type": "integer",
+            "format": "int32"
           },
           "pageable": {
             "$ref": "#/components/schemas/PageableObject"
@@ -1314,15 +1317,15 @@
           "sort": {
             "$ref": "#/components/schemas/SortObject"
           },
-          "numberOfElements": {
-            "type": "integer",
-            "format": "int32"
-          },
           "first": {
             "type": "boolean"
           },
           "last": {
             "type": "boolean"
+          },
+          "numberOfElements": {
+            "type": "integer",
+            "format": "int32"
           },
           "pageable": {
             "$ref": "#/components/schemas/PageableObject"
@@ -1360,15 +1363,15 @@
           "sort": {
             "$ref": "#/components/schemas/SortObject"
           },
-          "numberOfElements": {
-            "type": "integer",
-            "format": "int32"
-          },
           "first": {
             "type": "boolean"
           },
           "last": {
             "type": "boolean"
+          },
+          "numberOfElements": {
+            "type": "integer",
+            "format": "int32"
           },
           "pageable": {
             "$ref": "#/components/schemas/PageableObject"
@@ -1406,15 +1409,15 @@
           "sort": {
             "$ref": "#/components/schemas/SortObject"
           },
-          "numberOfElements": {
-            "type": "integer",
-            "format": "int32"
-          },
           "first": {
             "type": "boolean"
           },
           "last": {
             "type": "boolean"
+          },
+          "numberOfElements": {
+            "type": "integer",
+            "format": "int32"
           },
           "pageable": {
             "$ref": "#/components/schemas/PageableObject"

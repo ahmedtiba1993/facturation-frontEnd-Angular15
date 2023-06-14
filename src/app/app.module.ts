@@ -27,6 +27,7 @@ import { Loader2Component } from './composants/loader2/loader2.component';
 import { ModifierClientComponent } from './pages/client/modifier-client/modifier-client.component';
 import { StatistiqueComponent } from './pages/statistique/statistique.component';
 import { RecapClientComponent } from './pages/recap-client/recap-client.component';
+import { SpinnerComponent } from './composants/spinner/spinner.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { RecapClientComponent } from './pages/recap-client/recap-client.componen
     Loader2Component,
     ModifierClientComponent,
     StatistiqueComponent,
-    RecapClientComponent
+    RecapClientComponent,
+    SpinnerComponent
   ],
   imports: [
     BrowserModule,

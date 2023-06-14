@@ -50,4 +50,13 @@ export class FactureService {
   recapClient(page: number, size: number):Observable<PageRecapClient>{
     return this.factureService.getRecapClient({page,size})
   }
+  findAllIds(refFacture: string,
+         minMontatnTTC: number,
+         maxMontatnTTC: number,
+         paymentStatus: boolean,
+         idClient: number,
+         dateDebut: string,
+         dateFin?: string):Observable<Array<number>>{
+    return this.factureService.findAllIds({refFacture,minMontatnTTC,maxMontatnTTC,paymentStatus,idClient,dateDebut,dateFin})
+  }
 }

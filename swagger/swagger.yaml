@@ -645,6 +645,93 @@
         }
       }
     },
+    "/facturation/v1/facture/allIds": {
+      "get": {
+        "tags": [
+          "facture-controller"
+        ],
+        "operationId": "findAllIds",
+        "parameters": [
+          {
+            "name": "refFacture",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "minMontatnTTC",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "format": "double"
+            }
+          },
+          {
+            "name": "maxMontatnTTC",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "format": "double"
+            }
+          },
+          {
+            "name": "paymentStatus",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "idClient",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "dateDebut",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "dateFin",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "integer",
+                    "format": "int64"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/facturation/v1/client/id/{idClient}": {
       "get": {
         "tags": [
@@ -1109,17 +1196,17 @@
             "type": "integer",
             "format": "int32"
           },
-          "nbClient": {
-            "type": "integer",
-            "format": "int32"
+          "montatPaye": {
+            "type": "number",
+            "format": "double"
           },
           "nbFacturePaye": {
             "type": "integer",
             "format": "int32"
           },
-          "montatPaye": {
-            "type": "number",
-            "format": "double"
+          "nbClient": {
+            "type": "integer",
+            "format": "int32"
           },
           "montantNonPaye": {
             "type": "number",
@@ -1161,12 +1248,12 @@
           "last": {
             "type": "boolean"
           },
+          "pageable": {
+            "$ref": "#/components/schemas/PageableObject"
+          },
           "numberOfElements": {
             "type": "integer",
             "format": "int32"
-          },
-          "pageable": {
-            "$ref": "#/components/schemas/PageableObject"
           },
           "empty": {
             "type": "boolean"
@@ -1183,11 +1270,11 @@
           "sort": {
             "$ref": "#/components/schemas/SortObject"
           },
-          "pageNumber": {
+          "pageSize": {
             "type": "integer",
             "format": "int32"
           },
-          "pageSize": {
+          "pageNumber": {
             "type": "integer",
             "format": "int32"
           },
@@ -1213,19 +1300,19 @@
             "type": "integer",
             "format": "int64"
           },
+          "nmontantNonPaye": {
+            "type": "number",
+            "format": "double"
+          },
+          "prenomClient": {
+            "type": "string"
+          },
           "nmontantPaye": {
             "type": "number",
             "format": "double"
           },
           "nomClient": {
             "type": "string"
-          },
-          "prenomClient": {
-            "type": "string"
-          },
-          "nmontantNonPaye": {
-            "type": "number",
-            "format": "double"
           }
         }
       },
@@ -1277,12 +1364,12 @@
           "last": {
             "type": "boolean"
           },
+          "pageable": {
+            "$ref": "#/components/schemas/PageableObject"
+          },
           "numberOfElements": {
             "type": "integer",
             "format": "int32"
-          },
-          "pageable": {
-            "$ref": "#/components/schemas/PageableObject"
           },
           "empty": {
             "type": "boolean"
@@ -1323,12 +1410,12 @@
           "last": {
             "type": "boolean"
           },
+          "pageable": {
+            "$ref": "#/components/schemas/PageableObject"
+          },
           "numberOfElements": {
             "type": "integer",
             "format": "int32"
-          },
-          "pageable": {
-            "$ref": "#/components/schemas/PageableObject"
           },
           "empty": {
             "type": "boolean"
@@ -1369,12 +1456,12 @@
           "last": {
             "type": "boolean"
           },
+          "pageable": {
+            "$ref": "#/components/schemas/PageableObject"
+          },
           "numberOfElements": {
             "type": "integer",
             "format": "int32"
-          },
-          "pageable": {
-            "$ref": "#/components/schemas/PageableObject"
           },
           "empty": {
             "type": "boolean"
@@ -1415,12 +1502,12 @@
           "last": {
             "type": "boolean"
           },
+          "pageable": {
+            "$ref": "#/components/schemas/PageableObject"
+          },
           "numberOfElements": {
             "type": "integer",
             "format": "int32"
-          },
-          "pageable": {
-            "$ref": "#/components/schemas/PageableObject"
           },
           "empty": {
             "type": "boolean"

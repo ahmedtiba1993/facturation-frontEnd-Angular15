@@ -420,4 +420,75 @@ export class FactureControllerService extends BaseService {
     );
   }
 
+  /**
+   * Path part for operation findAllIds
+   */
+  static readonly FindAllIdsPath = '/facturation/v1/facture/allIds';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `findAllIds()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  findAllIds$Response(params?: {
+    refFacture?: string;
+    minMontatnTTC?: number;
+    maxMontatnTTC?: number;
+    paymentStatus?: boolean;
+    idClient?: number;
+    dateDebut?: string;
+    dateFin?: string;
+  },
+  context?: HttpContext
+
+): Observable<StrictHttpResponse<Array<number>>> {
+
+    const rb = new RequestBuilder(this.rootUrl, FactureControllerService.FindAllIdsPath, 'get');
+    if (params) {
+      rb.query('refFacture', params.refFacture, {});
+      rb.query('minMontatnTTC', params.minMontatnTTC, {});
+      rb.query('maxMontatnTTC', params.maxMontatnTTC, {});
+      rb.query('paymentStatus', params.paymentStatus, {});
+      rb.query('idClient', params.idClient, {});
+      rb.query('dateDebut', params.dateDebut, {});
+      rb.query('dateFin', params.dateFin, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json',
+      context: context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<Array<number>>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `findAllIds$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  findAllIds(params?: {
+    refFacture?: string;
+    minMontatnTTC?: number;
+    maxMontatnTTC?: number;
+    paymentStatus?: boolean;
+    idClient?: number;
+    dateDebut?: string;
+    dateFin?: string;
+  },
+  context?: HttpContext
+
+): Observable<Array<number>> {
+
+    return this.findAllIds$Response(params,context).pipe(
+      map((r: StrictHttpResponse<Array<number>>) => r.body as Array<number>)
+    );
+  }
+
 }

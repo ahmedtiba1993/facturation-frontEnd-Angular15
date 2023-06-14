@@ -11,6 +11,7 @@ import {Statistique} from "../../api/models/statistique";
 export class StatistiqueComponent {
 
   statistique : Statistique = {}
+  isLoading: boolean = true;
   constructor(
     private factureService : FactureService,
   ) {
@@ -23,6 +24,7 @@ export class StatistiqueComponent {
   get(){
     this.factureService.getStatistique().subscribe(data=>{
       this.statistique = data
+      this.isLoading = false
     })
   }
 }

@@ -126,4 +126,25 @@ export class FactureComponent {
     this.findAllPaginated()
     this.ids = []
   }
+
+  findAllIds(){
+    if(this.ids.length>0){
+      this.ids = []
+      return;
+    }
+    if(this.paymentStatus! == "null") {
+      this.paymentStatus = null
+    }
+    let dateStringDebut = "";
+    let dateStringFin = "";
+    if (this.dateDebut != null) {
+      dateStringDebut = formatDate(this.dateDebut!, 'yyyy-MM-dd', 'en-US')
+    }
+    if (this.dateFin != null) {
+      dateStringFin = formatDate(this.dateFin!, 'yyyy-MM-dd', 'en-US')
+    }
+    this.factureService.findAllIds(this.refFacture!,this.minMontatnTTC!,this.maxMontatnTTC!,this.paymentStatus!,this.client.id!,dateStringDebut,dateStringFin).subscribe(data => {
+      this.ids = data
+    })
+  }
 }

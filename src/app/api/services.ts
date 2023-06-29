@@ -1,3 +1,4 @@
+export { UserControllerService } from './services/user-controller.service';
 export { ProduitControllerService } from './services/produit-controller.service';
 export { FactureControllerService } from './services/facture-controller.service';
 export { ClientControllerService } from './services/client-controller.service';

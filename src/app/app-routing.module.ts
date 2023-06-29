@@ -16,6 +16,7 @@ import {ProduitModifierComponent} from "./pages/produit/produit-modifier/produit
 import {ModifierClientComponent} from "./pages/client/modifier-client/modifier-client.component";
 import {StatistiqueComponent} from "./pages/statistique/statistique.component";
 import {RecapClientComponent} from "./pages/recap-client/recap-client.component";
+import {UserProfilComponent} from "./pages/user-profil/user-profil.component";
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -24,6 +25,9 @@ const routes: Routes = [
     children: [
       {
         path: '', component: StatistiqueComponent,
+      },
+      {
+        path: 'profil', component: UserProfilComponent,
       },
       {
         path: 'produit', component: ProduitComponent,

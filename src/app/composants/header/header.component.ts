@@ -1,5 +1,7 @@
 import {Component, Inject} from '@angular/core';
 import {DOCUMENT} from "@angular/common";
+import {UserService} from "../../services/user/user.service";
+import {User} from "../../api/models/user";
 
 @Component({
   selector: 'app-header',
@@ -8,9 +10,15 @@ import {DOCUMENT} from "@angular/common";
 })
 export class HeaderComponent {
 
-  constructor(@Inject(DOCUMENT) private document: Document) { }
+  userConnected : User = this.userService.getUser()
+
+  constructor(@Inject(DOCUMENT) private document: Document,
+              private userService:UserService,
+  ) {
+  }
 
   ngOnInit(): void {
+    this.userConnected = this.userService.getUser()
   }
   sidebarToggle()
   {

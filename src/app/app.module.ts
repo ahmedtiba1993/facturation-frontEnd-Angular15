@@ -29,6 +29,7 @@ import { StatistiqueComponent } from './pages/statistique/statistique.component'
 import { RecapClientComponent } from './pages/recap-client/recap-client.component';
 import { SpinnerComponent } from './composants/spinner/spinner.component';
 import { UserProfilComponent } from './pages/user-profil/user-profil.component';
+import { SettingComponent } from './pages/setting/setting.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,8 @@ import { UserProfilComponent } from './pages/user-profil/user-profil.component';
     StatistiqueComponent,
     RecapClientComponent,
     SpinnerComponent,
-    UserProfilComponent
+    UserProfilComponent,
+    SettingComponent
   ],
   imports: [
     BrowserModule,

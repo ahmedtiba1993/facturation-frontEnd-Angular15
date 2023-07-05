@@ -9,12 +9,12 @@ import { RequestBuilder } from '../request-builder';
 import { Observable } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 
-import { User } from '../models/user';
+import { TimbreFiscalDto } from '../models/timbre-fiscal-dto';
 
 @Injectable({
   providedIn: 'root',
 })
-export class UserControllerService extends BaseService {
+export class TimbreFiscaleControllerService extends BaseService {
   constructor(
     config: ApiConfiguration,
     http: HttpClient
@@ -23,19 +23,18 @@ export class UserControllerService extends BaseService {
   }
 
   /**
-   * Path part for operation changePassword
+   * Path part for operation updateTimbre
    */
-  static readonly ChangePasswordPath = '/facturation/v1/user/changePassword';
+  static readonly UpdateTimbrePath = '/facturation/v1/timbre/updateTimbre';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `changePassword()` instead.
+   * To access only the response body, use `updateTimbre()` instead.
    *
    * This method doesn't expect any request body.
    */
-  changePassword$Response(params: {
-    id: number;
-    newPassword: string;
+  updateTimbre$Response(params: {
+    montant: number;
   },
   context?: HttpContext
 
@@ -44,10 +43,9 @@ export class UserControllerService extends BaseService {
 };
 }>> {
 
-    const rb = new RequestBuilder(this.rootUrl, UserControllerService.ChangePasswordPath, 'post');
+    const rb = new RequestBuilder(this.rootUrl, TimbreFiscaleControllerService.UpdateTimbrePath, 'post');
     if (params) {
-      rb.query('id', params.id, {});
-      rb.query('newPassword', params.newPassword, {});
+      rb.query('montant', params.montant, {});
     }
 
     return this.http.request(rb.build({
@@ -67,13 +65,12 @@ export class UserControllerService extends BaseService {
 
   /**
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `changePassword$Response()` instead.
+   * To access the full response (for headers, for example), `updateTimbre$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  changePassword(params: {
-    id: number;
-    newPassword: string;
+  updateTimbre(params: {
+    montant: number;
   },
   context?: HttpContext
 
@@ -82,7 +79,7 @@ export class UserControllerService extends BaseService {
 };
 }> {
 
-    return this.changePassword$Response(params,context).pipe(
+    return this.updateTimbre$Response(params,context).pipe(
       map((r: StrictHttpResponse<{
 [key: string]: {
 };
@@ -94,26 +91,24 @@ export class UserControllerService extends BaseService {
   }
 
   /**
-   * Path part for operation getUserByEmail
+   * Path part for operation getTimbre
    */
-  static readonly GetUserByEmailPath = '/facturation/v1/user/userConnected';
+  static readonly GetTimbrePath = '/facturation/v1/timbre/getTimbre';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `getUserByEmail()` instead.
+   * To access only the response body, use `getTimbre()` instead.
    *
    * This method doesn't expect any request body.
    */
-  getUserByEmail$Response(params: {
-    email: string;
+  getTimbre$Response(params?: {
   },
   context?: HttpContext
 
-): Observable<StrictHttpResponse<User>> {
+): Observable<StrictHttpResponse<TimbreFiscalDto>> {
 
-    const rb = new RequestBuilder(this.rootUrl, UserControllerService.GetUserByEmailPath, 'get');
+    const rb = new RequestBuilder(this.rootUrl, TimbreFiscaleControllerService.GetTimbrePath, 'get');
     if (params) {
-      rb.query('email', params.email, {});
     }
 
     return this.http.request(rb.build({
@@ -123,26 +118,25 @@ export class UserControllerService extends BaseService {
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<User>;
+        return r as StrictHttpResponse<TimbreFiscalDto>;
       })
     );
   }
 
   /**
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `getUserByEmail$Response()` instead.
+   * To access the full response (for headers, for example), `getTimbre$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  getUserByEmail(params: {
-    email: string;
+  getTimbre(params?: {
   },
   context?: HttpContext
 
-): Observable<User> {
+): Observable<TimbreFiscalDto> {
 
-    return this.getUserByEmail$Response(params,context).pipe(
-      map((r: StrictHttpResponse<User>) => r.body as User)
+    return this.getTimbre$Response(params,context).pipe(
+      map((r: StrictHttpResponse<TimbreFiscalDto>) => r.body as TimbreFiscalDto)
     );
   }
 

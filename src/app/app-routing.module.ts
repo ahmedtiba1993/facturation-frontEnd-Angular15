@@ -1,75 +1,97 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import {LoginComponent} from "./pages/login/login.component";
-import {GuardService} from "./services/guard/guard.service";
-import {IndexComponent} from "./pages/index/index.component";
-import {ProduitComponent} from "./pages/produit/produit.component";
-import {CategorieComponent} from "./pages/categorie/categorie.component";
-import {AjouterCategorieComponent} from "./pages/categorie/ajouter-categorie/ajouter-categorie.component";
-import {AjouterProduitComponent} from "./pages/produit/ajouter-produit/ajouter-produit.component";
-import {ClientComponent} from "./pages/client/client.component";
-import {AjouterClientComponent} from "./pages/client/ajouter-client/ajouter-client.component";
-import {FactureComponent} from "./pages/facture/facture.component";
-import {DetailsFactureComponent} from "./pages/facture/details-facture/details-facture.component";
-import {AjouterFactureComponent} from "./pages/facture/ajouter-facture/ajouter-facture.component";
-import {ProduitModifierComponent} from "./pages/produit/produit-modifier/produit-modifier.component";
-import {ModifierClientComponent} from "./pages/client/modifier-client/modifier-client.component";
-import {StatistiqueComponent} from "./pages/statistique/statistique.component";
-import {RecapClientComponent} from "./pages/recap-client/recap-client.component";
-import {UserProfilComponent} from "./pages/user-profil/user-profil.component";
+import { LoginComponent } from './pages/login/login.component';
+import { GuardService } from './services/guard/guard.service';
+import { IndexComponent } from './pages/index/index.component';
+import { ProduitComponent } from './pages/produit/produit.component';
+import { CategorieComponent } from './pages/categorie/categorie.component';
+import { AjouterCategorieComponent } from './pages/categorie/ajouter-categorie/ajouter-categorie.component';
+import { AjouterProduitComponent } from './pages/produit/ajouter-produit/ajouter-produit.component';
+import { ClientComponent } from './pages/client/client.component';
+import { AjouterClientComponent } from './pages/client/ajouter-client/ajouter-client.component';
+import { FactureComponent } from './pages/facture/facture.component';
+import { DetailsFactureComponent } from './pages/facture/details-facture/details-facture.component';
+import { AjouterFactureComponent } from './pages/facture/ajouter-facture/ajouter-facture.component';
+import { ProduitModifierComponent } from './pages/produit/produit-modifier/produit-modifier.component';
+import { ModifierClientComponent } from './pages/client/modifier-client/modifier-client.component';
+import { StatistiqueComponent } from './pages/statistique/statistique.component';
+import { RecapClientComponent } from './pages/recap-client/recap-client.component';
+import { UserProfilComponent } from './pages/user-profil/user-profil.component';
+import { SettingComponent } from './pages/setting/setting.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   {
-    path: '', component: IndexComponent, canActivate: [GuardService],
+    path: '',
+    component: IndexComponent,
+    canActivate: [GuardService],
     children: [
       {
-        path: '', component: StatistiqueComponent,
+        path: '',
+        component: StatistiqueComponent,
       },
       {
-        path: 'profil', component: UserProfilComponent,
+        path: 'profil',
+        component: UserProfilComponent,
       },
       {
-        path: 'produit', component: ProduitComponent,
+        path: 'setting',
+        component: SettingComponent,
       },
       {
-        path: 'categorie', component : CategorieComponent,
+        path: 'produit',
+        component: ProduitComponent,
       },
       {
-        path: 'ajouterCategorie', component : AjouterCategorieComponent,
+        path: 'categorie',
+        component: CategorieComponent,
       },
       {
-        path: 'ajouterProduit', component : AjouterProduitComponent,
+        path: 'ajouterCategorie',
+        component: AjouterCategorieComponent,
       },
       {
-        path: 'client', component : ClientComponent,
+        path: 'ajouterProduit',
+        component: AjouterProduitComponent,
       },
       {
-        path: 'ajouterClient', component : AjouterClientComponent,
+        path: 'client',
+        component: ClientComponent,
       },
       {
-        path: 'facture', component : FactureComponent,
+        path: 'ajouterClient',
+        component: AjouterClientComponent,
       },
       {
-        path: 'detailsfacture/:id', component : DetailsFactureComponent,
+        path: 'facture',
+        component: FactureComponent,
       },
       {
-        path: 'ajouterFacture', component : AjouterFactureComponent,
+        path: 'detailsfacture/:id',
+        component: DetailsFactureComponent,
       },
       {
-        path: 'produit/:id', component : ProduitModifierComponent,
+        path: 'ajouterFacture',
+        component: AjouterFactureComponent,
       },
       {
-        path: 'client/:id', component : ModifierClientComponent,
+        path: 'produit/:id',
+        component: ProduitModifierComponent,
       },
       {
-        path: 'recapClient', component : RecapClientComponent,
+        path: 'client/:id',
+        component: ModifierClientComponent,
       },
-    ]
-  }];
+      {
+        path: 'recapClient',
+        component: RecapClientComponent,
+      },
+    ],
+  },
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

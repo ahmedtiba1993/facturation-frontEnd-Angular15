@@ -72,6 +72,74 @@
         }
       }
     },
+    "/facturation/v1/tva/updateTva": {
+      "post": {
+        "tags": [
+          "tva-controller"
+        ],
+        "operationId": "updateTva",
+        "parameters": [
+          {
+            "name": "tva",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "object"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/facturation/v1/timbre/updateTimbre": {
+      "post": {
+        "tags": [
+          "timbre-fiscale-controller"
+        ],
+        "operationId": "updateTimbre",
+        "parameters": [
+          {
+            "name": "montant",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "object"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/facturation/v1/prodtuit/create": {
       "post": {
         "tags": [
@@ -95,6 +163,26 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ProduitDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/facturation/v1/numFacture/getNumFacture": {
+      "post": {
+        "tags": [
+          "num-facture-controller"
+        ],
+        "operationId": "getNumFacture",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NumFacture"
                 }
               }
             }
@@ -299,6 +387,46 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/facturation/v1/tva/getTva": {
+      "get": {
+        "tags": [
+          "tva-controller"
+        ],
+        "operationId": "getTva",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Tva"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/facturation/v1/timbre/getTimbre": {
+      "get": {
+        "tags": [
+          "timbre-fiscale-controller"
+        ],
+        "operationId": "getTimbre",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TimbreFiscalDto"
                 }
               }
             }
@@ -540,6 +668,40 @@
                   "type": "array",
                   "items": {
                     "$ref": "#/components/schemas/ProduitDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/facturation/v1/numFacture/updateNumFacture": {
+      "get": {
+        "tags": [
+          "num-facture-controller"
+        ],
+        "operationId": "updateNumFacture",
+        "parameters": [
+          {
+            "name": "numFacture",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "object"
                   }
                 }
               }
@@ -1118,6 +1280,19 @@
           }
         }
       },
+      "NumFacture": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "numFacture": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
       "ClientDto": {
         "type": "object",
         "properties": {
@@ -1298,6 +1473,9 @@
           "enabled": {
             "type": "boolean"
           },
+          "accountNonLocked": {
+            "type": "boolean"
+          },
           "authorities": {
             "type": "array",
             "items": {
@@ -1307,27 +1485,52 @@
           "username": {
             "type": "string"
           },
-          "credentialsNonExpired": {
-            "type": "boolean"
-          },
           "accountNonExpired": {
             "type": "boolean"
           },
-          "accountNonLocked": {
+          "credentialsNonExpired": {
             "type": "boolean"
+          }
+        }
+      },
+      "Tva": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "tva": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "code": {
+            "type": "string"
+          }
+        }
+      },
+      "TimbreFiscalDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "montant": {
+            "type": "number",
+            "format": "double"
+          },
+          "code": {
+            "type": "string"
           }
         }
       },
       "Statistique": {
         "type": "object",
         "properties": {
-          "nbFactureNonPaye": {
+          "nbFacturePaye": {
             "type": "integer",
             "format": "int32"
-          },
-          "montatPaye": {
-            "type": "number",
-            "format": "double"
           },
           "montantNonPaye": {
             "type": "number",
@@ -1337,7 +1540,11 @@
             "type": "integer",
             "format": "int32"
           },
-          "nbFacturePaye": {
+          "montatPaye": {
+            "type": "number",
+            "format": "double"
+          },
+          "nbFactureNonPaye": {
             "type": "integer",
             "format": "int32"
           }
@@ -1418,13 +1625,12 @@
       "RecapClient": {
         "type": "object",
         "properties": {
-          "nmontantNonPaye": {
-            "type": "number",
-            "format": "double"
+          "nomCommercial": {
+            "type": "string"
           },
-          "nmontantPaye": {
-            "type": "number",
-            "format": "double"
+          "numFacture": {
+            "type": "integer",
+            "format": "int32"
           },
           "idClient": {
             "type": "integer",
@@ -1436,12 +1642,13 @@
           "prenomClient": {
             "type": "string"
           },
-          "numFacture": {
-            "type": "integer",
-            "format": "int32"
+          "nmontantNonPaye": {
+            "type": "number",
+            "format": "double"
           },
-          "nomCommercial": {
-            "type": "string"
+          "nmontantPaye": {
+            "type": "number",
+            "format": "double"
           }
         }
       },

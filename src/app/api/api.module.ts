@@ -5,7 +5,10 @@ import { HttpClient } from '@angular/common/http';
 import { ApiConfiguration, ApiConfigurationParams } from './api-configuration';
 
 import { UserControllerService } from './services/user-controller.service';
+import { TvaControllerService } from './services/tva-controller.service';
+import { TimbreFiscaleControllerService } from './services/timbre-fiscale-controller.service';
 import { ProduitControllerService } from './services/produit-controller.service';
+import { NumFactureControllerService } from './services/num-facture-controller.service';
 import { FactureControllerService } from './services/facture-controller.service';
 import { ClientControllerService } from './services/client-controller.service';
 import { CategorieControllerService } from './services/categorie-controller.service';
@@ -20,7 +23,10 @@ import { AuthenticationControllerService } from './services/authentication-contr
   declarations: [],
   providers: [
     UserControllerService,
+    TvaControllerService,
+    TimbreFiscaleControllerService,
     ProduitControllerService,
+    NumFactureControllerService,
     FactureControllerService,
     ClientControllerService,
     CategorieControllerService,

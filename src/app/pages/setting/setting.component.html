@@ -1,0 +1,38 @@
+<div class="card p-5">
+<h1>Paramètres</h1>
+  <form>
+    <div class="form-group mb-3">
+      <div class="alert alert-success alert-dismissible fade show" role="alert" *ngIf="alertTvaSuccess">
+        La modification de la TVA a été effectuée avec succès.
+      </div>
+      <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="alertTvaError">
+        Une erreur s'est produite lors de la modification de la TVA.
+      </div>
+      <label for="tva">TVA</label>
+      <input type="number" class="form-control" id="tva" name="tva" [(ngModel)]="tva" placeholder="Taux de TVA">
+      <button type="submit" class="btn btn-primary mt-2" (click)="updateTva()">Modifier TVA</button>
+    </div>
+    <div class="form-group mb-3">
+      <div class="alert alert-success alert-dismissible fade show" role="alert" *ngIf="alertTimbreSuccess">
+        La modification de la Timbre a été effectuée avec succès.
+      </div>
+      <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="alertTimbreError">
+        Une erreur s'est produite lors de la modification de la timbre.
+      </div>
+      <label for="timbre">Montant du timbre fiscal</label>
+      <input type="number" class="form-control" id="timbre" name="timbre" [(ngModel)]="timbre" placeholder="Montant du timbre fiscal">
+      <button type="submit" class="btn btn-success mt-2" (click)="updateTimbre()">Modifier Timbre Fiscal</button>
+    </div>
+    <div class="form-group mb-3">
+      <div class="alert alert-success alert-dismissible fade show" role="alert" *ngIf="alertNumFactureSuccess">
+        La modification de la numero facture a été effectuée avec succès.
+      </div>
+      <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="alertNumFactureError">
+        Une erreur s'est produite lors de la modification de la numero facture.
+      </div>
+      <label for="numeroFactures">Numéro des factures</label>
+      <input type="text" class="form-control" id="numeroFactures"  name="numFacture" [(ngModel)]="numFacture" placeholder="Numéro des factures">
+      <button type="submit" class="btn btn-info mt-2" (click)="updateNumFacture()">Modifier numero facture</button>
+    </div>
+  </form>
+</div>

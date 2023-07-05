@@ -80,8 +80,7 @@
       <th>Montant TTC</th>
       <th>Client</th>
       <th>Payement status</th>
-      <th>Details</th>
-      <th>Payé</th>
+      <th>Action</th>
     </tr>
     </thead>
     <tbody>
@@ -94,11 +93,19 @@
       <td *ngIf="f.paymentStatus"><span class="badge bg-success">Payé</span></td>
       <td *ngIf="!f.paymentStatus"><span class="badge bg-danger">Non payé</span></td>
       <td>
+
         <button class="btn btn-primary" [routerLink]="['/detailsfacture', f.id]"><i class="bi bi-eye"></i></button>
-      </td>
-      <td>
-        <button *ngIf="!f.paymentStatus" type="button" class="btn btn-primary" (click)="setId(f.id)" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-          Payé
+
+        <button *ngIf="!f.paymentStatus" type="button" class="btn btn-primary ms-1" (click)="setId(f.id)" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+          Payer
+        </button>
+
+        <button *ngIf="f.paymentStatus" type="button" class="btn btn-primary ms-1" disabled>
+          Payer
+        </button>
+
+        <button type="button" class="btn btn-danger ms-1" (click)="setId(f.id)" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal">
+          Supprimer
         </button>
 
       </td>
@@ -135,7 +142,7 @@
   </ul>
 </nav>
 
-<!-- Modal -->
+<!-- Modal Payer-->
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -149,6 +156,25 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Annuler</button>
         <button type="button" class="btn btn-success" (click)="updatePaymentStatus()" data-bs-dismiss="modal">Confirmer</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modèle de confirmation de suppression -->
+<div class="modal fade" id="confirmDeleteModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title fs-5" id="confirmDeleteModalLabel">Confirmation de suppression</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Êtes-vous sûr de vouloir supprimer cette facture ?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+        <button type="button" class="btn btn-danger" (click)="delete()" data-bs-dismiss="modal">Supprimer</button>
       </div>
     </div>
   </div>

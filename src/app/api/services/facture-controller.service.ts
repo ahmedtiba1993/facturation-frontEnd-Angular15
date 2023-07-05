@@ -491,4 +491,57 @@ export class FactureControllerService extends BaseService {
     );
   }
 
+  /**
+   * Path part for operation deleteFacture
+   */
+  static readonly DeleteFacturePath = '/facturation/v1/facture/deleteFacture/{idFacture}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `deleteFacture()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  deleteFacture$Response(params: {
+    idFacture: number;
+  },
+  context?: HttpContext
+
+): Observable<StrictHttpResponse<void>> {
+
+    const rb = new RequestBuilder(this.rootUrl, FactureControllerService.DeleteFacturePath, 'delete');
+    if (params) {
+      rb.path('idFacture', params.idFacture, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'text',
+      accept: '*/*',
+      context: context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `deleteFacture$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  deleteFacture(params: {
+    idFacture: number;
+  },
+  context?: HttpContext
+
+): Observable<void> {
+
+    return this.deleteFacture$Response(params,context).pipe(
+      map((r: StrictHttpResponse<void>) => r.body as void)
+    );
+  }
+
 }

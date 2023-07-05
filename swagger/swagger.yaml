@@ -1182,6 +1182,30 @@
         }
       }
     },
+    "/facturation/v1/facture/deleteFacture/{idFacture}": {
+      "delete": {
+        "tags": [
+          "facture-controller"
+        ],
+        "operationId": "deleteFacture",
+        "parameters": [
+          {
+            "name": "idFacture",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/facturation/v1/client/delete/{idClient}": {
       "delete": {
         "tags": [
@@ -1473,7 +1497,10 @@
           "enabled": {
             "type": "boolean"
           },
-          "accountNonLocked": {
+          "credentialsNonExpired": {
+            "type": "boolean"
+          },
+          "accountNonExpired": {
             "type": "boolean"
           },
           "authorities": {
@@ -1485,10 +1512,7 @@
           "username": {
             "type": "string"
           },
-          "accountNonExpired": {
-            "type": "boolean"
-          },
-          "credentialsNonExpired": {
+          "accountNonLocked": {
             "type": "boolean"
           }
         }
@@ -1528,7 +1552,7 @@
       "Statistique": {
         "type": "object",
         "properties": {
-          "nbFacturePaye": {
+          "nbFactureNonPaye": {
             "type": "integer",
             "format": "int32"
           },
@@ -1536,15 +1560,15 @@
             "type": "number",
             "format": "double"
           },
-          "nbClient": {
-            "type": "integer",
-            "format": "int32"
-          },
           "montatPaye": {
             "type": "number",
             "format": "double"
           },
-          "nbFactureNonPaye": {
+          "nbClient": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "nbFacturePaye": {
             "type": "integer",
             "format": "int32"
           }
@@ -1553,13 +1577,13 @@
       "PageRecapClient": {
         "type": "object",
         "properties": {
-          "totalElements": {
-            "type": "integer",
-            "format": "int64"
-          },
           "totalPages": {
             "type": "integer",
             "format": "int32"
+          },
+          "totalElements": {
+            "type": "integer",
+            "format": "int64"
           },
           "size": {
             "type": "integer",
@@ -1606,18 +1630,18 @@
           "sort": {
             "$ref": "#/components/schemas/SortObject"
           },
-          "pageNumber": {
-            "type": "integer",
-            "format": "int32"
-          },
           "pageSize": {
             "type": "integer",
             "format": "int32"
           },
-          "paged": {
-            "type": "boolean"
+          "pageNumber": {
+            "type": "integer",
+            "format": "int32"
           },
           "unpaged": {
+            "type": "boolean"
+          },
+          "paged": {
             "type": "boolean"
           }
         }
@@ -1625,21 +1649,21 @@
       "RecapClient": {
         "type": "object",
         "properties": {
-          "nomCommercial": {
-            "type": "string"
-          },
           "numFacture": {
             "type": "integer",
             "format": "int32"
+          },
+          "nomCommercial": {
+            "type": "string"
           },
           "idClient": {
             "type": "integer",
             "format": "int64"
           },
-          "nomClient": {
+          "prenomClient": {
             "type": "string"
           },
-          "prenomClient": {
+          "nomClient": {
             "type": "string"
           },
           "nmontantNonPaye": {
@@ -1669,13 +1693,13 @@
       "PageProduitDto": {
         "type": "object",
         "properties": {
-          "totalElements": {
-            "type": "integer",
-            "format": "int64"
-          },
           "totalPages": {
             "type": "integer",
             "format": "int32"
+          },
+          "totalElements": {
+            "type": "integer",
+            "format": "int64"
           },
           "size": {
             "type": "integer",
@@ -1715,13 +1739,13 @@
       "PageFactureDto": {
         "type": "object",
         "properties": {
-          "totalElements": {
-            "type": "integer",
-            "format": "int64"
-          },
           "totalPages": {
             "type": "integer",
             "format": "int32"
+          },
+          "totalElements": {
+            "type": "integer",
+            "format": "int64"
           },
           "size": {
             "type": "integer",
@@ -1761,13 +1785,13 @@
       "PageClientDto": {
         "type": "object",
         "properties": {
-          "totalElements": {
-            "type": "integer",
-            "format": "int64"
-          },
           "totalPages": {
             "type": "integer",
             "format": "int32"
+          },
+          "totalElements": {
+            "type": "integer",
+            "format": "int64"
           },
           "size": {
             "type": "integer",
@@ -1807,13 +1831,13 @@
       "PageCategorieDto": {
         "type": "object",
         "properties": {
-          "totalElements": {
-            "type": "integer",
-            "format": "int64"
-          },
           "totalPages": {
             "type": "integer",
             "format": "int32"
+          },
+          "totalElements": {
+            "type": "integer",
+            "format": "int64"
           },
           "size": {
             "type": "integer",

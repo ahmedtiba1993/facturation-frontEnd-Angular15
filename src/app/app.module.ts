@@ -7,11 +7,11 @@ import { MenuComponent } from './composants/menu/menu.component';
 import { HeaderComponent } from './composants/header/header.component';
 import { FooterComponent } from './composants/footer/footer.component';
 import { LoginComponent } from './pages/login/login.component';
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { IndexComponent } from './pages/index/index.component';
 import { ProduitComponent } from './pages/produit/produit.component';
-import {IntercepteurService} from "./services/intercepteur/intercepteur.service";
+import { IntercepteurService } from './services/intercepteur/intercepteur.service';
 import { CategorieComponent } from './pages/categorie/categorie.component';
 import { AjouterCategorieComponent } from './pages/categorie/ajouter-categorie/ajouter-categorie.component';
 import { AjouterProduitComponent } from './pages/produit/ajouter-produit/ajouter-produit.component';
@@ -21,7 +21,7 @@ import { FactureComponent } from './pages/facture/facture.component';
 import { DetailsFactureComponent } from './pages/facture/details-facture/details-facture.component';
 import { AjouterFactureComponent } from './pages/facture/ajouter-facture/ajouter-facture.component';
 import { ProduitModifierComponent } from './pages/produit/produit-modifier/produit-modifier.component';
-import {NgxSpinnerModule} from "ngx-spinner";
+import { NgxSpinnerModule } from 'ngx-spinner';
 import { LoaderComponent } from './composants/loader/loader.component';
 import { Loader2Component } from './composants/loader2/loader2.component';
 import { ModifierClientComponent } from './pages/client/modifier-client/modifier-client.component';
@@ -30,6 +30,9 @@ import { RecapClientComponent } from './pages/recap-client/recap-client.componen
 import { SpinnerComponent } from './composants/spinner/spinner.component';
 import { UserProfilComponent } from './pages/user-profil/user-profil.component';
 import { SettingComponent } from './pages/setting/setting.component';
+import { DevisComponent } from './pages/devis/devis.component';
+import { DetailsDevisComponent } from './pages/devis/details-devis/details-devis.component';
+import { AjouterDevisComponent } from './pages/devis/ajouter-devis/ajouter-devis.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +59,10 @@ import { SettingComponent } from './pages/setting/setting.component';
     RecapClientComponent,
     SpinnerComponent,
     UserProfilComponent,
-    SettingComponent
+    SettingComponent,
+    DevisComponent,
+    DetailsDevisComponent,
+    AjouterDevisComponent,
   ],
   imports: [
     BrowserModule,
@@ -64,15 +70,15 @@ import { SettingComponent } from './pages/setting/setting.component';
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
   ],
   providers: [
     {
-    provide: HTTP_INTERCEPTORS,
-    useClass: IntercepteurService,
-    multi: true
-    }
+      provide: HTTP_INTERCEPTORS,
+      useClass: IntercepteurService,
+      multi: true,
+    },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

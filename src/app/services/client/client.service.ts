@@ -1,31 +1,28 @@
 import { Injectable } from '@angular/core';
-import {ClientControllerService} from "../../api/services/client-controller.service";
-import {Observable} from "rxjs";
-import {ClientDto} from "../../api/models/client-dto";
-import {PageClientDto} from "../../api/models/page-client-dto";
+import { ClientControllerService } from '../../api/services/client-controller.service';
+import { Observable } from 'rxjs';
+import { ClientDto } from '../../api/models/client-dto';
+import { PageClientDto } from '../../api/models/page-client-dto';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ClientService {
+  constructor(private clientService: ClientControllerService) {}
 
-  constructor(
-    private clientService : ClientControllerService
-  ) { }
-
-  findAllPaginated(page: number, size: number):Observable<PageClientDto>{
-    return this.clientService.findAllPaginated1({page,size});
+  findAllPaginated(page: number, size: number): Observable<PageClientDto> {
+    return this.clientService.findAllPaginated1({ page, size });
   }
 
-  add(client : ClientDto):Observable<ClientDto>{
-    return this.clientService.save2({body:client});
+  add(client: ClientDto): Observable<ClientDto> {
+    return this.clientService.save3({ body: client });
   }
 
-  findAll():Observable<ClientDto[]>{
-    return this.clientService.findAll2()
+  findAll(): Observable<ClientDto[]> {
+    return this.clientService.findAll3();
   }
 
-  findById(idClient : number):Observable<ClientDto>{
-    return this.clientService.findById2({idClient})
+  findById(idClient: number): Observable<ClientDto> {
+    return this.clientService.findById3({ idClient });
   }
 }

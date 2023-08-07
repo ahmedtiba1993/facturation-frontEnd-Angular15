@@ -10,6 +10,7 @@ import { TimbreFiscaleControllerService } from './services/timbre-fiscale-contro
 import { ProduitControllerService } from './services/produit-controller.service';
 import { NumFactureControllerService } from './services/num-facture-controller.service';
 import { FactureControllerService } from './services/facture-controller.service';
+import { DevisControllerService } from './services/devis-controller.service';
 import { ClientControllerService } from './services/client-controller.service';
 import { CategorieControllerService } from './services/categorie-controller.service';
 import { AuthenticationControllerService } from './services/authentication-controller.service';
@@ -28,6 +29,7 @@ import { AuthenticationControllerService } from './services/authentication-contr
     ProduitControllerService,
     NumFactureControllerService,
     FactureControllerService,
+    DevisControllerService,
     ClientControllerService,
     CategorieControllerService,
     AuthenticationControllerService,

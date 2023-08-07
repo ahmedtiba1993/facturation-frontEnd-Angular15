@@ -4,6 +4,7 @@ export { TimbreFiscaleControllerService } from './services/timbre-fiscale-contro
 export { ProduitControllerService } from './services/produit-controller.service';
 export { NumFactureControllerService } from './services/num-facture-controller.service';
 export { FactureControllerService } from './services/facture-controller.service';
+export { DevisControllerService } from './services/devis-controller.service';
 export { ClientControllerService } from './services/client-controller.service';
 export { CategorieControllerService } from './services/categorie-controller.service';
 export { AuthenticationControllerService } from './services/authentication-controller.service';

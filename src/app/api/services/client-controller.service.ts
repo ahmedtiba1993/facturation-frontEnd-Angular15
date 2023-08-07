@@ -24,24 +24,24 @@ export class ClientControllerService extends BaseService {
   }
 
   /**
-   * Path part for operation save2
+   * Path part for operation save3
    */
-  static readonly Save2Path = '/facturation/v1/client/create';
+  static readonly Save3Path = '/facturation/v1/client/create';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `save2()` instead.
+   * To access only the response body, use `save3()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  save2$Response(params: {
+  save3$Response(params: {
     body: ClientDto
   },
   context?: HttpContext
 
 ): Observable<StrictHttpResponse<ClientDto>> {
 
-    const rb = new RequestBuilder(this.rootUrl, ClientControllerService.Save2Path, 'post');
+    const rb = new RequestBuilder(this.rootUrl, ClientControllerService.Save3Path, 'post');
     if (params) {
       rb.body(params.body, 'application/json');
     }
@@ -60,41 +60,41 @@ export class ClientControllerService extends BaseService {
 
   /**
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `save2$Response()` instead.
+   * To access the full response (for headers, for example), `save3$Response()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  save2(params: {
+  save3(params: {
     body: ClientDto
   },
   context?: HttpContext
 
 ): Observable<ClientDto> {
 
-    return this.save2$Response(params,context).pipe(
+    return this.save3$Response(params,context).pipe(
       map((r: StrictHttpResponse<ClientDto>) => r.body as ClientDto)
     );
   }
 
   /**
-   * Path part for operation findById2
+   * Path part for operation findById3
    */
-  static readonly FindById2Path = '/facturation/v1/client/id/{idClient}';
+  static readonly FindById3Path = '/facturation/v1/client/id/{idClient}';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `findById2()` instead.
+   * To access only the response body, use `findById3()` instead.
    *
    * This method doesn't expect any request body.
    */
-  findById2$Response(params: {
+  findById3$Response(params: {
     idClient: number;
   },
   context?: HttpContext
 
 ): Observable<StrictHttpResponse<ClientDto>> {
 
-    const rb = new RequestBuilder(this.rootUrl, ClientControllerService.FindById2Path, 'get');
+    const rb = new RequestBuilder(this.rootUrl, ClientControllerService.FindById3Path, 'get');
     if (params) {
       rb.path('idClient', params.idClient, {});
     }
@@ -113,18 +113,18 @@ export class ClientControllerService extends BaseService {
 
   /**
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `findById2$Response()` instead.
+   * To access the full response (for headers, for example), `findById3$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  findById2(params: {
+  findById3(params: {
     idClient: number;
   },
   context?: HttpContext
 
 ): Observable<ClientDto> {
 
-    return this.findById2$Response(params,context).pipe(
+    return this.findById3$Response(params,context).pipe(
       map((r: StrictHttpResponse<ClientDto>) => r.body as ClientDto)
     );
   }
@@ -186,23 +186,23 @@ export class ClientControllerService extends BaseService {
   }
 
   /**
-   * Path part for operation findAll2
+   * Path part for operation findAll3
    */
-  static readonly FindAll2Path = '/facturation/v1/client/all';
+  static readonly FindAll3Path = '/facturation/v1/client/all';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `findAll2()` instead.
+   * To access only the response body, use `findAll3()` instead.
    *
    * This method doesn't expect any request body.
    */
-  findAll2$Response(params?: {
+  findAll3$Response(params?: {
   },
   context?: HttpContext
 
 ): Observable<StrictHttpResponse<Array<ClientDto>>> {
 
-    const rb = new RequestBuilder(this.rootUrl, ClientControllerService.FindAll2Path, 'get');
+    const rb = new RequestBuilder(this.rootUrl, ClientControllerService.FindAll3Path, 'get');
     if (params) {
     }
 
@@ -220,17 +220,17 @@ export class ClientControllerService extends BaseService {
 
   /**
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `findAll2$Response()` instead.
+   * To access the full response (for headers, for example), `findAll3$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  findAll2(params?: {
+  findAll3(params?: {
   },
   context?: HttpContext
 
 ): Observable<Array<ClientDto>> {
 
-    return this.findAll2$Response(params,context).pipe(
+    return this.findAll3$Response(params,context).pipe(
       map((r: StrictHttpResponse<Array<ClientDto>>) => r.body as Array<ClientDto>)
     );
   }

@@ -18,6 +18,9 @@ import { StatistiqueComponent } from './pages/statistique/statistique.component'
 import { RecapClientComponent } from './pages/recap-client/recap-client.component';
 import { UserProfilComponent } from './pages/user-profil/user-profil.component';
 import { SettingComponent } from './pages/setting/setting.component';
+import { DevisComponent } from './pages/devis/devis.component';
+import { DetailsDevisComponent } from './pages/devis/details-devis/details-devis.component';
+import { AjouterDevisComponent } from './pages/devis/ajouter-devis/ajouter-devis.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -85,6 +88,18 @@ const routes: Routes = [
       {
         path: 'recapClient',
         component: RecapClientComponent,
+      },
+      {
+        path: 'devis',
+        component: DevisComponent,
+      },
+      {
+        path: 'detailsdevis/:id',
+        component: DetailsDevisComponent,
+      },
+      {
+        path: 'ajouterDevis',
+        component: AjouterDevisComponent,
       },
     ],
   },

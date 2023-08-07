@@ -73,4 +73,7 @@ export class DevisService {
       dateFin,
     });
   }
+  delete(idDevis: number): Observable<void> {
+    return this.devisService.deleteDevis({ idDevis });
+  }
 }

@@ -167,4 +167,11 @@ export class DevisComponent {
         this.ids = data;
       });
   }
+
+  delete() {
+    this.isLoading = true;
+    this.devisService.delete(this.idDev).subscribe((data) => {
+      this.findAllPaginated();
+    });
+  }
 }

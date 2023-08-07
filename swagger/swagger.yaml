@@ -1516,6 +1516,30 @@
         }
       }
     },
+    "/facturation/v1/devis/deleteDevis/{idDevis}": {
+      "delete": {
+        "tags": [
+          "devis-controller"
+        ],
+        "operationId": "deleteDevis",
+        "parameters": [
+          {
+            "name": "idDevis",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/facturation/v1/client/delete/{idClient}": {
       "delete": {
         "tags": [
@@ -2133,6 +2157,9 @@
           "credentialsNonExpired": {
             "type": "boolean"
           },
+          "accountNonLocked": {
+            "type": "boolean"
+          },
           "authorities": {
             "type": "array",
             "items": {
@@ -2141,9 +2168,6 @@
           },
           "username": {
             "type": "string"
-          },
-          "accountNonLocked": {
-            "type": "boolean"
           }
         }
       },
@@ -2182,25 +2206,41 @@
       "Statistique": {
         "type": "object",
         "properties": {
+          "montantFactureNonPaye": {
+            "type": "number",
+            "format": "double"
+          },
+          "montantDevisNonPaye": {
+            "type": "number",
+            "format": "double"
+          },
           "nbFactureNonPaye": {
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           },
-          "nbFacturePaye": {
+          "montantDevisPaye": {
+            "type": "number",
+            "format": "double"
+          },
+          "montantFacturePaye": {
+            "type": "number",
+            "format": "double"
+          },
+          "nbDevisNonPaye": {
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           },
           "nbClient": {
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           },
-          "montatPaye": {
-            "type": "number",
-            "format": "double"
+          "nbFacturePaye": {
+            "type": "integer",
+            "format": "int64"
           },
-          "montantNonPaye": {
-            "type": "number",
-            "format": "double"
+          "nbDevisPaye": {
+            "type": "integer",
+            "format": "int64"
           }
         }
       },
@@ -2260,18 +2300,18 @@
           "sort": {
             "$ref": "#/components/schemas/SortObject"
           },
-          "pageNumber": {
-            "type": "integer",
-            "format": "int32"
-          },
           "pageSize": {
             "type": "integer",
             "format": "int32"
           },
-          "paged": {
-            "type": "boolean"
+          "pageNumber": {
+            "type": "integer",
+            "format": "int32"
           },
           "unpaged": {
+            "type": "boolean"
+          },
+          "paged": {
             "type": "boolean"
           }
         }
@@ -2286,15 +2326,15 @@
           "nomCommercial": {
             "type": "string"
           },
-          "prenomClient": {
-            "type": "string"
+          "idClient": {
+            "type": "integer",
+            "format": "int64"
           },
           "nomClient": {
             "type": "string"
           },
-          "idClient": {
-            "type": "integer",
-            "format": "int64"
+          "prenomClient": {
+            "type": "string"
           },
           "nmontantNonPaye": {
             "type": "number",

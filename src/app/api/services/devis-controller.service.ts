@@ -384,4 +384,57 @@ export class DevisControllerService extends BaseService {
     );
   }
 
+  /**
+   * Path part for operation deleteDevis
+   */
+  static readonly DeleteDevisPath = '/facturation/v1/devis/deleteDevis/{idDevis}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `deleteDevis()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  deleteDevis$Response(params: {
+    idDevis: number;
+  },
+  context?: HttpContext
+
+): Observable<StrictHttpResponse<void>> {
+
+    const rb = new RequestBuilder(this.rootUrl, DevisControllerService.DeleteDevisPath, 'delete');
+    if (params) {
+      rb.path('idDevis', params.idDevis, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'text',
+      accept: '*/*',
+      context: context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `deleteDevis$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  deleteDevis(params: {
+    idDevis: number;
+  },
+  context?: HttpContext
+
+): Observable<void> {
+
+    return this.deleteDevis$Response(params,context).pipe(
+      map((r: StrictHttpResponse<void>) => r.body as void)
+    );
+  }
+
 }

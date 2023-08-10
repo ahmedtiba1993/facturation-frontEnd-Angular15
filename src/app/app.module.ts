@@ -33,6 +33,7 @@ import { SettingComponent } from './pages/setting/setting.component';
 import { DevisComponent } from './pages/devis/devis.component';
 import { DetailsDevisComponent } from './pages/devis/details-devis/details-devis.component';
 import { AjouterDevisComponent } from './pages/devis/ajouter-devis/ajouter-devis.component';
+import { RecapDevisComponent } from './pages/recapDevis/recap-devis/recap-devis.component';
 
 @NgModule({
   declarations: [
@@ -63,6 +64,7 @@ import { AjouterDevisComponent } from './pages/devis/ajouter-devis/ajouter-devis
     DevisComponent,
     DetailsDevisComponent,
     AjouterDevisComponent,
+    RecapDevisComponent,
   ],
   imports: [
     BrowserModule,

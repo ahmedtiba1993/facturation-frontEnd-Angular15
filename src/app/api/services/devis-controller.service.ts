@@ -11,6 +11,7 @@ import { map, filter } from 'rxjs/operators';
 
 import { Devis } from '../models/devis';
 import { DevisDto } from '../models/devis-dto';
+import { PageClientRecapProjection } from '../models/page-client-recap-projection';
 import { PageDevisDto } from '../models/page-devis-dto';
 
 @Injectable({
@@ -180,6 +181,62 @@ export class DevisControllerService extends BaseService {
 
     return this.findById2$Response(params,context).pipe(
       map((r: StrictHttpResponse<DevisDto>) => r.body as DevisDto)
+    );
+  }
+
+  /**
+   * Path part for operation getRecapClient1
+   */
+  static readonly GetRecapClient1Path = '/facturation/v1/devis/recapClient';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `getRecapClient1()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getRecapClient1$Response(params?: {
+    page?: number;
+    size?: number;
+  },
+  context?: HttpContext
+
+): Observable<StrictHttpResponse<PageClientRecapProjection>> {
+
+    const rb = new RequestBuilder(this.rootUrl, DevisControllerService.GetRecapClient1Path, 'get');
+    if (params) {
+      rb.query('page', params.page, {});
+      rb.query('size', params.size, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json',
+      context: context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<PageClientRecapProjection>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `getRecapClient1$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getRecapClient1(params?: {
+    page?: number;
+    size?: number;
+  },
+  context?: HttpContext
+
+): Observable<PageClientRecapProjection> {
+
+    return this.getRecapClient1$Response(params,context).pipe(
+      map((r: StrictHttpResponse<PageClientRecapProjection>) => r.body as PageClientRecapProjection)
     );
   }
 

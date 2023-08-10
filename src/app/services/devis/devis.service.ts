@@ -7,6 +7,7 @@ import { FactureDto } from '../../api/models/facture-dto';
 import { Statistique } from '../../api/models/statistique';
 import { PageRecapClient } from '../../api/models/page-recap-client';
 import { DevisDto } from '../../api/models/devis-dto';
+import { PageClientRecapProjection } from '../../api/models/page-client-recap-projection';
 
 @Injectable({
   providedIn: 'root',
@@ -75,5 +76,12 @@ export class DevisService {
   }
   delete(idDevis: number): Observable<void> {
     return this.devisService.deleteDevis({ idDevis });
+  }
+
+  recapClient(
+    page: number,
+    size: number
+  ): Observable<PageClientRecapProjection> {
+    return this.devisService.getRecapClient1({ page, size });
   }
 }

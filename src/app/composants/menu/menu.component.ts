@@ -81,7 +81,7 @@ export class MenuComponent {
           id: '62',
           titre: 'Recap devis client',
           icon: '',
-          url: 'recapClient',
+          url: 'recapDevis',
         },
       ],
     },

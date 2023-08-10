@@ -1051,6 +1051,48 @@
         }
       }
     },
+    "/facturation/v1/devis/recapClient": {
+      "get": {
+        "tags": [
+          "devis-controller"
+        ],
+        "operationId": "getRecapClient_1",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 0
+            }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 3
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageClientRecapProjection"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/facturation/v1/devis/generate-pdf": {
       "get": {
         "tags": [
@@ -2151,12 +2193,6 @@
           "enabled": {
             "type": "boolean"
           },
-          "accountNonExpired": {
-            "type": "boolean"
-          },
-          "credentialsNonExpired": {
-            "type": "boolean"
-          },
           "accountNonLocked": {
             "type": "boolean"
           },
@@ -2168,6 +2204,12 @@
           },
           "username": {
             "type": "string"
+          },
+          "accountNonExpired": {
+            "type": "boolean"
+          },
+          "credentialsNonExpired": {
+            "type": "boolean"
           }
         }
       },
@@ -2206,11 +2248,11 @@
       "Statistique": {
         "type": "object",
         "properties": {
-          "montantFactureNonPaye": {
+          "montantFacturePaye": {
             "type": "number",
             "format": "double"
           },
-          "montantDevisNonPaye": {
+          "montantFactureNonPaye": {
             "type": "number",
             "format": "double"
           },
@@ -2222,11 +2264,15 @@
             "type": "number",
             "format": "double"
           },
-          "montantFacturePaye": {
+          "montantDevisNonPaye": {
             "type": "number",
             "format": "double"
           },
-          "nbDevisNonPaye": {
+          "nbFacturePaye": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "nbDevisPaye": {
             "type": "integer",
             "format": "int64"
           },
@@ -2234,11 +2280,7 @@
             "type": "integer",
             "format": "int64"
           },
-          "nbFacturePaye": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "nbDevisPaye": {
+          "nbDevisNonPaye": {
             "type": "integer",
             "format": "int64"
           }
@@ -2308,10 +2350,10 @@
             "type": "integer",
             "format": "int32"
           },
-          "unpaged": {
+          "paged": {
             "type": "boolean"
           },
-          "paged": {
+          "unpaged": {
             "type": "boolean"
           }
         }
@@ -2326,19 +2368,19 @@
           "nomCommercial": {
             "type": "string"
           },
-          "idClient": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "nomClient": {
-            "type": "string"
-          },
           "prenomClient": {
             "type": "string"
           },
           "nmontantNonPaye": {
             "type": "number",
             "format": "double"
+          },
+          "idClient": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "nomClient": {
+            "type": "string"
           },
           "nmontantPaye": {
             "type": "number",
@@ -2425,6 +2467,82 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/FactureDto"
+            }
+          },
+          "number": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "sort": {
+            "$ref": "#/components/schemas/SortObject"
+          },
+          "first": {
+            "type": "boolean"
+          },
+          "last": {
+            "type": "boolean"
+          },
+          "numberOfElements": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageable": {
+            "$ref": "#/components/schemas/PageableObject"
+          },
+          "empty": {
+            "type": "boolean"
+          }
+        }
+      },
+      "ClientRecapProjection": {
+        "type": "object",
+        "properties": {
+          "numFacture": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "nomCommercial": {
+            "type": "string"
+          },
+          "prenomClient": {
+            "type": "string"
+          },
+          "nmontantNonPaye": {
+            "type": "number",
+            "format": "double"
+          },
+          "idClient": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "nomClient": {
+            "type": "string"
+          },
+          "nmontantPaye": {
+            "type": "number",
+            "format": "double"
+          }
+        }
+      },
+      "PageClientRecapProjection": {
+        "type": "object",
+        "properties": {
+          "totalElements": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "totalPages": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "size": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "content": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ClientRecapProjection"
             }
           },
           "number": {

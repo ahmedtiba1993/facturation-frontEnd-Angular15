@@ -27,6 +27,8 @@ export { RecapClient } from './models/recap-client';
 export { SortObject } from './models/sort-object';
 export { PageProduitDto } from './models/page-produit-dto';
 export { PageFactureDto } from './models/page-facture-dto';
+export { ClientRecapProjection } from './models/client-recap-projection';
+export { PageClientRecapProjection } from './models/page-client-recap-projection';
 export { PageDevisDto } from './models/page-devis-dto';
 export { PageClientDto } from './models/page-client-dto';
 export { PageCategorieDto } from './models/page-categorie-dto';

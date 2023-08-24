@@ -84,4 +84,8 @@ export class DevisService {
   ): Observable<PageClientRecapProjection> {
     return this.devisService.getRecapClient1({ page, size });
   }
+
+  creationFacture(idDevis: number): Observable<void> {
+    return this.devisService.convertDevisToFacture({ idDevis });
+  }
 }

@@ -132,6 +132,59 @@ export class DevisControllerService extends BaseService {
   }
 
   /**
+   * Path part for operation convertDevisToFacture
+   */
+  static readonly ConvertDevisToFacturePath = '/facturation/v1/devis/convertDevisToFacture/{idDevis}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `convertDevisToFacture()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  convertDevisToFacture$Response(params: {
+    idDevis: number;
+  },
+  context?: HttpContext
+
+): Observable<StrictHttpResponse<void>> {
+
+    const rb = new RequestBuilder(this.rootUrl, DevisControllerService.ConvertDevisToFacturePath, 'post');
+    if (params) {
+      rb.path('idDevis', params.idDevis, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'text',
+      accept: '*/*',
+      context: context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `convertDevisToFacture$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  convertDevisToFacture(params: {
+    idDevis: number;
+  },
+  context?: HttpContext
+
+): Observable<void> {
+
+    return this.convertDevisToFacture$Response(params,context).pipe(
+      map((r: StrictHttpResponse<void>) => r.body as void)
+    );
+  }
+
+  /**
    * Path part for operation findById2
    */
   static readonly FindById2Path = '/facturation/v1/devis/{idDevis}';

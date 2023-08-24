@@ -132,6 +132,71 @@ export class FactureControllerService extends BaseService {
   }
 
   /**
+   * Path part for operation ajouterLigneFacture
+   */
+  static readonly AjouterLigneFacturePath = '/facturation/v1/facture/ajouterLigneFacture/{factureId}/{idProduit}/{prix}/{quantite}/{remise}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `ajouterLigneFacture()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  ajouterLigneFacture$Response(params: {
+    factureId: number;
+    idProduit: number;
+    prix: number;
+    quantite: number;
+    remise: number;
+  },
+  context?: HttpContext
+
+): Observable<StrictHttpResponse<void>> {
+
+    const rb = new RequestBuilder(this.rootUrl, FactureControllerService.AjouterLigneFacturePath, 'post');
+    if (params) {
+      rb.path('factureId', params.factureId, {});
+      rb.path('idProduit', params.idProduit, {});
+      rb.path('prix', params.prix, {});
+      rb.path('quantite', params.quantite, {});
+      rb.path('remise', params.remise, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'text',
+      accept: '*/*',
+      context: context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `ajouterLigneFacture$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  ajouterLigneFacture(params: {
+    factureId: number;
+    idProduit: number;
+    prix: number;
+    quantite: number;
+    remise: number;
+  },
+  context?: HttpContext
+
+): Observable<void> {
+
+    return this.ajouterLigneFacture$Response(params,context).pipe(
+      map((r: StrictHttpResponse<void>) => r.body as void)
+    );
+  }
+
+  /**
    * Path part for operation getStatistique
    */
   static readonly GetStatistiquePath = '/facturation/v1/statistique/statique';
@@ -488,6 +553,62 @@ export class FactureControllerService extends BaseService {
 
     return this.findAllIds$Response(params,context).pipe(
       map((r: StrictHttpResponse<Array<number>>) => r.body as Array<number>)
+    );
+  }
+
+  /**
+   * Path part for operation deleteLigneFacture
+   */
+  static readonly DeleteLigneFacturePath = '/facturation/v1/facture/deleteLigneFacture/{idFacture}/{idLigneFacture}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `deleteLigneFacture()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  deleteLigneFacture$Response(params: {
+    idFacture: number;
+    idLigneFacture: number;
+  },
+  context?: HttpContext
+
+): Observable<StrictHttpResponse<void>> {
+
+    const rb = new RequestBuilder(this.rootUrl, FactureControllerService.DeleteLigneFacturePath, 'delete');
+    if (params) {
+      rb.path('idFacture', params.idFacture, {});
+      rb.path('idLigneFacture', params.idLigneFacture, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'text',
+      accept: '*/*',
+      context: context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `deleteLigneFacture$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  deleteLigneFacture(params: {
+    idFacture: number;
+    idLigneFacture: number;
+  },
+  context?: HttpContext
+
+): Observable<void> {
+
+    return this.deleteLigneFacture$Response(params,context).pipe(
+      map((r: StrictHttpResponse<void>) => r.body as void)
     );
   }
 

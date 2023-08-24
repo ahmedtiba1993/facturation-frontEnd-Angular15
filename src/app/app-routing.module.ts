@@ -22,6 +22,7 @@ import { DevisComponent } from './pages/devis/devis.component';
 import { DetailsDevisComponent } from './pages/devis/details-devis/details-devis.component';
 import { AjouterDevisComponent } from './pages/devis/ajouter-devis/ajouter-devis.component';
 import { RecapDevisComponent } from './pages/recapDevis/recap-devis/recap-devis.component';
+import { ModifierFactureComponent } from './pages/facture/modifierFacture/modifier-facture/modifier-facture.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -105,6 +106,10 @@ const routes: Routes = [
       {
         path: 'recapDevis',
         component: RecapDevisComponent,
+      },
+      {
+        path: 'modifierFacture/:id',
+        component: ModifierFactureComponent,
       },
     ],
   },

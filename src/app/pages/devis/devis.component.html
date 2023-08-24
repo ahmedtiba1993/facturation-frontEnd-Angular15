@@ -94,21 +94,20 @@
       <td *ngIf="!f.paymentStatus"><span class="badge bg-danger">Non payé</span></td>
       <td>
 
+        <!--button details -->
         <button class="btn btn-primary" [routerLink]="['/detailsdevis', f.id]"><i class="bi bi-eye"></i></button>
 
-        <button *ngIf="!f.paymentStatus" type="button" class="btn btn-primary ms-1" (click)="setId(f.id)" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-          Payer
-        </button>
+        <!--button changement status -->
+        <button *ngIf="!f.paymentStatus" type="button" class="btn btn-primary ms-1 bi bi-cash" (click)="setId(f.id)" data-bs-toggle="modal" data-bs-target="#staticBackdrop"></button>
 
-        <button *ngIf="f.paymentStatus" type="button" class="btn btn-primary ms-1" disabled>
-          Payer
-        </button>
+        <!--button changement status -->
+        <button *ngIf="f.paymentStatus" type="button" class="btn btn-primary ms-1 bi bi-cash" disabled></button>
 
-        <button type="button" class="btn btn-danger ms-1" (click)="setId(f.id)" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal">
-          Supprimer
-        </button>
+        <!--button supprimer -->
+        <button type="button" class="btn btn-danger ms-1 bi bi-trash" (click)="setId(f.id)" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal"></button>
 
-      </td>
+        <!--button creation facture -->
+        <button type="button" class="btn btn-secondary ms-1 bi bi-file-earmark-text" (click)="setId(f.id)" data-bs-toggle="modal" data-bs-target="#creationFacture"></button>
     </tr>
 
     </tbody>
@@ -141,6 +140,25 @@
     </li>
   </ul>
 </nav>
+
+<!-- Modal Payer-->
+<div class="modal fade" id="creationFacture" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="screationFactureLabel">Confirmer la création de la facture</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Êtes-vous sûr de vouloir créer une facture à partir de ce devis ?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Annuler</button>
+        <button type="button" class="btn btn-success" (click)="creadtionFacture()" data-bs-dismiss="modal">Confirmer</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- Modal Payer-->
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">

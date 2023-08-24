@@ -7,6 +7,7 @@ import { ClientService } from '../../services/client/client.service';
 import { DevisService } from '../../services/devis/devis.service';
 import { formatDate } from '@angular/common';
 import { DevisDto } from '../../api/models/devis-dto';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-devis',
@@ -35,7 +36,8 @@ export class DevisComponent {
 
   constructor(
     private devisService: DevisService,
-    private clientService: ClientService
+    private clientService: ClientService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -172,6 +174,13 @@ export class DevisComponent {
     this.isLoading = true;
     this.devisService.delete(this.idDev).subscribe((data) => {
       this.findAllPaginated();
+    });
+  }
+
+  creadtionFacture() {
+    this.isLoading = true;
+    this.devisService.creationFacture(this.idDev).subscribe((data) => {
+      this.router.navigate(['facture']);
     });
   }
 }

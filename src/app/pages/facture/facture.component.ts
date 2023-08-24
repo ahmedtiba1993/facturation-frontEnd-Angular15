@@ -6,6 +6,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { ClientService } from '../../services/client/client.service';
 import { ClientDto } from '../../api/models/client-dto';
 import { formatDate } from '@angular/common';
+import { ProduitService } from '../../services/produit/produit.service';
 
 @Component({
   selector: 'app-facture',

@@ -83,4 +83,30 @@ export class FactureService {
   delete(idFacture: number): Observable<void> {
     return this.factureService.deleteFacture({ idFacture });
   }
+
+  deleteFromFacture(
+    idFacture: number,
+    idLigneFacture: number
+  ): Observable<void> {
+    return this.factureService.deleteLigneFacture({
+      idFacture,
+      idLigneFacture,
+    });
+  }
+
+  ajouterProduit(
+    factureId: number,
+    idProduit: number,
+    prix: number,
+    quantite: number,
+    remise: number
+  ): Observable<void> {
+    return this.factureService.ajouterLigneFacture({
+      factureId,
+      idProduit,
+      prix,
+      quantite,
+      remise,
+    });
+  }
 }

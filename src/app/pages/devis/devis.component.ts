@@ -34,6 +34,8 @@ export class DevisComponent {
   dateDebut?: Date;
   dateFin?: Date;
 
+  isButtonLoading = false;
+
   constructor(
     private devisService: DevisService,
     private clientService: ClientService,
@@ -52,6 +54,10 @@ export class DevisComponent {
   }
 
   findAllPaginated() {
+    this.isButtonLoading = true;
+
+    this.isLoading = true;
+
     if (this.paymentStatus! == 'null') {
       this.paymentStatus = null;
     }
@@ -77,6 +83,7 @@ export class DevisComponent {
         dateStringFin
       )
       .subscribe((page) => {
+        this.isButtonLoading = false;
         this.page = page;
         this.listDevis = page.content!;
         this.isLoading = false;

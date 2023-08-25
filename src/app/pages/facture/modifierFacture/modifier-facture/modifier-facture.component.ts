@@ -105,7 +105,8 @@ export class ModifierFactureComponent {
     } else {
       this.remiseErreur = false;
     }
-    if (!this.remiseErreur || !this.quantiteErreur || !this.prixErreur) {
+
+    if (this.remiseErreur || this.quantiteErreur || this.prixErreur) {
       return;
     }
     if (

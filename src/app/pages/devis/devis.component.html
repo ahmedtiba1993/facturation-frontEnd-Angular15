@@ -265,7 +265,13 @@
 
             </div>
           </div>
-          <button type="submit" class="btn btn-success mt-2" (click)="findAllPaginated()">Rechercher</button>
+          <button class="btn btn-primary w-100 mt-2" type="submit" (click)="findWidthFiltre()" [disabled]="isButtonLoading">
+            <span *ngIf="!isButtonLoading">Rechercher</span>
+            <div  *ngIf="isButtonLoading">
+              <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+              Chargement...
+            </div>
+          </button>
         </form>
       </div>
       <div class="row">
@@ -291,12 +297,24 @@
         <div><span *ngIf="f.paymentStatus"><span class="badge bg-success">Payé</span></span>
           <span *ngIf="!f.paymentStatus"><span class="badge bg-danger">Non payé</span></span>
         </div>
-        <button class="btn btn-primary mt-3" [routerLink]="['/detailsfacture', f.id]"><i class="bi bi-eye"></i></button>
-        <button *ngIf="!f.paymentStatus" type="button" class="btn btn-success mt-3 ms-2" (click)="setId(f.id)" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-          Payé
-        </button>
-        <input class="form-check-input mt-4 ms-2" style="width: 25px; height: 25px" type="checkbox" [value]="f.id" (click)="ajouterListIdFacture(f.id!)" [checked]="ids.includes(f.id!)">
-      </div>
+        <div class="mt-2">
+          <button class="btn btn-primary" [routerLink]="['/detailsfacture', f.id]"><i class="bi bi-eye"></i></button>
+          <!--button changement status -->
+          <button *ngIf="!f.paymentStatus" type="button" class="btn btn-primary ms-1 bi bi-cash" (click)="setId(f.id)" data-bs-toggle="modal" data-bs-target="#staticBackdrop"></button>
+
+          <!--button changement status -->
+          <button *ngIf="f.paymentStatus" type="button" class="btn btn-primary ms-1 bi bi-cash" disabled></button>
+
+          <!--button supprimer -->
+          <button type="button" class="btn btn-danger ms-1 bi bi-trash" (click)="setId(f.id)" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal"></button>
+
+          <!--button creation facture -->
+          <button type="button" class="btn btn-secondary m-1 bi bi-file-earmark-text" (click)="setId(f.id)" data-bs-toggle="modal" data-bs-target="#creationFacture"></button>
+
+          <input class="form-check-input m-2" style="width: 25px; height: 25px" type="checkbox" [value]="f.id" (click)="ajouterListIdFacture(f.id!)" [checked]="ids.includes(f.id!)">
+
+        </div>
+     </div>
     </div>
     </tbody>
   </div>

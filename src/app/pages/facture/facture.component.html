@@ -274,10 +274,18 @@
           <span *ngIf="!f.paymentStatus"><span class="badge bg-danger">Non payé</span></span>
         </div>
         <button class="btn btn-primary mt-3" [routerLink]="['/detailsfacture', f.id]"><i class="bi bi-eye"></i></button>
-        <button *ngIf="!f.paymentStatus" type="button" class="btn btn-success mt-3 ms-2" (click)="setId(f.id)" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-          Payé
-        </button>
-        <input class="form-check-input mt-4 ms-2" style="width: 25px; height: 25px" type="checkbox" [value]="f.id" (click)="ajouterListIdFacture(f.id!)" [checked]="ids.includes(f.id!)">
+        <!--button payer -->
+        <button *ngIf="!f.paymentStatus" type="button" class="btn btn-primary ms-1 bi bi-cash mt-3" (click)="setId(f.id)" data-bs-toggle="modal" data-bs-target="#staticBackdrop"></button>
+
+        <button *ngIf="f.paymentStatus" type="button" class="btn btn-primary ms-1 bi bi-cas mt-3" disabled></button>
+
+        <!--button supprimer -->
+        <button type="button" class="btn btn-danger ms-1 bi bi-trash mt-3" (click)="setId(f.id)" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal"></button>
+
+        <!--button modifier -->
+        <button type="button" class="btn btn-warning ms-1 bi bi-pencil-square mt-3" [routerLink]="['/modifierFacture', f.id]" ></button>
+
+        <input class="form-check-input mt-3 ms-2" style="width: 25px; height: 25px" type="checkbox" [value]="f.id" (click)="ajouterListIdFacture(f.id!)" [checked]="ids.includes(f.id!)">
       </div>
     </div>
     </tbody>

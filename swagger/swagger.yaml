@@ -30,6 +30,82 @@
     }
   ],
   "paths": {
+    "/facturation/v1/user/modifierUserInfo": {
+      "post": {
+        "tags": [
+          "user-controller"
+        ],
+        "operationId": "modifierUserInfo",
+        "parameters": [
+          {
+            "name": "firstName",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "lastName",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "email",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "tel",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "fax",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "mobile",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "object"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/facturation/v1/user/changePassword": {
       "post": {
         "tags": [
@@ -495,6 +571,36 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/AuthenticationResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/facturation/v1/user/userInfo": {
+      "get": {
+        "tags": [
+          "user-controller"
+        ],
+        "operationId": "getUserDtailsDto",
+        "parameters": [
+          {
+            "name": "email",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserDto"
                 }
               }
             }
@@ -2273,6 +2379,32 @@
           }
         }
       },
+      "UserDto": {
+        "type": "object",
+        "properties": {
+          "firstname": {
+            "type": "string"
+          },
+          "lastname": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "tel": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "fax": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "mobile": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
       "GrantedAuthority": {
         "type": "object",
         "properties": {
@@ -2300,6 +2432,18 @@
           "password": {
             "type": "string"
           },
+          "tel": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "fax": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "mobile": {
+            "type": "integer",
+            "format": "int32"
+          },
           "role": {
             "type": "string",
             "enum": [
@@ -2310,14 +2454,14 @@
           "enabled": {
             "type": "boolean"
           },
+          "accountNonLocked": {
+            "type": "boolean"
+          },
           "credentialsNonExpired": {
             "type": "boolean"
           },
           "accountNonExpired": {
             "type": "boolean"
-          },
-          "username": {
-            "type": "string"
           },
           "authorities": {
             "type": "array",
@@ -2325,8 +2469,8 @@
               "$ref": "#/components/schemas/GrantedAuthority"
             }
           },
-          "accountNonLocked": {
-            "type": "boolean"
+          "username": {
+            "type": "string"
           }
         }
       },
@@ -2369,10 +2513,6 @@
             "type": "number",
             "format": "double"
           },
-          "nbFactureNonPaye": {
-            "type": "integer",
-            "format": "int64"
-          },
           "montantDevisPaye": {
             "type": "number",
             "format": "double"
@@ -2381,15 +2521,19 @@
             "type": "number",
             "format": "double"
           },
+          "nbFactureNonPaye": {
+            "type": "integer",
+            "format": "int64"
+          },
           "montantDevisNonPaye": {
             "type": "number",
             "format": "double"
           },
-          "nbDevisPaye": {
+          "nbDevisNonPaye": {
             "type": "integer",
             "format": "int64"
           },
-          "nbDevisNonPaye": {
+          "nbFacturePaye": {
             "type": "integer",
             "format": "int64"
           },
@@ -2397,7 +2541,7 @@
             "type": "integer",
             "format": "int64"
           },
-          "nbFacturePaye": {
+          "nbDevisPaye": {
             "type": "integer",
             "format": "int64"
           }
@@ -2406,13 +2550,13 @@
       "PageRecapClient": {
         "type": "object",
         "properties": {
-          "totalPages": {
-            "type": "integer",
-            "format": "int32"
-          },
           "totalElements": {
             "type": "integer",
             "format": "int64"
+          },
+          "totalPages": {
+            "type": "integer",
+            "format": "int32"
           },
           "size": {
             "type": "integer",
@@ -2431,15 +2575,15 @@
           "sort": {
             "$ref": "#/components/schemas/SortObject"
           },
+          "numberOfElements": {
+            "type": "integer",
+            "format": "int32"
+          },
           "first": {
             "type": "boolean"
           },
           "last": {
             "type": "boolean"
-          },
-          "numberOfElements": {
-            "type": "integer",
-            "format": "int32"
           },
           "pageable": {
             "$ref": "#/components/schemas/PageableObject"
@@ -2459,11 +2603,11 @@
           "sort": {
             "$ref": "#/components/schemas/SortObject"
           },
-          "pageSize": {
+          "pageNumber": {
             "type": "integer",
             "format": "int32"
           },
-          "pageNumber": {
+          "pageSize": {
             "type": "integer",
             "format": "int32"
           },
@@ -2478,21 +2622,21 @@
       "RecapClient": {
         "type": "object",
         "properties": {
-          "idClient": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "nmontantPaye": {
-            "type": "number",
-            "format": "double"
-          },
           "nomClient": {
             "type": "string"
           },
           "prenomClient": {
             "type": "string"
           },
+          "idClient": {
+            "type": "integer",
+            "format": "int64"
+          },
           "nmontantNonPaye": {
+            "type": "number",
+            "format": "double"
+          },
+          "nmontantPaye": {
             "type": "number",
             "format": "double"
           },
@@ -2522,13 +2666,13 @@
       "PageProduitDto": {
         "type": "object",
         "properties": {
-          "totalPages": {
-            "type": "integer",
-            "format": "int32"
-          },
           "totalElements": {
             "type": "integer",
             "format": "int64"
+          },
+          "totalPages": {
+            "type": "integer",
+            "format": "int32"
           },
           "size": {
             "type": "integer",
@@ -2547,15 +2691,15 @@
           "sort": {
             "$ref": "#/components/schemas/SortObject"
           },
+          "numberOfElements": {
+            "type": "integer",
+            "format": "int32"
+          },
           "first": {
             "type": "boolean"
           },
           "last": {
             "type": "boolean"
-          },
-          "numberOfElements": {
-            "type": "integer",
-            "format": "int32"
           },
           "pageable": {
             "$ref": "#/components/schemas/PageableObject"
@@ -2568,13 +2712,13 @@
       "PageFactureDto": {
         "type": "object",
         "properties": {
-          "totalPages": {
-            "type": "integer",
-            "format": "int32"
-          },
           "totalElements": {
             "type": "integer",
             "format": "int64"
+          },
+          "totalPages": {
+            "type": "integer",
+            "format": "int32"
           },
           "size": {
             "type": "integer",
@@ -2593,15 +2737,15 @@
           "sort": {
             "$ref": "#/components/schemas/SortObject"
           },
+          "numberOfElements": {
+            "type": "integer",
+            "format": "int32"
+          },
           "first": {
             "type": "boolean"
           },
           "last": {
             "type": "boolean"
-          },
-          "numberOfElements": {
-            "type": "integer",
-            "format": "int32"
           },
           "pageable": {
             "$ref": "#/components/schemas/PageableObject"
@@ -2614,21 +2758,21 @@
       "ClientRecapProjection": {
         "type": "object",
         "properties": {
-          "idClient": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "nmontantPaye": {
-            "type": "number",
-            "format": "double"
-          },
           "nomClient": {
             "type": "string"
           },
           "prenomClient": {
             "type": "string"
           },
+          "idClient": {
+            "type": "integer",
+            "format": "int64"
+          },
           "nmontantNonPaye": {
+            "type": "number",
+            "format": "double"
+          },
+          "nmontantPaye": {
             "type": "number",
             "format": "double"
           },
@@ -2644,13 +2788,13 @@
       "PageClientRecapProjection": {
         "type": "object",
         "properties": {
-          "totalPages": {
-            "type": "integer",
-            "format": "int32"
-          },
           "totalElements": {
             "type": "integer",
             "format": "int64"
+          },
+          "totalPages": {
+            "type": "integer",
+            "format": "int32"
           },
           "size": {
             "type": "integer",
@@ -2669,15 +2813,15 @@
           "sort": {
             "$ref": "#/components/schemas/SortObject"
           },
+          "numberOfElements": {
+            "type": "integer",
+            "format": "int32"
+          },
           "first": {
             "type": "boolean"
           },
           "last": {
             "type": "boolean"
-          },
-          "numberOfElements": {
-            "type": "integer",
-            "format": "int32"
           },
           "pageable": {
             "$ref": "#/components/schemas/PageableObject"
@@ -2690,13 +2834,13 @@
       "PageDevisDto": {
         "type": "object",
         "properties": {
-          "totalPages": {
-            "type": "integer",
-            "format": "int32"
-          },
           "totalElements": {
             "type": "integer",
             "format": "int64"
+          },
+          "totalPages": {
+            "type": "integer",
+            "format": "int32"
           },
           "size": {
             "type": "integer",
@@ -2715,15 +2859,15 @@
           "sort": {
             "$ref": "#/components/schemas/SortObject"
           },
+          "numberOfElements": {
+            "type": "integer",
+            "format": "int32"
+          },
           "first": {
             "type": "boolean"
           },
           "last": {
             "type": "boolean"
-          },
-          "numberOfElements": {
-            "type": "integer",
-            "format": "int32"
           },
           "pageable": {
             "$ref": "#/components/schemas/PageableObject"
@@ -2736,13 +2880,13 @@
       "PageClientDto": {
         "type": "object",
         "properties": {
-          "totalPages": {
-            "type": "integer",
-            "format": "int32"
-          },
           "totalElements": {
             "type": "integer",
             "format": "int64"
+          },
+          "totalPages": {
+            "type": "integer",
+            "format": "int32"
           },
           "size": {
             "type": "integer",
@@ -2761,15 +2905,15 @@
           "sort": {
             "$ref": "#/components/schemas/SortObject"
           },
+          "numberOfElements": {
+            "type": "integer",
+            "format": "int32"
+          },
           "first": {
             "type": "boolean"
           },
           "last": {
             "type": "boolean"
-          },
-          "numberOfElements": {
-            "type": "integer",
-            "format": "int32"
           },
           "pageable": {
             "$ref": "#/components/schemas/PageableObject"
@@ -2782,13 +2926,13 @@
       "PageCategorieDto": {
         "type": "object",
         "properties": {
-          "totalPages": {
-            "type": "integer",
-            "format": "int32"
-          },
           "totalElements": {
             "type": "integer",
             "format": "int64"
+          },
+          "totalPages": {
+            "type": "integer",
+            "format": "int32"
           },
           "size": {
             "type": "integer",
@@ -2807,15 +2951,15 @@
           "sort": {
             "$ref": "#/components/schemas/SortObject"
           },
+          "numberOfElements": {
+            "type": "integer",
+            "format": "int32"
+          },
           "first": {
             "type": "boolean"
           },
           "last": {
             "type": "boolean"
-          },
-          "numberOfElements": {
-            "type": "integer",
-            "format": "int32"
           },
           "pageable": {
             "$ref": "#/components/schemas/PageableObject"

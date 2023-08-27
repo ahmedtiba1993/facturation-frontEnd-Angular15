@@ -8,10 +8,13 @@ export interface User {
   credentialsNonExpired?: boolean;
   email?: string;
   enabled?: boolean;
+  fax?: number;
   firstname?: string;
   id?: number;
   lastname?: string;
+  mobile?: number;
   password?: string;
   role?: 'USER' | 'ADMIN';
+  tel?: number;
   username?: string;
 }

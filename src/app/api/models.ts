@@ -16,6 +16,7 @@ export { LigneDevisDto } from './models/ligne-devis-dto';
 export { RegisterRequest } from './models/register-request';
 export { AuthenticationResponse } from './models/authentication-response';
 export { AuthenticationRequest } from './models/authentication-request';
+export { UserDto } from './models/user-dto';
 export { GrantedAuthority } from './models/granted-authority';
 export { User } from './models/user';
 export { Tva } from './models/tva';

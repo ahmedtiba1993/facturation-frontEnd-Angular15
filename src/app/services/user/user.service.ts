@@ -7,6 +7,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { UserControllerService } from '../../api/services/user-controller.service';
 import { User } from '../../api/models/user';
 import { StrictHttpResponse } from '../../api/strict-http-response';
+import { UserDto } from '../../api/models/user-dto';
 
 @Injectable({
   providedIn: 'root',
@@ -82,5 +83,37 @@ export class UserService {
     newPassword: string
   ): Observable<{ [p: string]: {} }> {
     return this.userService.changePassword({ id, newPassword });
+  }
+
+  getEmail() {
+    const token = localStorage.getItem('accessToken');
+    let decodedToken = this.helper.decodeToken(token!);
+    const email = this.readElementFromToken(
+      localStorage.getItem('accessToken') as string,
+      'userName'
+    );
+    return email;
+  }
+  getUserIfo(): Observable<UserDto> {
+    const email = this.getEmail();
+    return this.userService.getUserDtailsDto({ email });
+  }
+
+  modifierUserInfo(
+    firstName: string,
+    lastName: string,
+    email: string,
+    tel: number,
+    fax: number,
+    mobile: number
+  ) {
+    return this.userService.modifierUserInfo$Response({
+      firstName,
+      lastName,
+      email,
+      tel,
+      fax,
+      mobile,
+    });
   }
 }

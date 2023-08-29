@@ -108,6 +108,10 @@
 
         <!--button creation facture -->
         <button type="button" class="btn btn-secondary ms-1 bi bi-file-earmark-text" (click)="setId(f.id)" data-bs-toggle="modal" data-bs-target="#creationFacture"></button>
+
+        <!--button modifier -->
+        <button type="button" class="btn btn-warning ms-1 bi bi-pencil-square" [routerLink]="['/modifierDevis', f.id]" ></button>
+
     </tr>
 
     </tbody>
@@ -312,6 +316,9 @@
           <button type="button" class="btn btn-secondary m-1 bi bi-file-earmark-text" (click)="setId(f.id)" data-bs-toggle="modal" data-bs-target="#creationFacture"></button>
 
           <input class="form-check-input m-2" style="width: 25px; height: 25px" type="checkbox" [value]="f.id" (click)="ajouterListIdFacture(f.id!)" [checked]="ids.includes(f.id!)">
+
+          <!--button modifier -->
+          <button type="button" class="btn btn-warning ms-1 bi bi-pencil-square" [routerLink]="['/modifierFacture', f.id]" ></button>
 
         </div>
      </div>

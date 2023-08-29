@@ -88,4 +88,27 @@ export class DevisService {
   creationFacture(idDevis: number): Observable<void> {
     return this.devisService.convertDevisToFacture({ idDevis });
   }
+
+  deleteFromDevis(idDevis: number, idLigneDevis: number): Observable<void> {
+    return this.devisService.deleteLignedevis({
+      idDevis,
+      idLigneDevis,
+    });
+  }
+
+  ajouterProduit(
+    idDevis: number,
+    idProduit: number,
+    prix: number,
+    quantite: number,
+    remise: number
+  ): Observable<void> {
+    return this.devisService.ajouterLigneDevis({
+      idDevis,
+      idProduit,
+      prix,
+      quantite,
+      remise,
+    });
+  }
 }

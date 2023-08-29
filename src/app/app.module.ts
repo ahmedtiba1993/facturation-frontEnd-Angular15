@@ -35,6 +35,7 @@ import { DetailsDevisComponent } from './pages/devis/details-devis/details-devis
 import { AjouterDevisComponent } from './pages/devis/ajouter-devis/ajouter-devis.component';
 import { RecapDevisComponent } from './pages/recapDevis/recap-devis/recap-devis.component';
 import { ModifierFactureComponent } from './pages/facture/modifierFacture/modifier-facture/modifier-facture.component';
+import { ModifierDevisComponent } from './pages/devis/modifier-devis/modifier-devis.component';
 
 @NgModule({
   declarations: [
@@ -67,6 +68,7 @@ import { ModifierFactureComponent } from './pages/facture/modifierFacture/modifi
     AjouterDevisComponent,
     RecapDevisComponent,
     ModifierFactureComponent,
+    ModifierDevisComponent,
   ],
   imports: [
     BrowserModule,

@@ -458,6 +458,66 @@
         }
       }
     },
+    "/facturation/v1/devis/ajouterLigneDevis/{idDevis}/{idProduit}/{prix}/{quantite}/{remise}": {
+      "post": {
+        "tags": [
+          "devis-controller"
+        ],
+        "operationId": "ajouterLigneDevis",
+        "parameters": [
+          {
+            "name": "idDevis",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "idProduit",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "prix",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "number",
+              "format": "double"
+            }
+          },
+          {
+            "name": "quantite",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "remise",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/facturation/v1/client/create": {
       "post": {
         "tags": [
@@ -1781,6 +1841,39 @@
         }
       }
     },
+    "/facturation/v1/devis/deleteLignedevis/{idDevis}/{idLigneDevis}": {
+      "delete": {
+        "tags": [
+          "devis-controller"
+        ],
+        "operationId": "deleteLignedevis",
+        "parameters": [
+          {
+            "name": "idDevis",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "idLigneDevis",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/facturation/v1/devis/deleteDevis/{idDevis}": {
       "delete": {
         "tags": [
@@ -2454,13 +2547,10 @@
           "enabled": {
             "type": "boolean"
           },
-          "accountNonLocked": {
+          "accountNonExpired": {
             "type": "boolean"
           },
           "credentialsNonExpired": {
-            "type": "boolean"
-          },
-          "accountNonExpired": {
             "type": "boolean"
           },
           "authorities": {
@@ -2471,6 +2561,9 @@
           },
           "username": {
             "type": "string"
+          },
+          "accountNonLocked": {
+            "type": "boolean"
           }
         }
       },
@@ -2509,31 +2602,7 @@
       "Statistique": {
         "type": "object",
         "properties": {
-          "montantFactureNonPaye": {
-            "type": "number",
-            "format": "double"
-          },
-          "montantDevisPaye": {
-            "type": "number",
-            "format": "double"
-          },
-          "montantFacturePaye": {
-            "type": "number",
-            "format": "double"
-          },
-          "nbFactureNonPaye": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "montantDevisNonPaye": {
-            "type": "number",
-            "format": "double"
-          },
           "nbDevisNonPaye": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "nbFacturePaye": {
             "type": "integer",
             "format": "int64"
           },
@@ -2541,9 +2610,33 @@
             "type": "integer",
             "format": "int64"
           },
+          "nbFacturePaye": {
+            "type": "integer",
+            "format": "int64"
+          },
           "nbDevisPaye": {
             "type": "integer",
             "format": "int64"
+          },
+          "montantDevisPaye": {
+            "type": "number",
+            "format": "double"
+          },
+          "nbFactureNonPaye": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "montantFactureNonPaye": {
+            "type": "number",
+            "format": "double"
+          },
+          "montantDevisNonPaye": {
+            "type": "number",
+            "format": "double"
+          },
+          "montantFacturePaye": {
+            "type": "number",
+            "format": "double"
           }
         }
       },
@@ -2575,15 +2668,15 @@
           "sort": {
             "$ref": "#/components/schemas/SortObject"
           },
-          "numberOfElements": {
-            "type": "integer",
-            "format": "int32"
-          },
           "first": {
             "type": "boolean"
           },
           "last": {
             "type": "boolean"
+          },
+          "numberOfElements": {
+            "type": "integer",
+            "format": "int32"
           },
           "pageable": {
             "$ref": "#/components/schemas/PageableObject"
@@ -2622,29 +2715,29 @@
       "RecapClient": {
         "type": "object",
         "properties": {
-          "nomClient": {
-            "type": "string"
-          },
-          "prenomClient": {
-            "type": "string"
-          },
-          "idClient": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "nmontantNonPaye": {
-            "type": "number",
-            "format": "double"
-          },
-          "nmontantPaye": {
-            "type": "number",
-            "format": "double"
-          },
           "numFacture": {
             "type": "integer",
             "format": "int32"
           },
           "nomCommercial": {
+            "type": "string"
+          },
+          "nmontantPaye": {
+            "type": "number",
+            "format": "double"
+          },
+          "prenomClient": {
+            "type": "string"
+          },
+          "nmontantNonPaye": {
+            "type": "number",
+            "format": "double"
+          },
+          "idClient": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "nomClient": {
             "type": "string"
           }
         }
@@ -2691,15 +2784,15 @@
           "sort": {
             "$ref": "#/components/schemas/SortObject"
           },
-          "numberOfElements": {
-            "type": "integer",
-            "format": "int32"
-          },
           "first": {
             "type": "boolean"
           },
           "last": {
             "type": "boolean"
+          },
+          "numberOfElements": {
+            "type": "integer",
+            "format": "int32"
           },
           "pageable": {
             "$ref": "#/components/schemas/PageableObject"
@@ -2737,15 +2830,15 @@
           "sort": {
             "$ref": "#/components/schemas/SortObject"
           },
-          "numberOfElements": {
-            "type": "integer",
-            "format": "int32"
-          },
           "first": {
             "type": "boolean"
           },
           "last": {
             "type": "boolean"
+          },
+          "numberOfElements": {
+            "type": "integer",
+            "format": "int32"
           },
           "pageable": {
             "$ref": "#/components/schemas/PageableObject"
@@ -2758,29 +2851,29 @@
       "ClientRecapProjection": {
         "type": "object",
         "properties": {
-          "nomClient": {
-            "type": "string"
-          },
-          "prenomClient": {
-            "type": "string"
-          },
-          "idClient": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "nmontantNonPaye": {
-            "type": "number",
-            "format": "double"
-          },
-          "nmontantPaye": {
-            "type": "number",
-            "format": "double"
-          },
           "numFacture": {
             "type": "integer",
             "format": "int64"
           },
           "nomCommercial": {
+            "type": "string"
+          },
+          "nmontantPaye": {
+            "type": "number",
+            "format": "double"
+          },
+          "prenomClient": {
+            "type": "string"
+          },
+          "nmontantNonPaye": {
+            "type": "number",
+            "format": "double"
+          },
+          "idClient": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "nomClient": {
             "type": "string"
           }
         }
@@ -2813,15 +2906,15 @@
           "sort": {
             "$ref": "#/components/schemas/SortObject"
           },
-          "numberOfElements": {
-            "type": "integer",
-            "format": "int32"
-          },
           "first": {
             "type": "boolean"
           },
           "last": {
             "type": "boolean"
+          },
+          "numberOfElements": {
+            "type": "integer",
+            "format": "int32"
           },
           "pageable": {
             "$ref": "#/components/schemas/PageableObject"
@@ -2859,15 +2952,15 @@
           "sort": {
             "$ref": "#/components/schemas/SortObject"
           },
-          "numberOfElements": {
-            "type": "integer",
-            "format": "int32"
-          },
           "first": {
             "type": "boolean"
           },
           "last": {
             "type": "boolean"
+          },
+          "numberOfElements": {
+            "type": "integer",
+            "format": "int32"
           },
           "pageable": {
             "$ref": "#/components/schemas/PageableObject"
@@ -2905,15 +2998,15 @@
           "sort": {
             "$ref": "#/components/schemas/SortObject"
           },
-          "numberOfElements": {
-            "type": "integer",
-            "format": "int32"
-          },
           "first": {
             "type": "boolean"
           },
           "last": {
             "type": "boolean"
+          },
+          "numberOfElements": {
+            "type": "integer",
+            "format": "int32"
           },
           "pageable": {
             "$ref": "#/components/schemas/PageableObject"
@@ -2951,15 +3044,15 @@
           "sort": {
             "$ref": "#/components/schemas/SortObject"
           },
-          "numberOfElements": {
-            "type": "integer",
-            "format": "int32"
-          },
           "first": {
             "type": "boolean"
           },
           "last": {
             "type": "boolean"
+          },
+          "numberOfElements": {
+            "type": "integer",
+            "format": "int32"
           },
           "pageable": {
             "$ref": "#/components/schemas/PageableObject"

@@ -12,6 +12,7 @@ export class SettingComponent {
   timbre: number = 0;
   tva: number = 0;
   numFacture: number = 0;
+  numDevis: number = 0;
 
   alertTvaSuccess = false;
   alertTvaError = false;
@@ -21,6 +22,9 @@ export class SettingComponent {
 
   alertNumFactureSuccess = false;
   alertNumFactureError = false;
+
+  alertNumDevisSuccess = false;
+  alertNumDevisError = false;
 
   constructor(private settingService: SettingService) {}
 
@@ -69,6 +73,7 @@ export class SettingComponent {
   getNumFacture() {
     this.settingService.getNumFacture().subscribe((data) => {
       this.numFacture = data.numFacture!;
+      this.numDevis = data.numDevis!;
     });
   }
 
@@ -80,6 +85,18 @@ export class SettingComponent {
       } else {
         this.alertNumFactureSuccess = false;
         this.alertNumFactureError = true;
+      }
+    });
+  }
+
+  updateNumDevis() {
+    this.settingService.updateNumDevis(this.numDevis).subscribe((data) => {
+      if (data['success']) {
+        this.alertNumDevisSuccess = true;
+        this.alertNumDevisError = false;
+      } else {
+        this.alertNumDevisSuccess = false;
+        this.alertNumDevisError = true;
       }
     });
   }

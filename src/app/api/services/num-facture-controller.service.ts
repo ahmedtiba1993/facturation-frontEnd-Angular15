@@ -140,4 +140,72 @@ export class NumFactureControllerService extends BaseService {
     );
   }
 
+  /**
+   * Path part for operation updateNumDevis
+   */
+  static readonly UpdateNumDevisPath = '/facturation/v1/numFacture/updateNumDevis';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `updateNumDevis()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  updateNumDevis$Response(params: {
+    numDevis: number;
+  },
+  context?: HttpContext
+
+): Observable<StrictHttpResponse<{
+[key: string]: {
+};
+}>> {
+
+    const rb = new RequestBuilder(this.rootUrl, NumFactureControllerService.UpdateNumDevisPath, 'get');
+    if (params) {
+      rb.query('numDevis', params.numDevis, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json',
+      context: context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        [key: string]: {
+        };
+        }>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `updateNumDevis$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  updateNumDevis(params: {
+    numDevis: number;
+  },
+  context?: HttpContext
+
+): Observable<{
+[key: string]: {
+};
+}> {
+
+    return this.updateNumDevis$Response(params,context).pipe(
+      map((r: StrictHttpResponse<{
+[key: string]: {
+};
+}>) => r.body as {
+[key: string]: {
+};
+})
+    );
+  }
+
 }

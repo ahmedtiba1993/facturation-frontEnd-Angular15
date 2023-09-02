@@ -34,6 +34,10 @@ export class SettingService {
     return this.numFactureService.updateNumFacture({ numFacture });
   }
 
+  updateNumDevis(numDevis: number): Observable<{ [p: string]: {} }> {
+    return this.numFactureService.updateNumDevis({ numDevis });
+  }
+
   getTimbre(): Observable<TimbreFiscalDto> {
     return this.timbreService.getTimbre();
   }

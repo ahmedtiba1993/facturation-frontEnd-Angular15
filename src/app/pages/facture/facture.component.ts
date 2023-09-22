@@ -23,7 +23,7 @@ export class FactureComponent {
   showDivFiltre = false;
   listClient: Array<ClientDto> = [];
   ids: Array<number> = [];
-
+  isButtonLoading = false;
   //filtre
   refFacture?: string;
   minMontatnTTC?: number;
@@ -53,14 +53,19 @@ export class FactureComponent {
     if (this.paymentStatus! == 'null') {
       this.paymentStatus = null;
     }
-    let dateStringDebut = '';
+    let dateStringDebut: string = '';
     let dateStringFin = '';
-    if (this.dateDebut != null) {
+    if (this.dateDebut != null && this.dateDebut!.toString().length > 0) {
       dateStringDebut = formatDate(this.dateDebut!, 'yyyy-MM-dd', 'en-US');
+    } else {
+      dateStringDebut = '';
     }
-    if (this.dateFin != null) {
+    if (this.dateFin != null && this.dateFin!.toString().length > 0) {
       dateStringFin = formatDate(this.dateFin!, 'yyyy-MM-dd', 'en-US');
+    } else {
+      dateStringFin = '';
     }
+
     this.isLoading = true;
     this.factureService
       .getAll(
@@ -132,10 +137,12 @@ export class FactureComponent {
   }
 
   pdf() {
+    this.isButtonLoading = true;
     this.factureService.generatePdf(this.ids).subscribe((data) => {
       const file = new Blob([data], { type: 'application/pdf' });
       const fileURL = URL.createObjectURL(file);
       window.open(fileURL);
+      this.isButtonLoading = false;
     });
   }
 
@@ -154,12 +161,17 @@ export class FactureComponent {
     }
     let dateStringDebut = '';
     let dateStringFin = '';
-    if (this.dateDebut != null) {
+    if (this.dateDebut != null && this.dateDebut!.toString().length > 0) {
       dateStringDebut = formatDate(this.dateDebut!, 'yyyy-MM-dd', 'en-US');
+    } else {
+      dateStringDebut = '';
     }
-    if (this.dateFin != null) {
+    if (this.dateFin != null && this.dateFin!.toString().length > 0) {
       dateStringFin = formatDate(this.dateFin!, 'yyyy-MM-dd', 'en-US');
+    } else {
+      dateStringFin = '';
     }
+    console.log('date' + dateStringFin);
     this.factureService
       .findAllIds(
         this.refFacture!,

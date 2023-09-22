@@ -1,8 +1,13 @@
 <div class="card p-2 d-none d-md-block">
   <button type="button" routerLink="/ajouterFacture" class="btn btn-primary">Ajouter</button>
   <button class="btn btn-danger ms-2" (click)="toggleDivFiltre()">Filtre</button>
-  <button class="btn btn-success ms-2" (click)="pdf()"><i class="bi bi-file-earmark-pdf"></i>Telecherger PDF ({{ids.length}}) </button>
-
+  <button class="btn btn-success ms-2" (click)="pdf()" [disabled]="isButtonLoading">
+    <span *ngIf="!isButtonLoading"><i class="bi bi-file-earmark-pdf"></i>Telecherger PDF ({{ids.length}})</span>
+    <div  *ngIf="isButtonLoading">
+      <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+      Chargement...
+    </div>
+  </button>
   <div *ngIf="showDivFiltre" class="card mt-3">
     <form>
       <div class="row">
@@ -186,7 +191,13 @@
     <div class="container">
       <button type="button" routerLink="/ajouterFacture" class="btn btn-primary">Ajouter</button>
       <button class="btn btn-danger ms-2" (click)="toggleDivFiltre()">Filtre</button>
-      <button class="btn btn-success ms-2" (click)="pdf()"><i class="bi bi-file-earmark-pdf"></i>PDF ({{ids.length}}) </button>
+      <button class="btn btn-success ms-2" (click)="pdf()" [disabled]="isButtonLoading">
+        <span *ngIf="!isButtonLoading"><i class="bi bi-file-earmark-pdf"></i>PDF ({{ids.length}})</span>
+        <div  *ngIf="isButtonLoading">
+          <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+          Chargement...
+        </div>
+      </button>
       <div *ngIf="showDivFiltre" class="card mt-3">
         <form>
             <div class="col">

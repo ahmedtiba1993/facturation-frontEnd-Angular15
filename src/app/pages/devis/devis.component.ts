@@ -63,11 +63,15 @@ export class DevisComponent {
     }
     let dateStringDebut = '';
     let dateStringFin = '';
-    if (this.dateDebut != null) {
+    if (this.dateDebut != null && this.dateDebut!.toString().length > 0) {
       dateStringDebut = formatDate(this.dateDebut!, 'yyyy-MM-dd', 'en-US');
+    } else {
+      dateStringDebut = '';
     }
-    if (this.dateFin != null) {
+    if (this.dateFin != null && this.dateFin!.toString().length > 0) {
       dateStringFin = formatDate(this.dateFin!, 'yyyy-MM-dd', 'en-US');
+    } else {
+      dateStringFin = '';
     }
     this.isLoading = true;
     this.devisService
@@ -156,11 +160,15 @@ export class DevisComponent {
     }
     let dateStringDebut = '';
     let dateStringFin = '';
-    if (this.dateDebut != null) {
+    if (this.dateDebut != null && this.dateDebut!.toString().length > 0) {
       dateStringDebut = formatDate(this.dateDebut!, 'yyyy-MM-dd', 'en-US');
+    } else {
+      dateStringDebut = '';
     }
-    if (this.dateFin != null) {
+    if (this.dateFin != null && this.dateFin!.toString().length > 0) {
       dateStringFin = formatDate(this.dateFin!, 'yyyy-MM-dd', 'en-US');
+    } else {
+      dateStringFin = '';
     }
     this.devisService
       .findAllIds(

@@ -29,6 +29,7 @@ export class ModifierFactureComponent {
   prixErreur: boolean = false;
   quantiteErreur: boolean = false;
   remiseErreur: boolean = false;
+  loaderAdd = false;
 
   constructor(
     private factureService: FactureService,
@@ -85,6 +86,7 @@ export class ModifierFactureComponent {
   }
 
   ajouter() {
+    this.loaderAdd = true;
     if (this.codeP == null || !this.produitP) {
       this.searchErreur = true;
     } else {
@@ -107,6 +109,7 @@ export class ModifierFactureComponent {
     }
 
     if (this.remiseErreur || this.quantiteErreur || this.prixErreur) {
+      this.loaderAdd = false;
       return;
     }
     if (
@@ -131,9 +134,11 @@ export class ModifierFactureComponent {
           this.qunatiteP = null;
           this.remiseP = null;
           this.findByID();
+          this.loaderAdd = false;
         });
     } else {
       // Handle the case where any of the required values are undefined
+      this.loaderAdd = false;
       console.error('One or more values are undefined');
     }
   }

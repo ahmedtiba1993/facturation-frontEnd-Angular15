@@ -35,6 +35,9 @@ export class AjouterFactureComponent {
   remise: number = 0;
   searchErreur = false;
   clientErreur = false;
+  isButtonLoading = false;
+  isClientDivLoader = false;
+  isProduitDivLoader = false;
 
   constructor(
     private factureService: FactureService,
@@ -49,14 +52,18 @@ export class AjouterFactureComponent {
   }
 
   findAllClient() {
+    this.isClientDivLoader = true;
     this.clientService.findAll().subscribe((data) => {
       this.listeClient = data;
+      this.isClientDivLoader = false;
     });
   }
 
   findAllProduit() {
+    this.isProduitDivLoader = true;
     this.produitService.findAll().subscribe((data) => {
       this.listProduit = data;
+      this.isProduitDivLoader = false;
     });
   }
 
@@ -133,6 +140,7 @@ export class AjouterFactureComponent {
   }
 
   save() {
+    this.isButtonLoading = true;
     this.facture.paymentStatus = this.isPaid;
     this.facture.client = this.client;
     this.facture.lignesFacture = this.listeProduitFacture;
@@ -142,6 +150,7 @@ export class AjouterFactureComponent {
       },
       (error) => {
         this.errorMessage = error.error.errors;
+        this.isButtonLoading = false;
       }
     );
   }

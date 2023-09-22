@@ -8,7 +8,7 @@
       <div class="card-header text-center">
         Informations du client
       </div>
-      <div class="card-body">
+      <div class="card-body" *ngIf="!isClientDivLoader">
         <div class="mb-3">
           <label>Sélectionnez une client</label>
           <select
@@ -40,6 +40,14 @@
           </div>
         </form>
       </div>
+
+      <!-- Div du loader -->
+      <div class="d-flex justify-content-center p-5" *ngIf="isClientDivLoader">
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden">Chargement...</span>
+        </div>
+      </div>
+
     </div>
       <div class="card">
         <div class="card-header">Date Facture</div>
@@ -47,7 +55,7 @@
       </div>
     </div>
     <div class="col-md-6">
-      <div class="card mb-5">
+      <div class="card mb-5"  *ngIf="!isProduitDivLoader">
         <div class="card-header text-center">
           Ajouter un produit
         </div>
@@ -96,7 +104,18 @@
           </div>
         </div>
       </div>
+      <!-- Div du loader -->
+      <div class="card d-flex justify-content-center p-5" *ngIf="isProduitDivLoader">
+        <div class="card-header text-center">
+          Ajouter un produit
+        </div>
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden">Chargement...</span>
+        </div>
+      </div>
     </div>
+
+
   </div>
 
     <!-- Client information column -->
@@ -182,7 +201,13 @@
                   Non payé
                 </label>
               </div>
-              <button (click)="save()" class="btn btn-primary">Enregistrée</button>
+              <button class="btn btn-primary" type="submit" (click)="save()" [disabled]="isButtonLoading">
+                <span *ngIf="!isButtonLoading">Enregistrée</span>
+                <div  *ngIf="isButtonLoading">
+                  <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                  Chargement...
+                </div>
+              </button>
             </div>
           </div>
         </div>

@@ -1,11 +1,8 @@
 import { Component } from '@angular/core';
-import { FactureDto } from '../../../api/models/facture-dto';
 import { ClientDto } from '../../../api/models/client-dto';
 import { ProduitDto } from '../../../api/models/produit-dto';
-import { LigneFactureDto } from '../../../api/models/ligne-facture-dto';
 import { DevisDto } from '../../../api/models/devis-dto';
 import { LigneDevisDto } from '../../../api/models/ligne-devis-dto';
-import { FactureService } from '../../../services/facture/facture.service';
 import { ClientService } from '../../../services/client/client.service';
 import { ProduitService } from '../../../services/produit/produit.service';
 import { Router } from '@angular/router';
@@ -20,15 +17,12 @@ export class AjouterDevisComponent {
   devis: DevisDto = {};
   listeClient: ClientDto[] = [];
   client: ClientDto = {};
-  prixTotalProduit: number = 0;
   listProduit: ProduitDto[] = [];
-  listProduitFiltrer: ProduitDto[] = [];
   codeProduit = '';
-  searchProduit: ProduitDto = {};
-  produitSelectedYet: Boolean = true;
+  searchProduit?: ProduitDto = {};
   quantite: any;
   prixUtitaire: any;
-  listeProduitFacture: LigneDevisDto[] = [];
+  listeProduitDevis: LigneDevisDto[] = [];
   isPaid = false;
   tva: number = 19;
   timbre: number = 1;
@@ -39,6 +33,11 @@ export class AjouterDevisComponent {
   errorProduit: boolean = false;
   errorQnt: boolean = false;
   remise: number = 0;
+  searchErreur = false;
+  clientErreur = false;
+  isButtonLoading = false;
+  isClientDivLoader = false;
+  isProduitDivLoader = false;
 
   constructor(
     private devisService: DevisService,
@@ -53,53 +52,34 @@ export class AjouterDevisComponent {
   }
 
   findAllClient() {
+    this.isClientDivLoader = true;
     this.clientService.findAll().subscribe((data) => {
       this.listeClient = data;
+      this.isClientDivLoader = false;
     });
   }
 
   findAllProduit() {
+    this.isProduitDivLoader = true;
     this.produitService.findAll().subscribe((data) => {
       this.listProduit = data;
+      this.isProduitDivLoader = false;
     });
   }
 
-  selectPrdotui(p: ProduitDto) {
-    this.searchProduit = p;
-    this.produitSelectedYet = true;
-    this.codeProduit = p.code!;
-    this.listProduitFiltrer = [];
-    this.prixUtitaire = p.prix;
-    this.quantite = 1;
-    if (p.etatRemise) {
-      this.remise = this.client.remise!;
-    } else {
-      this.remise = 0;
+  ajouterProduitDevis() {
+    if (this.searchErreur || this.searchProduit == null) {
+      return;
     }
-  }
-
-  search() {
-    if (this.codeProduit == '') {
-      this.findAllProduit();
-    }
-    this.listProduitFiltrer = this.listProduit;
-    this.listProduitFiltrer = this.listProduitFiltrer.filter(
-      (pro) =>
-        pro.code?.toLowerCase()?.startsWith(this.codeProduit.toLowerCase()) ||
-        pro.nom?.startsWith(this.codeProduit.toLowerCase())
-    );
-  }
-
-  ajouterProduitFacture() {
     let prix;
-    if (this.searchProduit.etatRemise == true) {
+    if (this.searchProduit!.etatRemise == true) {
       prix =
         this.prixUtitaire * this.quantite -
         this.prixUtitaire * this.quantite * (this.remise! / 100);
     } else {
       prix = this.prixUtitaire * this.quantite;
     }
-    let ligneFacture = {
+    let ligneDevis = {
       produit: this.searchProduit,
       quantite: this.quantite,
       prixUnitaire: this.prixUtitaire,
@@ -111,12 +91,12 @@ export class AjouterDevisComponent {
     } else {
       this.errorClient = false;
     }
-    if (ligneFacture.produit.id == null) {
+    if (ligneDevis.produit!.id == null) {
       this.errorProduit = true;
     } else {
       this.errorProduit = false;
     }
-    if (ligneFacture.quantite == null || ligneFacture.quantite < 0) {
+    if (ligneDevis.quantite == null || ligneDevis.quantite < 0) {
       this.errorQnt = true;
     } else {
       this.errorQnt = false;
@@ -128,30 +108,29 @@ export class AjouterDevisComponent {
     ) {
       return;
     }
-    let ligneProduitTrouve: LigneFactureDto = {};
-    this.listeProduitFacture.forEach((lnFact) => {
+    let ligneProduitTrouve: LigneDevisDto = {};
+    this.listeProduitDevis.forEach((lnFact) => {
       if (
-        JSON.stringify(lnFact.produit) === JSON.stringify(ligneFacture.produit)
+        JSON.stringify(lnFact.produit) === JSON.stringify(ligneDevis.produit)
       ) {
         ligneProduitTrouve = lnFact;
       }
     });
     if (ligneProduitTrouve.produit != null) {
       ligneProduitTrouve.quantite =
-        Number(ligneProduitTrouve.quantite) + Number(ligneFacture.quantite);
+        Number(ligneProduitTrouve.quantite) + Number(ligneDevis.quantite);
       ligneProduitTrouve.prixTotal =
         ligneProduitTrouve.prixTotal! +
-        ligneProduitTrouve.prixUnitaire! * ligneFacture.quantite;
-      this.totalHT = this.totalHT + ligneFacture.prixTotal;
+        ligneProduitTrouve.prixUnitaire! * ligneDevis.quantite;
+      this.totalHT = this.totalHT + ligneDevis.prixTotal;
       this.totalTTC = this.totalHT + this.totalHT * (19 / 100);
     } else {
-      this.listeProduitFacture.push(ligneFacture);
-      this.totalHT = this.totalHT + ligneFacture.prixTotal;
+      this.listeProduitDevis.push(ligneDevis);
+      this.totalHT = this.totalHT + ligneDevis.prixTotal;
       this.totalTTC = this.totalHT + this.totalHT * (19 / 100);
     }
 
     this.codeProduit = '';
-    this.listProduit = [];
     this.quantite = null;
     this.prixUtitaire = null;
     this.searchProduit = {};
@@ -161,15 +140,17 @@ export class AjouterDevisComponent {
   }
 
   save() {
+    this.isButtonLoading = true;
     this.devis.paymentStatus = this.isPaid;
     this.devis.client = this.client;
-    this.devis.ligneDevis = this.listeProduitFacture;
+    this.devis.ligneDevis = this.listeProduitDevis;
     this.devisService.ajouter(this.devis).subscribe(
       (data) => {
         this.router.navigate(['devis']);
       },
       (error) => {
         this.errorMessage = error.error.errors;
+        this.isButtonLoading = false;
       }
     );
   }
@@ -183,14 +164,57 @@ export class AjouterDevisComponent {
     console.log(this.isPaid);
   }
 
-  supprimerProdui(p: LigneFactureDto) {
+  supprimerProdui(p: LigneDevisDto) {
     this.totalHT = this.totalHT - p.prixTotal!;
-    this.totalTTC = this.totalHT + this.totalHT * (19 / 100);
-    this.listeProduitFacture = this.listeProduitFacture.filter(
+    this.totalTTC = this.totalHT + this.totalHT * (this.tva / 100);
+    this.listeProduitDevis = this.listeProduitDevis.filter(
       (item) => item !== p
     );
-    if (this.listeProduitFacture.length == 0) {
+    if (this.listeProduitDevis.length == 0) {
       this.totalTTC = 0;
     }
   }
+
+  afficher() {
+    if (this.codeProduit === '' || this.codeProduit === null) {
+      this.prixUtitaire = null;
+      this.quantite = null;
+      this.remise = this.client.remise!;
+      this.clientErreur = false;
+      this.searchErreur = false;
+      return;
+    }
+    if (this.client === null || Object.keys(this.client).length === 0) {
+      this.clientErreur = true;
+      return;
+    } else {
+      this.clientErreur = false;
+    }
+    this.searchProduit = this.listProduit.find(
+      (p) => p.code === this.codeProduit
+    );
+    if (this.searchProduit) {
+      this.searchErreur = false;
+      this.errorProduit = false;
+      this.errorQnt = false;
+      this.quantite = 1;
+      this.prixUtitaire = this.searchProduit!.prix;
+      this.remise = this.client.remise!;
+    } else {
+      this.searchErreur = true;
+    }
+  }
+  /*selectPrdotui(p: ProduitDto) {
+    this.searchProduit = p;
+    this.produitSelectedYet = true;
+    this.codeProduit = p.code!;
+    this.listProduitFiltrer = [];
+    this.prixUtitaire = p.prix;
+    this.quantite = 1;
+    if (p.etatRemise) {
+      this.remise = this.client.remise!;
+    } else {
+      this.remise = 0;
+    }
+  }*/
 }

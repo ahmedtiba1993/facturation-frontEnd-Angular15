@@ -199,7 +199,7 @@ export class AjouterDevisComponent {
       this.errorQnt = false;
       this.quantite = 1;
       this.prixUtitaire = this.searchProduit!.prix;
-      this.remise = this.client.remise!;
+      this.remise = this.searchProduit.etatRemise ? this.client.remise! : 0;
     } else {
       this.searchErreur = true;
     }

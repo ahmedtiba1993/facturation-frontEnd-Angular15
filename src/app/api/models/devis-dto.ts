@@ -6,6 +6,7 @@ export interface DevisDto {
   client?: ClientDto;
   dateDevis?: string;
   id?: number;
+  isFacture?: boolean;
   ligneDevis?: Array<LigneDevisDto>;
   montantHt?: number;
   montantTTC?: number;

@@ -6,6 +6,7 @@ export interface Devis {
   client?: Client;
   dateDevis?: string;
   id?: number;
+  isFacture?: boolean;
   ligneDevis?: Array<LigneDevis>;
   montantHt?: number;
   montantTTC?: number;

@@ -36,6 +36,7 @@ import { AjouterDevisComponent } from './pages/devis/ajouter-devis/ajouter-devis
 import { RecapDevisComponent } from './pages/recapDevis/recap-devis/recap-devis.component';
 import { ModifierFactureComponent } from './pages/facture/modifierFacture/modifier-facture/modifier-facture.component';
 import { ModifierDevisComponent } from './pages/devis/modifier-devis/modifier-devis.component';
+import { IndexMobileComponent } from './pages/index-mobile/index-mobile.component';
 
 @NgModule({
   declarations: [
@@ -69,6 +70,7 @@ import { ModifierDevisComponent } from './pages/devis/modifier-devis/modifier-de
     RecapDevisComponent,
     ModifierFactureComponent,
     ModifierDevisComponent,
+    IndexMobileComponent,
   ],
   imports: [
     BrowserModule,

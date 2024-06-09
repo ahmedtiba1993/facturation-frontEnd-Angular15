@@ -3,18 +3,26 @@
     <div class="col-6 mb-3">
       <div class="card text-center">
         <div class="card-body">
-          <i class="fas fa-box fa-3x mb-3"></i>
-          <h5 class="card-title">Produit</h5>
-          <a href="#" class="btn btn-primary btn-sm">Aller</a>
+          <div class="card-title">
+            <h4>
+              <i class="bi bi-cart fa-lg"></i>
+              Produit
+            </h4>
+          </div>
+          <a routerLink="produit" class="btn btn-primary btn-sm">Aller</a>
         </div>
       </div>
     </div>
     <div class="col-6 mb-3">
       <div class="card text-center">
         <div class="card-body">
-          <i class="fas fa-file-invoice-dollar fa-3x mb-3"></i>
-          <h5 class="card-title">Facture</h5>
-          <a href="#" class="btn btn-secondary btn-sm">Aller</a>
+          <div class="card-title">
+            <h4>
+              <i class="bi bi-receipt"></i>
+              Facture
+            </h4>
+          </div>
+          <a routerLink="facture" class="btn btn-secondary btn-sm">Aller</a>
         </div>
       </div>
     </div>
@@ -23,9 +31,52 @@
     <div class="col-6 mb-3">
       <div class="card text-center">
         <div class="card-body">
-          <i class="fas fa-user fa-3x mb-3"></i>
-          <h5 class="card-title">Client</h5>
-          <a href="#" class="btn btn-info btn-sm">Aller</a>
+          <div class="card-title">
+            <h4>
+              <i class="bi bi-person fa-lg"></i>
+              Client
+            </h4>
+          </div>
+          <a routerLink="client" class="btn btn-info btn-sm">Aller</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-6 mb-3">
+      <div class="card text-center">
+        <div class="card-body">
+          <div class="card-title">
+            <h4>
+              <i class="bi bi-file-earmark-text"></i>
+              Devis
+            </h4>
+          </div>
+          <a routerLink="devis" class="btn btn-warning btn-sm">Aller</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-6 mb-3">
+      <div class="card text-center">
+        <div class="card-body">
+          <div class="card-title">
+            <h4>
+              <i class="bi bi-file-earmark-text"></i>
+              Bon de livraison
+            </h4>
+          </div>
+          <a routerLink="bonde" class="btn btn-warning btn-sm">Aller</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-6 mb-3">
+      <div class="card text-center">
+        <div class="card-body">
+          <div class="card-title">
+            <h5>
+              <i class="bi bi-graph-up fa-lg"></i>
+              Recap Facture
+            </h5>
+          </div>
+          <a routerLink="recapClient" class="btn btn-danger btn-sm">Aller</a>
         </div>
       </div>
     </div>
@@ -33,8 +84,13 @@
       <div class="card text-center">
         <div class="card-body">
           <i class="fas fa-cogs fa-3x mb-3"></i>
-          <h5 class="card-title">Paramètres</h5>
-          <a href="#" class="btn btn-warning btn-sm">Aller</a>
+          <div class="card-title">
+            <h5>
+              <i class="bi bi-graph-up fa-lg"></i>
+              Recap Devis
+            </h5>
+          </div>
+          <a routerLink="recapDevis" class="btn btn-danger btn-sm">Aller</a>
         </div>
       </div>
     </div>

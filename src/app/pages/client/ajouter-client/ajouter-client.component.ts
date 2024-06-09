@@ -24,10 +24,19 @@ export class AjouterClientComponent {
   }
 
   ajouterClient(){
+    if(this.checkEmail(this.client.email!) == false && this.client.email != null){
+      this.errorMessage = ["Adresse e-mail invalide"]
+      return;
+    }
     this.clientService.add(this.client).subscribe(data=>{
       this.router.navigate(["client"])
     },error=>{
       this.errorMessage = error.error.errors
     })
+  }
+
+  checkEmail( email : string) : boolean{
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    return emailPattern.test(email);
   }
 }

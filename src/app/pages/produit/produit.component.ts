@@ -17,6 +17,7 @@ export class ProduitComponent {
   isLoading = false;
   showDivFiltre = false;
 
+
   //filtre
   nom?: string;
   code?: string;

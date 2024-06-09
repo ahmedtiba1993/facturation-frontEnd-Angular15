@@ -85,6 +85,20 @@ export class MenuComponent {
         },
       ],
     },
+    {
+      id: '8',
+      titre: 'Gestion des Bonde de livraison',
+      icon: 'bi bi-file-earmark-text',
+      url: '',
+      sousMenu: [
+        {
+          id: '71',
+          titre: 'Liste des bonde de livraison',
+          icon: '',
+          url: 'bonde',
+        }
+      ],
+    }
   ];
 
   constructor(private router: Router) {}

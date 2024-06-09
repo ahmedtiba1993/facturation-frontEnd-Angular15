@@ -1,3 +1,4 @@
+export { UrlFileDto } from './models/url-file-dto';
 export { CategorieDto } from './models/categorie-dto';
 export { ProduitDto } from './models/produit-dto';
 export { NumFacture } from './models/num-facture';
@@ -13,6 +14,10 @@ export { LigneFacture } from './models/ligne-facture';
 export { Produit } from './models/produit';
 export { DevisDto } from './models/devis-dto';
 export { LigneDevisDto } from './models/ligne-devis-dto';
+export { BondeLivraison } from './models/bonde-livraison';
+export { LigneBondeLivraison } from './models/ligne-bonde-livraison';
+export { BondeLivraisonDto } from './models/bonde-livraison-dto';
+export { LigneBondeLivraisonDto } from './models/ligne-bonde-livraison-dto';
 export { RegisterRequest } from './models/register-request';
 export { AuthenticationResponse } from './models/authentication-response';
 export { AuthenticationRequest } from './models/authentication-request';
@@ -33,3 +38,4 @@ export { PageClientRecapProjection } from './models/page-client-recap-projection
 export { PageDevisDto } from './models/page-devis-dto';
 export { PageClientDto } from './models/page-client-dto';
 export { PageCategorieDto } from './models/page-categorie-dto';
+export { PageBondeLivraisonDto } from './models/page-bonde-livraison-dto';

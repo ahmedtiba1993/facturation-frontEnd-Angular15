@@ -6,6 +6,7 @@ export interface Client {
   adresse?: string;
   code?: string;
   devis?: Array<Devis>;
+  email?: string;
   factures?: Array<Facture>;
   id?: number;
   nom?: string;

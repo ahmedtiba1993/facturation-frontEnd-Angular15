@@ -40,6 +40,11 @@ export class ModifierClientComponent {
 
   modifierClient() {
     this.isLoading = true
+    if(this.checkEmail(this.client.email!) == false && this.client.email != null){
+      this.errorMessage = ["Adresse e-mail invalide"]
+      this.isLoading = false
+      return;
+    }
     this.clientService.add(this.client).subscribe(data=>{
       this.findClientById()
       this.success = true
@@ -51,5 +56,10 @@ export class ModifierClientComponent {
       this.errorMessage = error.error.errors
       this.isLoading = false
     })
+  }
+
+  checkEmail( email : string) : boolean{
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    return emailPattern.test(email);
   }
 }

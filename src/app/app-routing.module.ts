@@ -24,9 +24,24 @@ import { AjouterDevisComponent } from './pages/devis/ajouter-devis/ajouter-devis
 import { RecapDevisComponent } from './pages/recapDevis/recap-devis/recap-devis.component';
 import { ModifierFactureComponent } from './pages/facture/modifierFacture/modifier-facture/modifier-facture.component';
 import { ModifierDevisComponent } from './pages/devis/modifier-devis/modifier-devis.component';
+import { BondeComponent } from './pages/bonde/bonde.component';
+import {
+  AjouterBonDeLivraisonComponent
+} from './pages/bonde/ajouter-bon-de-livraison/ajouter-bon-de-livraison.component';
+import {
+  DetailsBonDeLivraisonComponent
+} from './pages/bonde/details-bon-de-livraison/details-bon-de-livraison.component';
+import {
+  ModifierBonDeLivraisonComponent
+} from './pages/bonde/modifier-bon-de-livraison/modifier-bon-de-livraison.component';
+import { UrlFileComponent } from './pages/url-file/url-file.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
+  {
+    path: 'pdf/:uuid',
+    component: UrlFileComponent,
+  },
   {
     path: '',
     component: IndexComponent,
@@ -116,6 +131,22 @@ const routes: Routes = [
         path: 'modifierDevis/:id',
         component: ModifierDevisComponent,
       },
+      {
+        path: 'bonde',
+        component: BondeComponent,
+      },
+      {
+        path: 'detailBon/:id',
+        component: DetailsBonDeLivraisonComponent
+      },
+      {
+        path: 'ajouterBon',
+        component: AjouterBonDeLivraisonComponent,
+      },
+      {
+        path: 'modifierBonDeLivraison/:id',
+        component: ModifierBonDeLivraisonComponent,
+      }
     ],
   },
 ];

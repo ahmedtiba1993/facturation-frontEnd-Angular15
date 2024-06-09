@@ -7,11 +7,15 @@ import { ClientService } from '../../services/client/client.service';
 import { ClientDto } from '../../api/models/client-dto';
 import { formatDate } from '@angular/common';
 import { ProduitService } from '../../services/produit/produit.service';
+import { UrlFileService } from '../../services/urlFile/url-file.service';
+import { UrlFileDto } from '../../api/models/url-file-dto';
+import { ApiConfiguration } from '../../api/api-configuration';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-facture',
   templateUrl: './facture.component.html',
-  styleUrls: ['./facture.component.css'],
+  styleUrls: ['./facture.component.css']
 })
 export class FactureComponent {
   listeFacture: Array<FactureDto> = [];
@@ -33,10 +37,17 @@ export class FactureComponent {
   dateDebut?: Date;
   dateFin?: Date;
 
+  isCopyButtonLoading = false;
+
+  frontUrl = environment.frontUrl;
+
   constructor(
     private factureService: FactureService,
-    private clientService: ClientService
-  ) {}
+    private clientService: ClientService,
+    private urlFileService: UrlFileService,
+    private apiConfig: ApiConfiguration
+  ) {
+  }
 
   ngOnInit() {
     this.findAllPaginated();
@@ -123,6 +134,7 @@ export class FactureComponent {
   setId(id: number | undefined) {
     this.idFact = id!;
   }
+
   toggleDivFiltre() {
     this.showDivFiltre = !this.showDivFiltre;
   }
@@ -186,4 +198,40 @@ export class FactureComponent {
         this.ids = data;
       });
   }
+
+  createUrlPdfFile(id: number | undefined) {
+    this.isCopyButtonLoading = true;
+    if (id !== undefined) {
+      this.urlFileService.createUrlFile(id, 'facture').subscribe((data) => {
+        navigator.clipboard.writeText(this.frontUrl + '/pdf/' + data.uuid!);
+        this.isCopyButtonLoading = false;
+      });
+    }
+  }
+
+  confirmationMessage = '';
+  showNotification: boolean = false;
+  typeNotif = '';
+
+  sendMail(id: number | undefined) {
+    this.factureService.sendEmailFacture(id!).subscribe(
+      (data) => {
+        this.confirmationMessage = 'E-mail envoyé avec succès.';
+        this.showNotification = true;
+        setTimeout(() => {
+          this.typeNotif = 'success';
+          this.showNotification = false;
+        }, 5000);
+      },
+      (error) => {
+        this.confirmationMessage = 'Erreur: Adresse e-mail vide.';
+        this.showNotification = true;
+        setTimeout(() => {
+          this.typeNotif = 'error';
+          this.showNotification = true;
+        }, 5000);
+      }
+    );
+  }
+
 }

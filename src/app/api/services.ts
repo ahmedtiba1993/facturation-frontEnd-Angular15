@@ -1,4 +1,5 @@
 export { UserControllerService } from './services/user-controller.service';
+export { UrlFileControllerService } from './services/url-file-controller.service';
 export { TvaControllerService } from './services/tva-controller.service';
 export { TimbreFiscaleControllerService } from './services/timbre-fiscale-controller.service';
 export { ProduitControllerService } from './services/produit-controller.service';
@@ -7,4 +8,5 @@ export { FactureControllerService } from './services/facture-controller.service'
 export { DevisControllerService } from './services/devis-controller.service';
 export { ClientControllerService } from './services/client-controller.service';
 export { CategorieControllerService } from './services/categorie-controller.service';
+export { BondeLivraisonControllerService } from './services/bonde-livraison-controller.service';
 export { AuthenticationControllerService } from './services/authentication-controller.service';

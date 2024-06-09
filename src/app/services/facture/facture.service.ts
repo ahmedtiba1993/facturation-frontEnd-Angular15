@@ -109,4 +109,8 @@ export class FactureService {
       remise,
     });
   }
+
+  sendEmailFacture(factureId: number): Observable<void> {
+    return this.factureService.sendMail({factureId});
+  }
 }

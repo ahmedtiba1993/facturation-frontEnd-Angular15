@@ -1,4 +1,5 @@
 <div class="card p-2 d-none d-md-block">
+  <app-alert-model [type]="typeNotif" [message]="confirmationMessage" [show]="showNotification"></app-alert-model>
   <button type="button" routerLink="/ajouterFacture" class="btn btn-primary">Ajouter</button>
   <button class="btn btn-danger ms-2" (click)="toggleDivFiltre()">Filtre</button>
   <button class="btn btn-success ms-2" (click)="pdf()" [disabled]="isButtonLoading">
@@ -113,6 +114,12 @@
         <!--button modifier -->
         <button type="button" class="btn btn-warning ms-1 bi bi-pencil-square" [routerLink]="['/modifierFacture', f.id]" ></button>
 
+        <!--button creation urlFile -->
+        <button *ngIf="!isCopyButtonLoading" type="button" class="btn btn-success ms-1" (click)="createUrlPdfFile(f.id)"><i class="bi bi-whatsapp"></i></button>
+        <button *ngIf="isCopyButtonLoading" [disabled]="isCopyButtonLoading" type="button" class="btn btn-success spinner-border ms-1"></button>
+
+        <!-- button email-->
+        <button (click)="sendMail(f.id)" class="btn btn-dark ms-1"><i class="bi bi-at"></i></button>
       </td>
     </tr>
 
@@ -296,7 +303,16 @@
         <!--button modifier -->
         <button type="button" class="btn btn-warning ms-1 bi bi-pencil-square mt-3" [routerLink]="['/modifierFacture', f.id]" ></button>
 
+        <!--button creation urlFile -->
+        <button *ngIf="!isCopyButtonLoading" type="button" class="btn btn-success ms-1 mt-3" (click)="createUrlPdfFile(f.id)"><i class="bi bi-whatsapp"></i></button>
+        <button *ngIf="isCopyButtonLoading" [disabled]="isCopyButtonLoading" type="button" class="mt-3 btn btn-success spinner-border ms-1"></button>
+
+        <!-- button email-->
+        <app-alert-model [message]="confirmationMessage" [show]="showNotification"></app-alert-model>
+        <button (click)="sendMail(f.id)" class="btn btn-dark ms-1 mt-3"><i class="bi bi-at"></i></button>
+
         <input class="form-check-input mt-3 ms-2" style="width: 25px; height: 25px" type="checkbox" [value]="f.id" (click)="ajouterListIdFacture(f.id!)" [checked]="ids.includes(f.id!)">
+
       </div>
     </div>
     </tbody>
@@ -306,7 +322,7 @@
       <li class="page-item" [class.disabled]="currentPage === 0">
         <a class="page-link" href="javascript:void(0);" (click)="onPageChange({pageIndex: currentPage - 1, pageSize: pageSize})" aria-label="Previous">
           <span aria-hidden="true">&laquo;</span>
-          <span class="sr-only">Previous</span>
+          <span class="sr-only"></span>
         </a>
       </li>
 
@@ -322,7 +338,7 @@
       <li class="page-item" [class.disabled]="currentPage === (page.totalPages ?? 0) - 1">
         <a class="page-link" href="javascript:void(0);" (click)="onPageChange({pageIndex: currentPage + 1, pageSize: pageSize})" aria-label="Next">
           <span aria-hidden="true">&raquo;</span>
-          <span class="sr-only">Next</span>
+          <span class="sr-only"></span>
         </a>
       </li>
     </ul>

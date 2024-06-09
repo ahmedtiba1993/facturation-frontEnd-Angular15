@@ -6,6 +6,7 @@ import {PdfService} from "../../../services/pdf/pdf.service";
 import jsPDF from "jspdf";
 import * as pdfMake from 'pdfmake/build/pdfmake';
 import * as pdfFonts from "pdfmake/build/vfs_fonts";
+import * as FileSaver from 'file-saver';
 
 @Component({
   selector: 'app-details-facture',
@@ -41,10 +42,9 @@ export class DetailsFactureComponent {
   }
 
   openPDF2() {
-    this.factureService.generatePdf(this.ids).subscribe(data=>{
+    this.factureService.generatePdf(this.ids).subscribe(data => {
       const file = new Blob([data], { type: 'application/pdf' });
-      const fileURL = URL.createObjectURL(file);
-      window.open(fileURL);
-    })
+      FileSaver.saveAs(file, 'facture.pdf');
+    });
   }
 }

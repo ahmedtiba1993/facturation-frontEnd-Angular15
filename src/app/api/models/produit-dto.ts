@@ -9,5 +9,4 @@ export interface ProduitDto {
   id?: number;
   nom?: string;
   prix?: number;
-  stock?: number;
 }

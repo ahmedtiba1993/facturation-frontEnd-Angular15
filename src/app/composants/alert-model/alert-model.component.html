@@ -1,0 +1,8 @@
+<div class="notification-container">
+  <div class="alert alert-success" role="alert" *ngIf="show && type=='success'">
+    {{ message }}
+  </div>
+  <div class="alert alert-danger" role="alert" *ngIf="show && type=='error'">
+    {{ message }}
+  </div>
+</div>

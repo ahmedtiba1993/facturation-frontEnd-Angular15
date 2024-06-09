@@ -37,6 +37,12 @@ import { RecapDevisComponent } from './pages/recapDevis/recap-devis/recap-devis.
 import { ModifierFactureComponent } from './pages/facture/modifierFacture/modifier-facture/modifier-facture.component';
 import { ModifierDevisComponent } from './pages/devis/modifier-devis/modifier-devis.component';
 import { IndexMobileComponent } from './pages/index-mobile/index-mobile.component';
+import { BondeComponent } from './pages/bonde/bonde.component';
+import { AjouterBonDeLivraisonComponent } from './pages/bonde/ajouter-bon-de-livraison/ajouter-bon-de-livraison.component';
+import { DetailsBonDeLivraisonComponent } from './pages/bonde/details-bon-de-livraison/details-bon-de-livraison.component';
+import { ModifierBonDeLivraisonComponent } from './pages/bonde/modifier-bon-de-livraison/modifier-bon-de-livraison.component';
+import { UrlFileComponent } from './pages/url-file/url-file.component';
+import { AlertModelComponent } from './composants/alert-model/alert-model.component';
 
 @NgModule({
   declarations: [
@@ -71,6 +77,12 @@ import { IndexMobileComponent } from './pages/index-mobile/index-mobile.componen
     ModifierFactureComponent,
     ModifierDevisComponent,
     IndexMobileComponent,
+    BondeComponent,
+    AjouterBonDeLivraisonComponent,
+    DetailsBonDeLivraisonComponent,
+    ModifierBonDeLivraisonComponent,
+    UrlFileComponent,
+    AlertModelComponent,
   ],
   imports: [
     BrowserModule,

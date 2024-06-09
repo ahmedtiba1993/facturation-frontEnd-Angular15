@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { ApiConfiguration, ApiConfigurationParams } from './api-configuration';
 
 import { UserControllerService } from './services/user-controller.service';
+import { UrlFileControllerService } from './services/url-file-controller.service';
 import { TvaControllerService } from './services/tva-controller.service';
 import { TimbreFiscaleControllerService } from './services/timbre-fiscale-controller.service';
 import { ProduitControllerService } from './services/produit-controller.service';
@@ -13,6 +14,7 @@ import { FactureControllerService } from './services/facture-controller.service'
 import { DevisControllerService } from './services/devis-controller.service';
 import { ClientControllerService } from './services/client-controller.service';
 import { CategorieControllerService } from './services/categorie-controller.service';
+import { BondeLivraisonControllerService } from './services/bonde-livraison-controller.service';
 import { AuthenticationControllerService } from './services/authentication-controller.service';
 
 /**
@@ -24,6 +26,7 @@ import { AuthenticationControllerService } from './services/authentication-contr
   declarations: [],
   providers: [
     UserControllerService,
+    UrlFileControllerService,
     TvaControllerService,
     TimbreFiscaleControllerService,
     ProduitControllerService,
@@ -32,6 +35,7 @@ import { AuthenticationControllerService } from './services/authentication-contr
     DevisControllerService,
     ClientControllerService,
     CategorieControllerService,
+    BondeLivraisonControllerService,
     AuthenticationControllerService,
     ApiConfiguration
   ],

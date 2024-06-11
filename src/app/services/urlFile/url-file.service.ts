@@ -17,11 +17,11 @@ export class UrlFileService {
     return this.urlFileService.create({id, type})
   }
 
-  getFacture(uuid: string): Observable<FactureDto> {
-    return this.urlFileService.getFactureId({ uuid });
+  getFacture(uuid: string): Observable<UrlFileDto> {
+    return this.urlFileService.getUrlFile({ uuid });
   }
 
-  generatePdf(factureId: number): Observable<Blob> {
-    return this.urlFileService.getFacturePdf({ factureId });
+  generatePdf(id: number, type : string): Observable<Blob> {
+    return this.urlFileService.getFacturePdf({ id, type });
   }
 }

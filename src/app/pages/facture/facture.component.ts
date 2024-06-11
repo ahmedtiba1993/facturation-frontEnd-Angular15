@@ -2,13 +2,10 @@ import { Component } from '@angular/core';
 import { FactureService } from '../../services/facture/facture.service';
 import { FactureDto } from '../../api/models/facture-dto';
 import { PageFactureDto } from '../../api/models/page-facture-dto';
-import { NgxSpinnerService } from 'ngx-spinner';
 import { ClientService } from '../../services/client/client.service';
 import { ClientDto } from '../../api/models/client-dto';
 import { formatDate } from '@angular/common';
-import { ProduitService } from '../../services/produit/produit.service';
 import { UrlFileService } from '../../services/urlFile/url-file.service';
-import { UrlFileDto } from '../../api/models/url-file-dto';
 import { ApiConfiguration } from '../../api/api-configuration';
 import { environment } from '../../../environments/environment';
 
@@ -40,6 +37,7 @@ export class FactureComponent {
   isCopyButtonLoading = false;
 
   frontUrl = environment.frontUrl;
+  selectedDocument: string = 'devis';
 
   constructor(
     private factureService: FactureService,
@@ -234,4 +232,25 @@ export class FactureComponent {
     );
   }
 
+  converterTo() {
+    if (this.selectedDocument === 'devis') {
+      this.factureService.creationDevis(this.idFact).subscribe(data => {
+        this.confirmationMessage = 'Création de devis avec succès';
+        this.showNotification = true;
+        this.typeNotif= "success"
+        setTimeout(() => {
+          this.showNotification = false;
+        }, 3000);
+      });
+    } else if (this.selectedDocument === 'bonDeLivraison') {
+      this.factureService.creationBonLivraison(this.idFact).subscribe(data => {
+        this.confirmationMessage = 'Création de bon de livraison avec succès';
+        this.showNotification = true;
+        this.typeNotif= "success"
+        setTimeout(() => {
+          this.showNotification = false;
+        }, 3000);
+      });
+    }
+  }
 }

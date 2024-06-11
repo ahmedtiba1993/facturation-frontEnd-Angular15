@@ -132,6 +132,112 @@ export class FactureControllerService extends BaseService {
   }
 
   /**
+   * Path part for operation creationDevis
+   */
+  static readonly CreationDevisPath = '/facturation/v1/facture/creationDevis/{factureId}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `creationDevis()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  creationDevis$Response(params: {
+    factureId: number;
+  },
+  context?: HttpContext
+
+): Observable<StrictHttpResponse<number>> {
+
+    const rb = new RequestBuilder(this.rootUrl, FactureControllerService.CreationDevisPath, 'post');
+    if (params) {
+      rb.path('factureId', params.factureId, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'blob',
+      accept: '*/*',
+      context: context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return (r as HttpResponse<any>).clone({ body: parseFloat(String((r as HttpResponse<any>).body)) }) as StrictHttpResponse<number>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `creationDevis$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  creationDevis(params: {
+    factureId: number;
+  },
+  context?: HttpContext
+
+): Observable<number> {
+
+    return this.creationDevis$Response(params,context).pipe(
+      map((r: StrictHttpResponse<number>) => r.body as number)
+    );
+  }
+
+  /**
+   * Path part for operation creationBonLivraison
+   */
+  static readonly CreationBonLivraisonPath = '/facturation/v1/facture/creationBonLivraison/{factureId}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `creationBonLivraison()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  creationBonLivraison$Response(params: {
+    factureId: number;
+  },
+  context?: HttpContext
+
+): Observable<StrictHttpResponse<number>> {
+
+    const rb = new RequestBuilder(this.rootUrl, FactureControllerService.CreationBonLivraisonPath, 'post');
+    if (params) {
+      rb.path('factureId', params.factureId, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'blob',
+      accept: '*/*',
+      context: context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return (r as HttpResponse<any>).clone({ body: parseFloat(String((r as HttpResponse<any>).body)) }) as StrictHttpResponse<number>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `creationBonLivraison$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  creationBonLivraison(params: {
+    factureId: number;
+  },
+  context?: HttpContext
+
+): Observable<number> {
+
+    return this.creationBonLivraison$Response(params,context).pipe(
+      map((r: StrictHttpResponse<number>) => r.body as number)
+    );
+  }
+
+  /**
    * Path part for operation save1
    */
   static readonly Save1Path = '/facturation/v1/facture/create';

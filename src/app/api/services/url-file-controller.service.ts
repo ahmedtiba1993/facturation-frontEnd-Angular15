@@ -9,7 +9,6 @@ import { RequestBuilder } from '../request-builder';
 import { Observable } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 
-import { FactureDto } from '../models/facture-dto';
 import { UrlFileDto } from '../models/url-file-dto';
 
 @Injectable({
@@ -80,24 +79,24 @@ export class UrlFileControllerService extends BaseService {
   }
 
   /**
-   * Path part for operation getFactureId
+   * Path part for operation getUrlFile
    */
-  static readonly GetFactureIdPath = '/facturation/v1/urlfile/pdf/{uuid}';
+  static readonly GetUrlFilePath = '/facturation/v1/urlfile/pdf/{uuid}';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `getFactureId()` instead.
+   * To access only the response body, use `getUrlFile()` instead.
    *
    * This method doesn't expect any request body.
    */
-  getFactureId$Response(params: {
+  getUrlFile$Response(params: {
     uuid: string;
   },
   context?: HttpContext
 
-): Observable<StrictHttpResponse<FactureDto>> {
+): Observable<StrictHttpResponse<UrlFileDto>> {
 
-    const rb = new RequestBuilder(this.rootUrl, UrlFileControllerService.GetFactureIdPath, 'get');
+    const rb = new RequestBuilder(this.rootUrl, UrlFileControllerService.GetUrlFilePath, 'get');
     if (params) {
       rb.path('uuid', params.uuid, {});
     }
@@ -109,33 +108,33 @@ export class UrlFileControllerService extends BaseService {
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<FactureDto>;
+        return r as StrictHttpResponse<UrlFileDto>;
       })
     );
   }
 
   /**
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `getFactureId$Response()` instead.
+   * To access the full response (for headers, for example), `getUrlFile$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  getFactureId(params: {
+  getUrlFile(params: {
     uuid: string;
   },
   context?: HttpContext
 
-): Observable<FactureDto> {
+): Observable<UrlFileDto> {
 
-    return this.getFactureId$Response(params,context).pipe(
-      map((r: StrictHttpResponse<FactureDto>) => r.body as FactureDto)
+    return this.getUrlFile$Response(params,context).pipe(
+      map((r: StrictHttpResponse<UrlFileDto>) => r.body as UrlFileDto)
     );
   }
 
   /**
    * Path part for operation getFacturePdf
    */
-  static readonly GetFacturePdfPath = '/facturation/v1/urlfile/pdf/{factureId}';
+  static readonly GetFacturePdfPath = '/facturation/v1/urlfile/pdf/{id}/{type}';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
@@ -144,7 +143,8 @@ export class UrlFileControllerService extends BaseService {
    * This method doesn't expect any request body.
    */
   getFacturePdf$Response(params: {
-    factureId: number;
+    id: number;
+    type: string;
   },
   context?: HttpContext
 
@@ -152,7 +152,8 @@ export class UrlFileControllerService extends BaseService {
 
     const rb = new RequestBuilder(this.rootUrl, UrlFileControllerService.GetFacturePdfPath, 'get');
     if (params) {
-      rb.path('factureId', params.factureId, {});
+      rb.path('id', params.id, {});
+      rb.path('type', params.type, {});
     }
 
     return this.http.request(rb.build({
@@ -174,7 +175,8 @@ export class UrlFileControllerService extends BaseService {
    * This method doesn't expect any request body.
    */
   getFacturePdf(params: {
-    factureId: number;
+    id: number;
+    type: string;
   },
   context?: HttpContext
 

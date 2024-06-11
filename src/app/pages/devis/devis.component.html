@@ -113,6 +113,10 @@
         <!--button modifier -->
         <button type="button" class="btn btn-warning ms-1 bi bi-pencil-square" [routerLink]="['/modifierDevis', f.id]" ></button>
 
+        <!--button creation urlFile -->
+        <button *ngIf="!isCopyButtonLoading" type="button" class="btn btn-success ms-1" (click)="createUrlPdfFile(f.id)"><i class="bi bi-whatsapp"></i></button>
+        <button *ngIf="isCopyButtonLoading" [disabled]="isCopyButtonLoading" type="button" class="btn btn-success spinner-border ms-1"></button>
+
     </tr>
 
     </tbody>
@@ -321,6 +325,10 @@
 
           <!--button modifier -->
           <button type="button" class="btn btn-warning ms-1 bi bi-pencil-square" [routerLink]="['/modifierFacture', f.id]" ></button>
+
+          <!--button creation urlFile -->
+          <button *ngIf="!isCopyButtonLoading" type="button" class="btn btn-success ms-1" (click)="createUrlPdfFile(f.id)"><i class="bi bi-whatsapp"></i></button>
+          <button *ngIf="isCopyButtonLoading" [disabled]="isCopyButtonLoading" type="button" class="mt-3 btn btn-success spinner-border ms-1"></button>
 
         </div>
      </div>

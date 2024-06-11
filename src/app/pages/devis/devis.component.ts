@@ -8,6 +8,8 @@ import { DevisService } from '../../services/devis/devis.service';
 import { formatDate } from '@angular/common';
 import { DevisDto } from '../../api/models/devis-dto';
 import { Router } from '@angular/router';
+import { UrlFileService } from '../../services/urlFile/url-file.service';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-devis',
@@ -35,11 +37,14 @@ export class DevisComponent {
   dateFin?: Date;
 
   isButtonLoading = false;
+  isCopyButtonLoading = false;
+  frontUrl = environment.frontUrl;
 
   constructor(
     private devisService: DevisService,
     private clientService: ClientService,
-    private router: Router
+    private router: Router,
+    private urlFileService: UrlFileService
   ) {}
 
   ngOnInit() {
@@ -197,5 +202,15 @@ export class DevisComponent {
     this.devisService.creationFacture(this.idDev).subscribe((data) => {
       this.router.navigate(['facture']);
     });
+  }
+
+  createUrlPdfFile(id: number | undefined) {
+    this.isCopyButtonLoading = true;
+    if (id !== undefined) {
+      this.urlFileService.createUrlFile(id, 'devis').subscribe((data) => {
+        navigator.clipboard.writeText(this.frontUrl + '/pdf/' + data.uuid!);
+        this.isCopyButtonLoading = false;
+      });
+    }
   }
 }

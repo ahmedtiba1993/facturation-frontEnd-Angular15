@@ -3,7 +3,8 @@ import { UrlFileService } from '../../services/urlFile/url-file.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FactureDto } from '../../api/models/facture-dto';
 import * as FileSaver from 'file-saver';
-import { FactureService } from '../../services/facture/facture.service';
+import { DevisDto } from '../../api/models/devis-dto';
+import { BondeLivraisonDto } from '../../api/models/bonde-livraison-dto';
 
 @Component({
   selector: 'app-url-file',
@@ -12,38 +13,30 @@ import { FactureService } from '../../services/facture/facture.service';
 })
 export class UrlFileComponent implements OnInit {
 
-  uuid : string = ""
-  facture : FactureDto = {}
+  uuid: string = '';
+  facture: FactureDto = {};
+  devis: DevisDto = {} ;
+  bonLivraison: BondeLivraisonDto = {};
   isLoading = false;
-  ids : Array<number> = []
+  ids: Array<number> = [];
 
   constructor(
     private urlFileService: UrlFileService,
-    private route: ActivatedRoute,
-    private factureService : FactureService,
+    private route: ActivatedRoute
   ) {
   }
 
   ngOnInit() {
     this.uuid = this.route.snapshot.paramMap.get('uuid') as string;
     this.findByID();
-    console.log(this.facture)
   }
 
-  findByID(){
-    this.isLoading = true
-    this.urlFileService.getFacture(this.uuid).subscribe(data=>{
-      this.facture = data
-      this.isLoading = false
-    })
-  }
-
-  openPDF2() {
-    this.isLoading = true
-    this.urlFileService.generatePdf(this.facture.id!).subscribe(data => {
-      const file = new Blob([data], { type: 'application/pdf' });
-      FileSaver.saveAs(file, "facture-"+this.facture.reference+'.pdf');
+  findByID() {
+    this.isLoading = true;
+    this.urlFileService.getFacture(this.uuid).subscribe(data => {
+      this.facture = data.factureDto!;
+      this.devis = data.devisDto!;
+      this.isLoading = false;
     });
-    this.isLoading = false
   }
 }

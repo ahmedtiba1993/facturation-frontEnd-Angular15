@@ -1,5 +1,5 @@
+<app-alert-model [type]="typeNotif" [message]="confirmationMessage" [show]="showNotification"></app-alert-model>
 <div class="card p-2 d-none d-md-block">
-  <app-alert-model [type]="typeNotif" [message]="confirmationMessage" [show]="showNotification"></app-alert-model>
   <button type="button" routerLink="/ajouterFacture" class="btn btn-primary">Ajouter</button>
   <button class="btn btn-danger ms-2" (click)="toggleDivFiltre()">Filtre</button>
   <button class="btn btn-success ms-2" (click)="pdf()" [disabled]="isButtonLoading">
@@ -120,6 +120,11 @@
 
         <!-- button email-->
         <button (click)="sendMail(f.id)" class="btn btn-dark ms-1"><i class="bi bi-at"></i></button>
+
+        <!-- button creation devis et bon de livraison-->
+        <button type="button" class="btn btn-info ms-1 ri-file-copy-line" (click)="setId(f.id)" data-bs-toggle="modal" data-bs-target="#copyModal"></button>
+
+
       </td>
     </tr>
 
@@ -311,6 +316,9 @@
         <app-alert-model [message]="confirmationMessage" [show]="showNotification"></app-alert-model>
         <button (click)="sendMail(f.id)" class="btn btn-dark ms-1 mt-3"><i class="bi bi-at"></i></button>
 
+        <!-- button creation devis et bon de livraison-->
+        <button type="button" class="btn btn-info ms-1 mt-3 ri-file-copy-line" (click)="setId(f.id)" data-bs-toggle="modal" data-bs-target="#copyModal"></button>
+
         <input class="form-check-input mt-3 ms-2" style="width: 25px; height: 25px" type="checkbox" [value]="f.id" (click)="ajouterListIdFacture(f.id!)" [checked]="ids.includes(f.id!)">
 
       </div>
@@ -344,3 +352,34 @@
     </ul>
   </nav>
 </div>
+
+<!-- Modal creation devis et bon de livraison-->
+<div class="modal fade" id="copyModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Choix Devis ou Bon de Livraison</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="choixDocument" [(ngModel)]="selectedDocument" id="devisRadio" value="devis" checked>
+          <label class="form-check-label" for="devisRadio">
+            Devis
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="choixDocument"[(ngModel)]="selectedDocument"  id="livraisonRadio" value="bonDeLivraison">
+          <label class="form-check-label" for="livraisonRadio">
+            Bon de Livraison
+          </label>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="converterTo()">Créer</button>
+      </div>
+    </div>
+  </div>
+</div>
+

@@ -43,6 +43,8 @@ import { DetailsBonDeLivraisonComponent } from './pages/bonde/details-bon-de-liv
 import { ModifierBonDeLivraisonComponent } from './pages/bonde/modifier-bon-de-livraison/modifier-bon-de-livraison.component';
 import { UrlFileComponent } from './pages/url-file/url-file.component';
 import { AlertModelComponent } from './composants/alert-model/alert-model.component';
+import { DevisUiComponent } from './pages/url-file/devis-ui/devis-ui.component';
+import { FactureUiComponent } from './pages/url-file/facture-ui/facture-ui.component';
 
 @NgModule({
   declarations: [
@@ -83,6 +85,8 @@ import { AlertModelComponent } from './composants/alert-model/alert-model.compon
     ModifierBonDeLivraisonComponent,
     UrlFileComponent,
     AlertModelComponent,
+    DevisUiComponent,
+    FactureUiComponent,
   ],
   imports: [
     BrowserModule,

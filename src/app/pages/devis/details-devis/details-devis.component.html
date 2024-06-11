@@ -73,16 +73,16 @@
   </div>
 </div>
 <div class="d-block d-md-none">
-  <button type="button" class="btn btn-success" routerLink="/facture"> <i class="bi bi-arrow-left-circle-fill"></i> Retour</button>
+  <button type="button" class="btn btn-success" routerLink="/devis"> <i class="bi bi-arrow-left-circle-fill"></i> Retour</button>
   <button class="btn btn-primary btn-block ms-2" (click)="openPDF2()"><i class="bi bi-download"></i> Télécharger en PDF</button>
   <div class="container">
     <div class="row">
       <div class="card text-bg-primary mb-3" style="max-width: 18rem;">
       </div>
       <div class="card">
-        <h5 class="card-title">Facture</h5>
+        <h5 class="card-title">Devis</h5>
         <div class="card-body">
-          <p><b>Facture : </b>{{devis.reference}}</p>
+          <p><b>Devis : </b>{{devis.reference}}</p>
           <p><b>Date : </b>{{devis.dateDevis}}</p>
           <p><b>Total brut HT : </b>{{devis.montantHt | number:'1.3-3'}} TND</p>
           <p><b>TVA 19 % : </b>{{ devis.montantHt! * (devis.tauxTVA! / 100) | number:'1.3-3'}} TND</p>

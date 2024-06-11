@@ -113,4 +113,12 @@ export class FactureService {
   sendEmailFacture(factureId: number): Observable<void> {
     return this.factureService.sendMail({factureId});
   }
+
+  creationDevis(factureId : number): Observable<number> {
+    return this.factureService.creationDevis({factureId});
+  }
+
+  creationBonLivraison(factureId : number): Observable<number> {
+    return this.factureService.creationBonLivraison({factureId});
+  }
 }

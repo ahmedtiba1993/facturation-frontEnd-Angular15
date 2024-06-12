@@ -33,6 +33,7 @@ export class BondeComponent {
 
   isButtonLoading = false;
   idBon : number | undefined = 0;
+  selectedDocument: string = 'devis';
 
   constructor(
     private bondeService: BondeLivraisonService,
@@ -171,19 +172,33 @@ export class BondeComponent {
       });
   }
 
-  convertToDevis() {
-    this.bondeService.convertToDevis(this.idBon!).subscribe((data) => {
-      this.router.navigate(['detailsdevis',data]);
-    });
-  }
-
-  convertToFacture() {
-    this.bondeService.convertToFacture(this.idBon!).subscribe((data) => {
-      this.router.navigate(['detailsfacture',data]);
-    });
-  }
-
   setIdBon(id: number | undefined) {
     this.idBon = id;
+  }
+
+  confirmationMessage = '';
+  showNotification: boolean = false;
+  typeNotif = '';
+
+  converterTo() {
+    if (this.selectedDocument === 'devis') {
+      this.bondeService.convertToDevis(this.idBon!).subscribe(data => {
+        this.confirmationMessage = 'Création de devis avec succès';
+        this.showNotification = true;
+        this.typeNotif= "success"
+        setTimeout(() => {
+          this.showNotification = false;
+        }, 3000);
+      });
+    } else if (this.selectedDocument === 'facture') {
+      this.bondeService.convertToFacture(this.idBon!).subscribe(data => {
+        this.confirmationMessage = 'Création de facture avec succès';
+        this.showNotification = true;
+        this.typeNotif= "success"
+        setTimeout(() => {
+          this.showNotification = false;
+        }, 3000);
+      });
+    }
   }
 }

@@ -531,6 +531,62 @@
         }
       }
     },
+    "/facturation/v1/devis/sendMail/{devisId}": {
+      "post": {
+        "tags": [
+          "devis-controller"
+        ],
+        "operationId": "sendMail_1",
+        "parameters": [
+          {
+            "name": "devisId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/facturation/v1/devis/creationBonLivraison/{devisId}": {
+      "post": {
+        "tags": [
+          "devis-controller"
+        ],
+        "operationId": "creationBonLivraison_1",
+        "parameters": [
+          {
+            "name": "devisId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/facturation/v1/devis/create": {
       "post": {
         "tags": [
@@ -3372,15 +3428,6 @@
           "enabled": {
             "type": "boolean"
           },
-          "accountNonLocked": {
-            "type": "boolean"
-          },
-          "credentialsNonExpired": {
-            "type": "boolean"
-          },
-          "accountNonExpired": {
-            "type": "boolean"
-          },
           "username": {
             "type": "string"
           },
@@ -3389,6 +3436,15 @@
             "items": {
               "$ref": "#/components/schemas/GrantedAuthority"
             }
+          },
+          "credentialsNonExpired": {
+            "type": "boolean"
+          },
+          "accountNonExpired": {
+            "type": "boolean"
+          },
+          "accountNonLocked": {
+            "type": "boolean"
           }
         }
       },
@@ -3427,7 +3483,7 @@
       "Statistique": {
         "type": "object",
         "properties": {
-          "montantDevisPaye": {
+          "montantFacturePaye": {
             "type": "number",
             "format": "double"
           },
@@ -3435,21 +3491,17 @@
             "type": "number",
             "format": "double"
           },
-          "montantDevisNonPaye": {
-            "type": "number",
-            "format": "double"
-          },
-          "montantFacturePaye": {
-            "type": "number",
-            "format": "double"
-          },
           "nbFactureNonPaye": {
             "type": "integer",
             "format": "int64"
           },
-          "nbClient": {
-            "type": "integer",
-            "format": "int64"
+          "montantDevisPaye": {
+            "type": "number",
+            "format": "double"
+          },
+          "montantDevisNonPaye": {
+            "type": "number",
+            "format": "double"
           },
           "nbFacturePaye": {
             "type": "integer",
@@ -3460,6 +3512,10 @@
             "format": "int64"
           },
           "nbDevisNonPaye": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "nbClient": {
             "type": "integer",
             "format": "int64"
           }
@@ -3521,18 +3577,18 @@
           "sort": {
             "$ref": "#/components/schemas/SortObject"
           },
-          "pageNumber": {
-            "type": "integer",
-            "format": "int32"
-          },
           "pageSize": {
             "type": "integer",
             "format": "int32"
           },
-          "paged": {
-            "type": "boolean"
+          "pageNumber": {
+            "type": "integer",
+            "format": "int32"
           },
           "unpaged": {
+            "type": "boolean"
+          },
+          "paged": {
             "type": "boolean"
           }
         }
@@ -3540,12 +3596,12 @@
       "RecapClient": {
         "type": "object",
         "properties": {
+          "nomCommercial": {
+            "type": "string"
+          },
           "numFacture": {
             "type": "integer",
             "format": "int32"
-          },
-          "nomCommercial": {
-            "type": "string"
           },
           "idClient": {
             "type": "integer",
@@ -3555,12 +3611,12 @@
             "type": "number",
             "format": "double"
           },
+          "prenomClient": {
+            "type": "string"
+          },
           "nmontantPaye": {
             "type": "number",
             "format": "double"
-          },
-          "prenomClient": {
-            "type": "string"
           },
           "nomClient": {
             "type": "string"
@@ -3676,12 +3732,12 @@
       "ClientRecapProjection": {
         "type": "object",
         "properties": {
+          "nomCommercial": {
+            "type": "string"
+          },
           "numFacture": {
             "type": "integer",
             "format": "int64"
-          },
-          "nomCommercial": {
-            "type": "string"
           },
           "idClient": {
             "type": "integer",
@@ -3691,12 +3747,12 @@
             "type": "number",
             "format": "double"
           },
+          "prenomClient": {
+            "type": "string"
+          },
           "nmontantPaye": {
             "type": "number",
             "format": "double"
-          },
-          "prenomClient": {
-            "type": "string"
           },
           "nomClient": {
             "type": "string"

@@ -14,7 +14,7 @@ import { environment } from '../../../environments/environment';
 @Component({
   selector: 'app-devis',
   templateUrl: './devis.component.html',
-  styleUrls: ['./devis.component.css'],
+  styleUrls: ['./devis.component.css']
 })
 export class DevisComponent {
   listDevis: Array<DevisDto> = [];
@@ -39,13 +39,15 @@ export class DevisComponent {
   isButtonLoading = false;
   isCopyButtonLoading = false;
   frontUrl = environment.frontUrl;
+  selectedDocument: string = 'facture';
 
   constructor(
     private devisService: DevisService,
     private clientService: ClientService,
     private router: Router,
     private urlFileService: UrlFileService
-  ) {}
+  ) {
+  }
 
   ngOnInit() {
     this.findAllPaginated();
@@ -129,6 +131,7 @@ export class DevisComponent {
   setId(id: number | undefined) {
     this.idDev = id!;
   }
+
   toggleDivFiltre() {
     this.showDivFiltre = !this.showDivFiltre;
   }
@@ -210,6 +213,54 @@ export class DevisComponent {
       this.urlFileService.createUrlFile(id, 'devis').subscribe((data) => {
         navigator.clipboard.writeText(this.frontUrl + '/pdf/' + data.uuid!);
         this.isCopyButtonLoading = false;
+      });
+    }
+  }
+
+  confirmationMessage = '';
+  showNotification: boolean = false;
+  typeNotif = '';
+
+  sendMail(id: number | undefined) {
+    this.devisService.sendEmail(id!).subscribe(
+      (data) => {
+        console.log('test');
+        this.confirmationMessage = 'E-mail envoyé avec succès.';
+        this.showNotification = true;
+        this.typeNotif = 'success';
+        setTimeout(() => {
+          this.showNotification = false;
+        }, 5000);
+      },
+      (error) => {
+        this.confirmationMessage = 'Erreur: Adresse e-mail vide.';
+        this.showNotification = true;
+        this.typeNotif = 'error';
+        setTimeout(() => {
+          this.showNotification = true;
+        }, 5000);
+      }
+    );
+  }
+
+  converterTo() {
+    if (this.selectedDocument === 'facture') {
+      this.devisService.creationFacture(this.idDev).subscribe(data => {
+        this.confirmationMessage = 'Création de facture avec succès';
+        this.showNotification = true;
+        this.typeNotif= "success"
+        setTimeout(() => {
+          this.showNotification = false;
+        }, 3000);
+      });
+    } else if (this.selectedDocument === 'bonDeLivraison') {
+      this.devisService.creationBonLivraison(this.idDev).subscribe(data => {
+        this.confirmationMessage = 'Création de bon de livraison avec succès';
+        this.showNotification = true;
+        this.typeNotif= "success"
+        setTimeout(() => {
+          this.showNotification = false;
+        }, 3000);
       });
     }
   }

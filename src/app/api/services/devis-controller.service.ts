@@ -79,6 +79,112 @@ export class DevisControllerService extends BaseService {
   }
 
   /**
+   * Path part for operation sendMail1
+   */
+  static readonly SendMail1Path = '/facturation/v1/devis/sendMail/{devisId}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `sendMail1()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  sendMail1$Response(params: {
+    devisId: number;
+  },
+  context?: HttpContext
+
+): Observable<StrictHttpResponse<void>> {
+
+    const rb = new RequestBuilder(this.rootUrl, DevisControllerService.SendMail1Path, 'post');
+    if (params) {
+      rb.path('devisId', params.devisId, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'text',
+      accept: '*/*',
+      context: context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `sendMail1$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  sendMail1(params: {
+    devisId: number;
+  },
+  context?: HttpContext
+
+): Observable<void> {
+
+    return this.sendMail1$Response(params,context).pipe(
+      map((r: StrictHttpResponse<void>) => r.body as void)
+    );
+  }
+
+  /**
+   * Path part for operation creationBonLivraison1
+   */
+  static readonly CreationBonLivraison1Path = '/facturation/v1/devis/creationBonLivraison/{devisId}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `creationBonLivraison1()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  creationBonLivraison1$Response(params: {
+    devisId: number;
+  },
+  context?: HttpContext
+
+): Observable<StrictHttpResponse<number>> {
+
+    const rb = new RequestBuilder(this.rootUrl, DevisControllerService.CreationBonLivraison1Path, 'post');
+    if (params) {
+      rb.path('devisId', params.devisId, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'blob',
+      accept: '*/*',
+      context: context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return (r as HttpResponse<any>).clone({ body: parseFloat(String((r as HttpResponse<any>).body)) }) as StrictHttpResponse<number>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `creationBonLivraison1$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  creationBonLivraison1(params: {
+    devisId: number;
+  },
+  context?: HttpContext
+
+): Observable<number> {
+
+    return this.creationBonLivraison1$Response(params,context).pipe(
+      map((r: StrictHttpResponse<number>) => r.body as number)
+    );
+  }
+
+  /**
    * Path part for operation save2
    */
   static readonly Save2Path = '/facturation/v1/devis/create';

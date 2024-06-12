@@ -147,7 +147,7 @@ export class AjouterBonDeLivraisonComponent {
     this.bonDeLivraison.ligneBondeLivraisons = this.listeProduitBonDeLivraison;
     this.bondeLivraisonService.ajouter(this.bonDeLivraison).subscribe(
       (data) => {
-        this.router.navigate(['devis']);
+        this.router.navigate(['bonde']);
       },
       (error) => {
         this.errorMessage = error.error.errors;

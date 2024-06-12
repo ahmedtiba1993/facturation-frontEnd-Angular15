@@ -1,3 +1,4 @@
+<app-alert-model [type]="typeNotif" [message]="confirmationMessage" [show]="showNotification"></app-alert-model>
 <div class="card p-2 d-none d-md-block">
   <button type="button" routerLink="/ajouterDevis" class="btn btn-primary">Ajouter</button>
   <button class="btn btn-danger ms-2" (click)="toggleDivFiltre()">Filtre</button>
@@ -106,16 +107,19 @@
         <!--button supprimer -->
         <button type="button" class="btn btn-danger ms-1 bi bi-trash" (click)="setId(f.id)" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal"></button>
 
-        <!--button creation facture -->
-        <button *ngIf="!f.isFacture" type="button" class="btn btn-secondary ms-1 bi bi-file-earmark-text" (click)="setId(f.id)" data-bs-toggle="modal" data-bs-target="#creationFacture"></button>
-        <button *ngIf="f.isFacture" type="button" class="btn btn-secondary ms-1 bi bi-file-earmark-text" disabled></button>
-
         <!--button modifier -->
         <button type="button" class="btn btn-warning ms-1 bi bi-pencil-square" [routerLink]="['/modifierDevis', f.id]" ></button>
 
         <!--button creation urlFile -->
         <button *ngIf="!isCopyButtonLoading" type="button" class="btn btn-success ms-1" (click)="createUrlPdfFile(f.id)"><i class="bi bi-whatsapp"></i></button>
         <button *ngIf="isCopyButtonLoading" [disabled]="isCopyButtonLoading" type="button" class="btn btn-success spinner-border ms-1"></button>
+
+        <!-- button email-->
+        <button (click)="sendMail(f.id)" class="btn btn-dark ms-1"><i class="bi bi-at"></i></button>
+
+        <!-- button creation facture et bon de livraison-->
+        <button type="button" class="btn btn-info ms-1 ri-file-copy-line" (click)="setId(f.id)" data-bs-toggle="modal" data-bs-target="#copyModal"></button>
+
 
     </tr>
 
@@ -317,18 +321,20 @@
           <!--button supprimer -->
           <button type="button" class="btn btn-danger ms-1 bi bi-trash" (click)="setId(f.id)" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal"></button>
 
-          <!--button creation facture -->
-          <button *ngIf="!f.isFacture" type="button" class="btn btn-secondary ms-1 bi bi-file-earmark-text" (click)="setId(f.id)" data-bs-toggle="modal" data-bs-target="#creationFacture"></button>
-          <button *ngIf="f.isFacture" type="button" class="btn btn-secondary ms-1 bi bi-file-earmark-text" disabled></button>
-
-          <input class="form-check-input m-2" style="width: 25px; height: 25px" type="checkbox" [value]="f.id" (click)="ajouterListIdFacture(f.id!)" [checked]="ids.includes(f.id!)">
-
           <!--button modifier -->
           <button type="button" class="btn btn-warning ms-1 bi bi-pencil-square" [routerLink]="['/modifierFacture', f.id]" ></button>
 
           <!--button creation urlFile -->
-          <button *ngIf="!isCopyButtonLoading" type="button" class="btn btn-success ms-1" (click)="createUrlPdfFile(f.id)"><i class="bi bi-whatsapp"></i></button>
-          <button *ngIf="isCopyButtonLoading" [disabled]="isCopyButtonLoading" type="button" class="mt-3 btn btn-success spinner-border ms-1"></button>
+          <button *ngIf="!isCopyButtonLoading" type="button" class="btn btn-success ms-1 mt-1" (click)="createUrlPdfFile(f.id)"><i class="bi bi-whatsapp"></i></button>
+          <button *ngIf="isCopyButtonLoading" [disabled]="isCopyButtonLoading" type="button" class="mt-3 btn btn-success spinner-border ms-1  mt-1"></button>
+
+          <!-- button email-->
+          <button (click)="sendMail(f.id)" class="btn btn-dark ms-1  mt-1"><i class="bi bi-at"></i></button>
+
+          <!-- button creation facture et bon de livraison-->
+          <button type="button" class="btn btn-info ms-1  mt-1 ri-file-copy-line" (click)="setId(f.id)" data-bs-toggle="modal" data-bs-target="#copyModal"></button>
+
+          <input class="form-check-input m-2  mt-1" style="width: 25px; height: 25px" type="checkbox" [value]="f.id" (click)="ajouterListIdFacture(f.id!)" [checked]="ids.includes(f.id!)">
 
         </div>
      </div>
@@ -361,4 +367,34 @@
       </li>
     </ul>
   </nav>
+</div>
+
+<!-- Modal creation devis et bon de livraison-->
+<div class="modal fade" id="copyModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Choix Devis ou Bon de Livraison</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="choixDocument" [(ngModel)]="selectedDocument" id="factureRadio" value="facture" checked>
+          <label class="form-check-label" for="factureRadio">
+            Facture
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="choixDocument"[(ngModel)]="selectedDocument"  id="livraisonRadio" value="bonDeLivraison">
+          <label class="form-check-label" for="livraisonRadio">
+            Bon de Livraison
+          </label>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="converterTo()">Créer</button>
+      </div>
+    </div>
+  </div>
 </div>

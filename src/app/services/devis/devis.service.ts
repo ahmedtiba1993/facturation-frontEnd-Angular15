@@ -10,10 +10,11 @@ import { DevisDto } from '../../api/models/devis-dto';
 import { PageClientRecapProjection } from '../../api/models/page-client-recap-projection';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class DevisService {
-  constructor(private devisService: DevisControllerService) {}
+  constructor(private devisService: DevisControllerService) {
+  }
 
   getAll(
     page: number,
@@ -35,7 +36,7 @@ export class DevisService {
       paymentStatus,
       idClient,
       dateDebut,
-      dateFin,
+      dateFin
     });
   }
 
@@ -71,9 +72,10 @@ export class DevisService {
       paymentStatus,
       idClient,
       dateDebut,
-      dateFin,
+      dateFin
     });
   }
+
   delete(idDevis: number): Observable<void> {
     return this.devisService.deleteDevis({ idDevis });
   }
@@ -92,7 +94,7 @@ export class DevisService {
   deleteFromDevis(idDevis: number, idLigneDevis: number): Observable<void> {
     return this.devisService.deleteLignedevis({
       idDevis,
-      idLigneDevis,
+      idLigneDevis
     });
   }
 
@@ -108,7 +110,15 @@ export class DevisService {
       idProduit,
       prix,
       quantite,
-      remise,
+      remise
     });
+  }
+
+  sendEmail(devisId: number): Observable<void> {
+    return this.devisService.sendMail1({devisId});
+  }
+
+  creationBonLivraison(devisId : number): Observable<number> {
+    return this.devisService.creationBonLivraison1({devisId});
   }
 }

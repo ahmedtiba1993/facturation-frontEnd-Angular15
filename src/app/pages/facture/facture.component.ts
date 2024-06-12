@@ -216,16 +216,16 @@ export class FactureComponent {
       (data) => {
         this.confirmationMessage = 'E-mail envoyé avec succès.';
         this.showNotification = true;
+        this.typeNotif = 'success';
         setTimeout(() => {
-          this.typeNotif = 'success';
           this.showNotification = false;
         }, 5000);
       },
       (error) => {
         this.confirmationMessage = 'Erreur: Adresse e-mail vide.';
         this.showNotification = true;
+        this.typeNotif = 'error';
         setTimeout(() => {
-          this.typeNotif = 'error';
           this.showNotification = true;
         }, 5000);
       }

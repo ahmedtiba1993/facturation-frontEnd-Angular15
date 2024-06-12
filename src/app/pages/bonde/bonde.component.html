@@ -1,3 +1,4 @@
+<app-alert-model [type]="typeNotif" [message]="confirmationMessage" [show]="showNotification"></app-alert-model>
 <div class="card p-2 d-none d-md-block">
   <button type="button" routerLink="/ajouterBon" class="btn btn-primary">Ajouter</button>
   <button class="btn btn-danger ms-2" (click)="toggleDivFiltre()">Filtre</button>
@@ -90,18 +91,8 @@
         <button type="button" class="btn btn-warning ms-1 bi bi-pencil-square"
                 [routerLink]="['/modifierBonDeLivraison', f.id]"></button>
 
-        <!--button convert to devis -->
-        <button type="button" class="btn btn-primary" (click)="setIdBon(f.id)" data-bs-toggle="modal" data-bs-target="#exampleModal">
-          <i class="bi bi-file-earmark-ruled">->D</i>
-        </button>
-
-        <!--button convert to facture -->
-        <button type="button" class="btn btn-primary" (click)="setIdBon(f.id)" data-bs-toggle="modal" data-bs-target="#exampleModal2">
-          <i class="bi bi-file-earmark-ruled">->F</i>
-        </button>
-        <button type="button" class="btn btn-info ms-1" (click)="convertToFacture()"><i
-          class="bi bi-file-earmark-ruled">->F</i></button>
-
+        <!-- button creation devis et bon de livraison-->
+        <button type="button" class="btn btn-info ms-1 ri-file-copy-line" (click)="setIdBon(f.id)" data-bs-toggle="modal" data-bs-target="#copyModal"></button>
     </tr>
 
     </tbody>
@@ -233,20 +224,15 @@
         <div class="mt-2">
           <button class="btn btn-primary" [routerLink]="['/detailBon', f.id]"><i class="bi bi-eye"></i></button>
 
-          <input class="form-check-input m-2" style="width: 25px; height: 25px" type="checkbox" [value]="f.id"
-                 (click)="ajouterListIdFacture(f.id!)" [checked]="ids.includes(f.id!)">
-
           <!--button modifier -->
           <button type="button" class="btn btn-warning ms-1 bi bi-pencil-square"
                   [routerLink]="['/modifierBonDeLivraison', f.id]"></button>
 
-          <!--button convert to devis -->
-          <button type="button" class="btn btn-info ms-1" (click)="convertToDevis()"><i
-            class="bi bi-file-earmark-ruled">->D</i></button>
+          <!-- button creation devis et facture-->
+          <button type="button" class="btn btn-info ms-1 ri-file-copy-line" (click)="setId(f.id)" data-bs-toggle="modal" data-bs-target="#copyModal"></button>
 
-          <!--button convert to facture -->
-          <button type="button" class="btn btn-info ms-1" (click)="convertToFacture()"><i
-            class="bi bi-file-earmark-ruled">->F</i></button>
+          <input class="form-check-input m-2" style="width: 25px; height: 25px" type="checkbox" [value]="f.id"
+                 (click)="ajouterListIdFacture(f.id!)" [checked]="ids.includes(f.id!)">
 
         </div>
       </div>
@@ -285,39 +271,31 @@
   </nav>
 </div>
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
+<!-- Modal creation devis et facture-->
+<div class="modal fade" id="copyModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Confirmation de création de devis</h1>
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Choix Devis ou facture</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        Êtes-vous sûr de vouloir créer le devis?
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="choixDocument" [(ngModel)]="selectedDocument" id="devisRadio" value="devis" checked>
+          <label class="form-check-label" for="devisRadio">
+            Devis
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="choixDocument"[(ngModel)]="selectedDocument"  id="livraisonRadio" value="facture">
+          <label class="form-check-label" for="livraisonRadio">
+            Facture
+          </label>
+        </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-        <button type="button" class="btn btn-primary" (click)="convertToDevis()">confirmer</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Modal -->
-<div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel2" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel2">Confirmation de création de facture</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        Êtes-vous sûr de vouloir créer la facture?
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-        <button type="button" class="btn btn-primary" (click)="convertToFacture()">confirmer</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="converterTo()">Créer</button>
       </div>
     </div>
   </div>
